@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Technico.API", "Technico.API\Technico.API.csproj", "{B713B086-7221-445A-A41F-120E66F1FDBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Technico.Frontend", "Technico.Frontend\Technico.Frontend.csproj", "{F81487FD-6F15-4D1B-BFF8-6B0F80CB8CBB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B713B086-7221-445A-A41F-120E66F1FDBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B713B086-7221-445A-A41F-120E66F1FDBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B713B086-7221-445A-A41F-120E66F1FDBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B713B086-7221-445A-A41F-120E66F1FDBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F81487FD-6F15-4D1B-BFF8-6B0F80CB8CBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F81487FD-6F15-4D1B-BFF8-6B0F80CB8CBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F81487FD-6F15-4D1B-BFF8-6B0F80CB8CBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F81487FD-6F15-4D1B-BFF8-6B0F80CB8CBB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E042D717-E513-4A83-884F-3B03798DAA45}
+	EndGlobalSection
+EndGlobal
