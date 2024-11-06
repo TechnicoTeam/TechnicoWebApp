@@ -32,36 +32,26 @@ public class TechnicoDbContext: DbContext
             .HasIndex(p => p.Vat)
             .IsUnique();
 
-        modelBuilder.Entity<Owner>().HasData(
-            new Owner()
-            {
-                Firstname = "John",
-                Lastname = "Doe",
-                Vat = "123098765",
-                Phone = "6945542230",
-                Email = "john.doe@example.com",
-                Password = "Password123@",
-                Role = TypeOfUser.Admin,
-                Address = "Dramas 1, 64100, Eleftheroupoli, Greece",
-                //Properties = new List<Property>()
+        modelBuilder.Entity<Property>()
+            .HasIndex(p => p.E9)
+            .IsUnique();
 
-            },
+        /* modelBuilder.Entity<Owner>().HasData(
+             new Owner()
+             {
+                 Firstname = "John",
+                 Lastname = "Doe",
+                 Vat = "123098765",
+                 Phone = "6945542230",
+                 Email = "john.doe@example.com",
+                 Password = "Password123@",
+                 Role = TypeOfUser.Admin,
+                 Address = "Dramas 1, 64100, Eleftheroupoli, Greece",
+                 Properties = new List<Property>()
 
+             },
+           */
 
-            new Owner()
-            {
-                Firstname = "Mary",
-                Lastname = "Smith",
-                Vat = "0987654321",
-                Phone = "6945672530",
-                Email = "mary.smith@example.com",
-                Password = "Password123@",
-                Role = TypeOfUser.User,
-                Address = "Kazatzaki 8, Aleksandroupoli, 64100, Greece"
-                //Properties = new List<Property>()
-            }
-
-        );
-        base.OnModelCreating(modelBuilder);
+        //base.OnModelCreating(modelBuilder);
     }
 }
