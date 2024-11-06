@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+<div class="login-card col-4 offset-4">
+    <h1 class="mb-3 text-center">Register Menu</h1>
+    <form>
+        <div class="form-group pb-3">
+            <input type="text" class="form-control" placeholder="VAT Number" required>
+        </div>
+        <div class="form-group pb-3">
+            <input type="text" class="form-control" placeholder="First Name" required>
+        </div>
+        <div class="form-group pb-3">
+            <input type="text" class="form-control" placeholder="Last Name" required>
+        </div>
+        <div class="form-group pb-3">
+            <input type="text" class="form-control" placeholder="Address" required>
+        </div>
+        <div class="form-group pb-3">
+            <input type="tel" id="phone-number" maxlength="10" class="form-control" placeholder="Phone Number" required pattern="[0-9]{10}")"/>
+        </div>
+        <div class="form-group pb-3">
+            <input type="email" class="form-control" placeholder="Email" required>
+        </div>
+        <div class="form-group pb-3">
+            <input type="password" class="form-control" placeholder="Password" required>
+        </div>
+            <button type="submit" class="btn btn-primary pt-3 pb-3 col-4 offset-4">Sign Up</button>
+    </form>
+</div>
+
+<style>
+
+    .login-card {
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 8px;
+    }
+
+</style>
+
+<script>
+    document.getElementById('phone-number').addEventListener('input', function (event) {
+        // Replace any non-numeric characters
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+</script>

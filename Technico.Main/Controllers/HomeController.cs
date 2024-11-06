@@ -18,7 +18,18 @@ namespace Technico.Main.Controllers
             return View();
         }
 
+
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult LogIn()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
         {
             return View();
         }
