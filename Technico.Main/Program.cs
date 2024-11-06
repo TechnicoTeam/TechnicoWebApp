@@ -1,6 +1,8 @@
 using Technico.Main.Data;
 
 using Microsoft.EntityFrameworkCore;
+using Technico.Main.Repositories;
+using Technico.Main.Repositories.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<TechnicoDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("TechnicoWeb")));
 
+builder.Services.AddScoped<IRepairRepository, RepairRepository>();
 
 
 //services end here.............
