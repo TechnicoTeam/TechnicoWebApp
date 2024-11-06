@@ -5,7 +5,7 @@ namespace Technico.Main.Models;
 
 public class Owner
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } 
     required public string Vat { get; set; }
     required public string Firstname { get; set; }
     required public string Lastname { get; set; }

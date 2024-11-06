@@ -7,6 +7,7 @@ public class Property
     public Guid Id { get; set; }
     required public string Address { get; set; }
     required public int ConstructionYear { get; set; } // this could be an int
+    required public string E9 { get; set; }
 
     public TypeOfProperty Type { get; set; }
     required public List<Owner> Owners { get; set; }
