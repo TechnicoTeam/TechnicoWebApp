@@ -35,8 +35,3 @@ msbuild.wrn
 
 # Visual Studio
 .vs/
-
-#Migrations folder
-**/Migrations/
-
-appsettings.json
