@@ -21,67 +21,83 @@ public class PropertyRepository : IPropertyRepository
     }
 
     // Add a co owner to a property
-    public async Task<Property?> AddCoOwner(Property property,Owner owner)
-    {
+    //public async Task<Property?> AddCoOwner(Property property,Owner owner)
+    //{
         
-            // Check if the Property exists in the database
-            var existingProperty = await _context.Properties
-                .Include(p => p.Owners) // Include Owners for proper association
-                .FirstOrDefaultAsync(p => p.Id == property.Id);
+    //        // Check if the Property exists in the database
+    //        var existingProperty = await _context.Properties
+    //            .Include(p => p.Owners) // Include Owners for proper association
+    //            .FirstOrDefaultAsync(p => p.Id == property.Id);
 
-            // ------------------not sure about these -  maybe i need _logger.LogWarning for these-------------//
+    //        // ------------------not sure about these -  maybe i need _logger.LogWarning for these-------------//
 
-            if (existingProperty == null){
-                return null; // Return null if the property does not exist
-            }
+    //        if (existingProperty == null){
+    //            return null; // Return null if the property does not exist
+    //        }
 
-            // Check if the Owner already exists in the database
-            var existingOwner = await _context.Owner.FirstOrDefaultAsync(o => o.Id == owner.Id);
+    //        // Check if the Owner already exists in the database
+    //        var existingOwner = await _context.Owner.FirstOrDefaultAsync(o => o.Id == owner.Id);
 
-            if (existingOwner == null){
-                return null;
-            }
+    //        if (existingOwner == null){
+    //            return null;
+    //        }
 
-            // Check if the Owner is already associated with the Property
-            if (existingProperty.Owners.Any(o => o.Id == existingOwner.Id)) {
-                return null;
-            }
+    //        // Check if the Owner is already associated with the Property
+    //        if (existingProperty.Owners.Any(o => o.Id == existingOwner.Id)) {
+    //            return null;
+    //        }
 
-            //-----------------------------------------------------//
+    //        //-----------------------------------------------------//
 
-            // Add the Owner to the Property's Owners collection
-            existingProperty.Owners.Add(existingOwner);
+    //        // Add the Owner to the Property's Owners collection
+    //        existingProperty.Owners.Add(existingOwner);
 
-            // Save changes to the database
-            await _context.SaveChangesAsync();
+    //        // Save changes to the database
+    //        await _context.SaveChangesAsync();
 
-            // Return the updated Property
-            return existingProperty;
-    }
+    //        // Return the updated Property
+    //        return existingProperty;
+    //}
 
     // Create a new property for an owner
-    public async Task<Property?> Create(Property property,Owner owner)
+    public async Task<Property?> Create(Property property,List<Owner> owners)
     {
-        
-            // Check if the Owner already exists in the database
-            var existingOwner = await _context.Owner.FirstOrDefaultAsync(o => o.Id == owner.Id);
 
-            if (existingOwner == null){
-                //_logger.LogInformation("Owner with ID {OwnerId} does not exist. Adding to the database.", owner.Id);
-                return null;
-            }
+     
+        if (owners == null || !owners.Any())
+        {
+            // Log or handle the case where no owners are provided
+            return null;
+        }
 
-            // Associate the Property with the Owner
-            property.Owners = new List<Owner> { existingOwner };
+        var ownerIds= owners.Select(x => x.Id).ToList();
+        var existingOwners = await _context.Owner
+            .Where(x => ownerIds.Contains(x.Id))
+            .ToListAsync();
 
-            // Add the Property to the database
-            _context.Properties.Add(property);
+        if (existingOwners.Count != owners.Count)
+        {
+            // Log or handle the case where some owners do not exist
+            return null;
+        }
 
-            // Save changes to the database
-            await _context.SaveChangesAsync();
+        property.Owners = existingOwners;
 
-            // Return the created Property
-            return property;
+        // Add the Property to each owner's properties list
+        foreach (var owner in existingOwners)
+        {
+            owner.Properties.Add(property);
+        }
+
+        // Add the Property to the database
+        _context.Properties.Add(property);
+
+
+        // Save changes to the database
+        await _context.SaveChangesAsync();
+
+        // Return the created Property
+        return property;
        
     }
 
@@ -105,19 +121,12 @@ public class PropertyRepository : IPropertyRepository
     // Get all the properties of a owner (with all the onwers)
     public async Task<List<Property>> GetAll(Guid ownerId)
     {
-        try
-        {
+        
             return await _context.Properties
                 .Where(p => p.Owners.Any(o=>o.Id == ownerId))
                 .Include(p => p.Owners)
                 .ToListAsync();
-        }
-        catch (Exception ex)
-        {
-            // Generic fallback for unexpected exceptions
-            _logger.LogWarning("An invalid operation occurred: {message}", ex.Message);
-            return null;
-        }
+        
 
     }
 
@@ -126,19 +135,9 @@ public class PropertyRepository : IPropertyRepository
     // get a property by id (this is for the page of a specific property - maybe is not needed )
     public async Task<Property?> GetById(Guid propertyid)
     {
-        try
-        {
-            return await _context.Properties
+        return await _context.Properties
                 .Include(p => p.Owners)
                 .FirstOrDefaultAsync(p => p.Id == propertyid);
-        }
-        catch (Exception ex){
-            // Generic fallback for unexpected exceptions
-            _logger.LogWarning("An invalid operation occurred: {message}", ex.Message);
-            return null;
-        }
-
-    
     }
 
 
@@ -146,20 +145,14 @@ public class PropertyRepository : IPropertyRepository
     public async Task<List<Property>> Search(string? E9, TypeOfProperty? type, string? vat)
     {
        
-        try
-        {
+      
             IQueryable<Property> search = _context.Properties;
             if (E9 is not null) search = search.Where(a => a.E9 == E9);
             if (type is not null) search = search.Where(b => b.Type == type);
             if (vat is not null) search = search.Include(c => c.Owners).Where(c => c.Owners.Any(o => o.Vat == vat));
 
             return await search.ToListAsync();
-        }
-        catch (Exception ex) {
-            // Generic fallback for unexpected exceptions
-            _logger.LogWarning("An error occurred: {message}", ex.Message);
-            return [];
-        }
+      
 
     }
 
@@ -167,8 +160,6 @@ public class PropertyRepository : IPropertyRepository
     public async Task<Property?> Update(Property property)
     {
 
-        try
-        {
             // Fetch the existing property from the database without loading Owners
             var existingProperty = await _context.Properties.Include(o=>o.Owners)
                 .FirstOrDefaultAsync(p => p.Id == property.Id);
@@ -188,12 +179,7 @@ public class PropertyRepository : IPropertyRepository
             // Save changes to the database
             await _context.SaveChangesAsync();
             return existingProperty; // Return the updated property
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError("An error occurred: {message}", ex.Message);
-            return null;
-        }
+       
     }
 
 }
