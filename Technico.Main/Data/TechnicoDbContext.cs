@@ -6,7 +6,7 @@ namespace Technico.Main.Data;
 
 public class TechnicoDbContext: DbContext
 {
-    public DbSet<Owner> Owner { get; set; }
+    public DbSet<Owner> Owners { get; set; }
     public DbSet<Property> Properties { get; set; }
     public DbSet<Repair> Repairs { get; set; }
 
