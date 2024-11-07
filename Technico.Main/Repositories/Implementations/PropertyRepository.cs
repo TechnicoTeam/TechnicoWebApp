@@ -157,29 +157,53 @@ public class PropertyRepository : IPropertyRepository
     }
 
     // Update a property (this is not including the relation user - property)
-    public async Task<Property?> Update(Property property)
+    public async Task<Property?> Update(Property property, List<Owner> owners)
     {
 
-            // Fetch the existing property from the database without loading Owners
-            var existingProperty = await _context.Properties.Include(o=>o.Owners)
-                .FirstOrDefaultAsync(p => p.Id == property.Id);
+        // Fetch the existing property from the database along with its associated Owners
+        var existingProperty = await _context.Properties
+            .Include(p => p.Owners)
+            .FirstOrDefaultAsync(p => p.Id == property.Id);
 
-            if (existingProperty == null)
+        if (existingProperty == null)
+        {
+            return null; // Return null if the property does not exist
+        }
+
+        // Update scalar fields
+        existingProperty.Address = property.Address;
+        existingProperty.ConstructionYear = property.ConstructionYear;
+        existingProperty.E9 = property.E9;
+        existingProperty.Type = property.Type;
+
+        // Update the Owners navigation property
+        if (owners != null && owners.Any())
+        {
+            // Fetch existing owners from the database based on provided list
+            var ownerIds = owners.Select(o => o.Id).ToList();
+            var existingOwners = await _context.Owner
+                .Where(o => ownerIds.Contains(o.Id))
+                .ToListAsync();
+
+            // Replace the existing owners with the new list
+            existingProperty.Owners.Clear();
+            foreach (var owner in existingOwners)
             {
-                return null; // Return null if the property does not exist
+                existingProperty.Owners.Add(owner);
             }
+        }
+        else
+        {
+            // Clear all owners if the list is empty or null
+            existingProperty.Owners.Clear();
+        }
 
-            // Update scalar fields only
-            existingProperty.Address = property.Address;
-            existingProperty.ConstructionYear = property.ConstructionYear;
-            existingProperty.E9 = property.E9;
-            existingProperty.Type = property.Type;
+        // Save changes to the database
+        await _context.SaveChangesAsync();
 
-            // Ι Do NOT modify the Owners navigation property
-            // Save changes to the database
-            await _context.SaveChangesAsync();
-            return existingProperty; // Return the updated property
-       
+        // Return the updated property
+        return existingProperty;
+
     }
 
 }
