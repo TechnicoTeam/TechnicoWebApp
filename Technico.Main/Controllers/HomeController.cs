@@ -18,12 +18,6 @@ namespace Technico.Main.Controllers
             return View();
         }
 
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         public IActionResult LogIn()
         {
             return View();
@@ -34,10 +28,17 @@ namespace Technico.Main.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult LogOut()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+       
     }
 }
