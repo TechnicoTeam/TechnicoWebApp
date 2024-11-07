@@ -82,7 +82,21 @@ namespace Technico.Main.Migrations
                     b.HasIndex("Vat")
                         .IsUnique();
 
-                    b.ToTable("Owner");
+                    b.ToTable("Owners");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ce80b06b-1691-446e-a843-8f83f25146d4"),
+                            Address = "Dramas 1, 64100, Eleftheroupoli, Greece",
+                            Email = "john.doe@example.com",
+                            Firstname = "John",
+                            Lastname = "Doe",
+                            Password = "Password123@",
+                            Phone = "6945542230",
+                            Role = 1,
+                            Vat = "123098765"
+                        });
                 });
 
             modelBuilder.Entity("Technico.Main.Models.Property", b =>
