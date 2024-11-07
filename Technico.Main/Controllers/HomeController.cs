@@ -39,6 +39,28 @@ namespace Technico.Main.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-       
+
+
+        [HttpGet]
+        public IActionResult LoadModalContent(string folder, string viewName)
+        {
+            // Validate the input and ensure the view exists
+            if (string.IsNullOrEmpty(folder) || string.IsNullOrEmpty(viewName))
+            {
+                return Content("Invalid parameters.");
+            }
+
+            // Build the view path dynamically
+            var viewPath = $"~/Views/{folder}/{viewName}.cshtml";
+
+            // Example of creating and passing the Profile model
+
+            // Return the partial view with the Profile model
+            return PartialView(viewPath);  // If the the view you are trying to return needs data you should include it otherwise it will bring up and error
+        }
+
+
+
+
     }
 }

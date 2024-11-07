@@ -55,7 +55,10 @@ namespace Technico.Main.Controllers
 
             return Json(new { success = false, message = "Failed to save profile." });
         }
+
+
     }
+
     public class Profile
     {
         required public string Vat { get; set; }
@@ -67,4 +70,6 @@ namespace Technico.Main.Controllers
 
         public string Address { get; set; } = string.Empty; // the user is not required to fill this 
     }
+
+
 }
