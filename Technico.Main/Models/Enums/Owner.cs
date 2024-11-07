@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Technico.Main.Models.Enums;
+using Technico.Main.Models;
 
-namespace Technico.Main.Models;
+namespace Technico.Main.Models.Enums;
 
 public class Owner
 {
-    public Guid Id { get; set; } 
+    public Guid Id { get; set; }
     required public string Vat { get; set; }
     required public string Firstname { get; set; }
     required public string Lastname { get; set; }

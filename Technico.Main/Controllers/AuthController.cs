@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Security.Cryptography;
+
 
 namespace Technico.Main.Controllers;
 
@@ -66,14 +66,14 @@ public class AuthController : Controller
 
 public class LoginRequest
 {
-    public string Username { get; set; }
-    public string Password { get; set; }
+    public string ?Username { get; set; }
+    public string ?Password { get; set; }
 }
 
 public class User
 {
-    public string Username { get; set; }
-    public string Password { get; set; }
+    public string ?Username { get; set; }
+    public string ?Password { get; set; }
 }
 
 

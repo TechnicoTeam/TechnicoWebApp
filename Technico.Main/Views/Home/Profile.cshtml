@@ -1,4 +1,30 @@
-﻿@{
+﻿@model Technico.Main.Controllers.Profile
+
+@{
     ViewData["Title"] = "Profile";
 }
-<div>profile</div>
+
+<div class="container col-6 offset-3 mt-5">
+    <h1 class="mb-3 text-center">Profile Details</h1>
+
+    <div class="card p-4">
+        <div class="mb-3">
+            <strong>Firstname:</strong> @Model.Firstname
+        </div>
+        <div class="mb-3">
+            <strong>Lastname:</strong> @Model.Lastname
+        </div>
+        <div class="mb-3">
+            <strong>Email:</strong> @Model.Email
+        </div>
+        <div class="mb-3">
+            <strong>Phone:</strong> @Model.Phone
+        </div>
+        <div class="mb-3">
+            <strong>Address:</strong> @Model.Address
+        </div>
+        <div class="mb-3">
+            <strong>VAT:</strong> @Model.Vat
+        </div>
+    </div>
+</div>
