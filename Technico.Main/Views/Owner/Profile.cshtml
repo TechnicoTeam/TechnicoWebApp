@@ -8,28 +8,47 @@
     <h1 class="mb-3 text-center">Profile Details</h1>
     <div class="card p-4">
         <div class="mb-3 row">
-            <p class="col-3"><strong>Firstname:</strong></p>
-            <span class="col">@Model.Firstname</span>
+            <p class="col-sm-5 col"><strong>Firstname:</strong></p>
+            <span class="col-xs col">@Model.Firstname</span>
         </div>
         <div class="mb-3 row">
-            <p class="col-3"><strong>Lastname:</strong></p>
-            <span class="col">@Model.Lastname</span>
+            <p class="col-sm-5 col"><strong>Lastname:</strong></p>
+            <span class="col-6">@Model.Lastname</span>
         </div>
         <div class="mb-3 row">
-            <p class="col-3"><strong>Email:</strong></p>
-            <span class="col">@Model.Email</span>
+            <p class="col-sm-5 col"><strong>Email:</strong></p>
+            <span class="col-sm-5 col-6">@Model.Email</span>
         </div>
         <div class="mb-3 row">
-            <p class="col-3"><strong>Phone:</strong></p>
-            <span class="col">@Model.Phone</span>
+            <p class="col-sm-5 col"><strong>Phone:</strong></p>
+            <span class="col-6">@Model.Phone</span>
         </div>
         <div class="mb-3 row">
-            <p class="col-3"><strong>Address:</strong></p>
-            <span class="col">@Model.Address</span>
+            <p class="col-sm-5 col"><strong>Address:</strong></p>
+            <span class="col-6">@Model.Address</span>
         </div>
         <div class="mb-3 row">
-            <p class="col-3"><strong>VAT:</strong></p>
+            <p class="col-sm-5 col"><strong>VAT:</strong></p>
             <span class="col">@Model.Vat</span>
         </div>
     </div>
+    <div class="row  mt-5">
+        <button type="button" class="col-3 offset-1 btn btn-danger" onclick="myFunction()">DELETE</button>
+        <button type="button" class="col-3 offset-4 btn btn-info" onclick="myFunction()">UPDATE </button>
+    </div>
 </div>
+
+
+<script>
+    function myFunction() {
+        alert("Button clicked!");
+    }
+</script>
+
+
+
+<script>
+    function myFunction() {
+        alert("Button clicked!");
+    }
+</script>
