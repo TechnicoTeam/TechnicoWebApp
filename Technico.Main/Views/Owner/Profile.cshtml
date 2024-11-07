@@ -1,0 +1,35 @@
+﻿@model Technico.Main.Controllers.Profile
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container col-6 offset-3 mt-5">
+    <h1 class="mb-3 text-center">Profile Details</h1>
+    <div class="card p-4">
+        <div class="mb-3 row">
+            <p class="col-3"><strong>Firstname:</strong></p>
+            <span class="col">@Model.Firstname</span>
+        </div>
+        <div class="mb-3 row">
+            <p class="col-3"><strong>Lastname:</strong></p>
+            <span class="col">@Model.Lastname</span>
+        </div>
+        <div class="mb-3 row">
+            <p class="col-3"><strong>Email:</strong></p>
+            <span class="col">@Model.Email</span>
+        </div>
+        <div class="mb-3 row">
+            <p class="col-3"><strong>Phone:</strong></p>
+            <span class="col">@Model.Phone</span>
+        </div>
+        <div class="mb-3 row">
+            <p class="col-3"><strong>Address:</strong></p>
+            <span class="col">@Model.Address</span>
+        </div>
+        <div class="mb-3 row">
+            <p class="col-3"><strong>VAT:</strong></p>
+            <span class="col">@Model.Vat</span>
+        </div>
+    </div>
+</div>

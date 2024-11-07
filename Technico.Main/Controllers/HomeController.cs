@@ -8,20 +8,6 @@ namespace Technico.Main.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly List<Profile> _profiles = new List<Profile>   ///Here  will be the database connection
-        {
-            new Profile
-            {
-                Firstname = "Makis",
-                Lastname = "Kotsmpasis",
-                Email = "example@mail.com",
-                Phone = "6948407861",
-                Address = "Dwdekanhsou 16, Drama",
-                Vat = "113900386"
-            }
-        };
-
-
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -40,19 +26,6 @@ namespace Technico.Main.Controllers
         public IActionResult Register()
         {
             return View();
-        }
-
-        [HttpGet]
-        public IActionResult Profile()
-        {
-            var profile = _profiles.FirstOrDefault(); // Get the first profile in the list
-            if (profile == null)
-            {
-                // Optional: handle the case when profile data is not found
-                return NotFound("Profile not found.");
-            }
-
-            return View(profile); // Pass the profile object to the view
         }
 
         [HttpGet]

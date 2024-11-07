@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Technico.Main.Controllers
 {
@@ -29,15 +30,14 @@ namespace Technico.Main.Controllers
                 // Provide a fallback to avoid a null reference
                 profile = new Profile
                 {
-                    Firstname = "Makis",
-                    Lastname = "Kotsmpasis",
-                    Email = "example@mail.com",
-                    Phone = "6948407861",
-                    Address = "Dwdekanhsou 16, Drama",
-                    Vat = "113900386"
+                    Firstname = "",
+                    Lastname = "",
+                    Email = "",
+                    Phone = "",
+                    Address = "",
+                    Vat = ""
                 };
             }
-
             return View(profile); // Pass the profile object to the view
         }
 
