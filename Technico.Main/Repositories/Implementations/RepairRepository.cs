@@ -28,36 +28,24 @@ public class RepairRepository : IRepairRepository
     {
         _logger.LogInformation("Invoked RepairRepository.GetAllAsync().");
 
-        try
-        {
-            return await _context.Repairs
-                .Include(r => r.Property)
-                .ThenInclude(p => p.Owners)
-                .ToListAsync();
-        }
-        catch(Exception e)
-        {
-            _logger.LogError(e.Message);
-            return new List<Repair>();
-        }
+        var repairs =  await _context.Repairs
+            .Include(r => r.Property)
+            .ThenInclude(p => p.Owners)
+            .ToListAsync();
+
+        _logger.LogInformation($"Retrieved a total of repairs: {repairs.Count}.");
+
+        return repairs;
     }
 
     public async Task<Repair?> GetByIdAsync(Guid guid)
     {
         _logger.LogInformation("Invoked RepairRepository.GetByIdAsync().");
 
-        try
-        {
-            return await _context.Repairs
+        return await _context.Repairs
             .Include(r => r.Property)
             .ThenInclude(p => p.Owners)
             .FirstOrDefaultAsync(r => r.Id == guid);
-        }
-        catch(Exception e)
-        {
-            _logger.LogError(e.Message);
-            return null;
-        }
         
     }
 
@@ -70,20 +58,20 @@ public class RepairRepository : IRepairRepository
             .ThenInclude(p => p.Owners)
             .FirstOrDefaultAsync(r => r.Id == updatedRepair.Id);
 
+        if (repair == null)
+        {
+            _logger.LogWarning($"Cannot update Repair with Guid: {updatedRepair.Id}. Not Found.");
+            return null;
+        }
+
         repair.Type = updatedRepair.Type;
         repair.Description = updatedRepair.Description;
         repair.Status = updatedRepair.Status;
         repair.Cost = updatedRepair.Cost;
 
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch(Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            return null;
-        }
+        
+        await _context.SaveChangesAsync();
+        
 
         _logger.LogInformation($"Successfully updated the repair.");
         return repair;
@@ -93,11 +81,11 @@ public class RepairRepository : IRepairRepository
     {
         _logger.LogInformation("Invoked RepairRepository.DeleteAsync().");
 
-        var repair = _context.Repairs.FirstOrDefault(r => r.Id == guid);
+        var repair = await _context.Repairs.FirstOrDefaultAsync(r => r.Id == guid);
 
         if (repair is null)
         {
-            _logger.LogInformation($"Cannot delete Repair with Guid: {guid}. Not Found.");
+            _logger.LogWarning($"Cannot delete Repair with Guid: {guid}. Not Found.");
             return false;
         }
 
