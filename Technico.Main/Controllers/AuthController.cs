@@ -20,7 +20,7 @@ public class AuthController : Controller
     {
         Console.WriteLine($"Received Username: {request.Username}, Password: {request.Password}");
 
-        var user = _users.SingleOrDefault(u => u.Username == request.Username && u.Password == request.Password);
+        var user = _users.SingleOrDefault(u => u.Username == request.Username && u.Password == request.Password); // database connection to users
         if (user == null)
         {
             Console.WriteLine("Invalid credentials");
