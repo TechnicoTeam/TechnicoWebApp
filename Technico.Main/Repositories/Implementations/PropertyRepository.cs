@@ -71,7 +71,7 @@ public class PropertyRepository : IPropertyRepository
         }
 
         var ownerIds= owners.Select(x => x.Id).ToList();
-        var existingOwners = await _context.Owner
+        var existingOwners = await _context.Owners
             .Where(x => ownerIds.Contains(x.Id))
             .ToListAsync();
 
@@ -181,7 +181,7 @@ public class PropertyRepository : IPropertyRepository
         {
             // Fetch existing owners from the database based on provided list
             var ownerIds = owners.Select(o => o.Id).ToList();
-            var existingOwners = await _context.Owner
+            var existingOwners = await _context.Owners
                 .Where(o => ownerIds.Contains(o.Id))
                 .ToListAsync();
 
