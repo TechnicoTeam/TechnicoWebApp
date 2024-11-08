@@ -76,19 +76,19 @@ namespace Technico.Main.Services.Implementations
                 return null;
             }
 
-            var property = await _context.Properties
+            /*var property = await _context.Properties
                 .Include(p => p.Owners)
                 .Where(p => p.Id == repair.Property.Id)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync();*/
 
-            if (property == null) 
-            { 
-                return null; 
+            if (repair.Property == null)
+            {
+                return null;
             }
 
             var repairToUpdate = new Repair
             {
-                Property = property,
+                Property = repair.Property,
                 Type = repairDto.Type,
                 Cost = repairDto.Cost,
                 Description = repairDto.Description,
