@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Technico.Main.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="icon" href="imgs/b3d46e87-698a-4867-9e99-38b5d1cbadfb.png"/>
 </head>
 <body>
@@ -29,6 +30,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
+                        </li>
+                        <li class="nav-item" id="showProperties" style="display: none;">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Properties" asp-action="MyProperties">Properties</a>
+                        </li>
+                        <li class="nav-item" id="showRepairs" style="display: none;">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Repairs">Repairs</a>
                         </li>
                         <li class="nav-item" id="showUserName"  style="display: none;">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Owner" asp-action="Profile">Profile</a>

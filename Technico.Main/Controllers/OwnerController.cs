@@ -56,7 +56,6 @@ namespace Technico.Main.Controllers
             return Json(new { success = false, message = "Failed to save profile." });
         }
 
-
     }
 
     public class Profile

@@ -1,0 +1,149 @@
+﻿@model Technico.Main.Controllers.Profile
+
+@{
+    ViewData["Title"] = "Properties";
+
+    var new_E9 = ViewData["E9"] as string;
+    var new_address = ViewData["address"] as string;
+    var new_yearOfConstruction = ViewData["yearOfConstruction"] as string;
+    var new_propertyType = ViewData["propertyType"] as string;
+    var new_vatNumber = ViewData["vatNumber"] as string;
+
+}
+
+<h2>Properties</h2>
+
+<!-- Button to add new property -->
+<button class="btn btn-primary mt-4 mb-4" onclick="loadModalContent('Modals', 'CreateProperty')">Add Property</button>
+
+<!-- Table for displaying properties -->
+<table class="table table-bordered" id="propertiesTable">
+    <thead>
+        <tr>
+            <th>Property ID</th>
+            <th>Address</th>
+            <th>Year of Construction</th>
+            <th>Property Type</th>
+            <th>VAT Number</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Rows will be added here -->
+    </tbody>
+</table>
+
+
+<!-- Template for a property row -->
+<script id="propertyRowTemplate" type="text/template">
+    <tr>
+        <td>{{propertyIdentificationNumber}}</td>
+        <td>{{address}}</td>
+        <td>{{yearOfConstruction}}</td>
+        <td>{{propertyType}}</td>
+        <td>{{vatNumber}}</td>
+        <td>
+            <button class="editBtn btn border"><i class="bi bi-gear"></i></button>
+            <button class="deleteBtn btn border"><i class="bi bi-trash"></i></button>
+        </td>
+    </tr>
+</script>
+
+<script>
+    // Fake data for properties (initially loaded)
+    const properties = [
+        {
+            propertyIdentificationNumber: "E9-001",
+            address: "123 Elm St, Springfield",
+            yearOfConstruction: 2000,
+            propertyType: "Apartment",
+            vatNumber: "123456789"
+        },
+        {
+            propertyIdentificationNumber: "E9-002",
+            address: "456 Oak St, Springfield",
+            yearOfConstruction: 2010,
+            propertyType: "Maisonette",
+            vatNumber: "987654321"
+        },
+        {
+            propertyIdentificationNumber: "E9-003",
+            address: "789 Pine St, Springfield",
+            yearOfConstruction: 2015,
+            propertyType: "Apartment",
+            vatNumber: "112233445"
+        }
+    ];
+
+    // Function to render the properties table
+    function renderProperties() {
+        const tableBody = document.querySelector('#propertiesTable tbody');
+        tableBody.innerHTML = ''; // Clear any existing rows
+
+        properties.forEach(property => {
+            const rowTemplate = document.getElementById('propertyRowTemplate').innerHTML;
+            const rowHTML = rowTemplate
+                .replace('{{propertyIdentificationNumber}}', property.propertyIdentificationNumber)
+                .replace('{{address}}', property.address)
+                .replace('{{yearOfConstruction}}', property.yearOfConstruction)
+                .replace('{{propertyType}}', property.propertyType)
+                .replace('{{vatNumber}}', property.vatNumber);
+
+            const rowElement = document.createElement('tr');
+            rowElement.innerHTML = rowHTML;
+            tableBody.appendChild(rowElement);
+
+            // Add delete functionality to the delete button
+            const deleteBtn = rowElement.querySelector('.deleteBtn');
+            deleteBtn.addEventListener('click', function () {
+                deleteProperty(property.propertyIdentificationNumber);
+                rowElement.remove();  // Remove the row from the DOM
+            });
+        });
+    }
+
+    // Function to delete a property based on property identification number
+    function deleteProperty(propertyIdentificationNumber) {
+        const propertyIndex = properties.findIndex(p => p.propertyIdentificationNumber === propertyIdentificationNumber);
+        if (propertyIndex !== -1) {
+            properties.splice(propertyIndex, 1);  // Remove the property from the array
+        }
+    }
+
+    // Function to create and add a new property
+    function createProperty(propertyIdentificationNumber, address, yearOfConstruction, propertyType, vatNumber) {
+        // Create the new property object
+        const newProperty = {
+            propertyIdentificationNumber,
+            address,
+            yearOfConstruction,
+            propertyType,
+            vatNumber
+        };
+
+        // Add the new property to the properties array
+        properties.push(newProperty);
+
+        // Re-render the properties table to include the new property
+        renderProperties();
+
+    }
+
+
+    var new_E9 = '@new_E9';
+    var new_address = '@new_address';
+    var new_yearOfConstruction = '@new_yearOfConstruction';
+    var new_propertyType = '@new_propertyType';
+    var new_vatNumber = '@new_vatNumber';
+
+    if (new_E9 !== "" && new_address !== "" && new_yearOfConstruction !== "" && new_propertyType !== "" && new_vatNumber !== "") {
+        createProperty(new_E9, new_address, new_yearOfConstruction, new_yearOfConstruction, new_vatNumber);
+    }
+    
+
+    // Initialize the properties table with fake data
+    renderProperties();
+</script>
+
+
+

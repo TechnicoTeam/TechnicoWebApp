@@ -13,8 +13,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<TechnicoDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("TechnicoWeb")));
 
-
-
 //services end here.............
 //build
 var app = builder.Build();

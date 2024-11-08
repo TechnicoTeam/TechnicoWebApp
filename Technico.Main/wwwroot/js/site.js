@@ -9,6 +9,8 @@
         // Show LogOut and profile link
         document.getElementById('logoutLink').style.display = 'block';
         document.getElementById('showUserName').style.display = 'block';
+        document.getElementById('showProperties').style.display = 'block';
+        document.getElementById('showRepairs').style.display = 'block';
     }
 });
 
