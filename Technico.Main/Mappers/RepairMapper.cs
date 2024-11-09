@@ -1,4 +1,4 @@
-﻿using Technico.Main.DTOs;
+﻿using Technico.Main.DTOs.RepairDtos;
 using Technico.Main.Models;
 
 namespace Technico.Main.Mappers;
@@ -14,7 +14,8 @@ public static class RepairMapper
             Description = repair.Description,
             Status = repair.Status,
             Cost = repair.Cost,
-            PropertyId = repair.Property.Id
+            PropertyId = repair.Property.Id,
+            CreatedAt = repair.CreatedAt
         };
 
         return dto;

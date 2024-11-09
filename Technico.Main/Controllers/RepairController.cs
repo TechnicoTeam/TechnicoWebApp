@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Technico.Main.DTOs;
+using Technico.Main.DTOs.RepairDtos;
 using Technico.Main.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -47,7 +48,7 @@ public class RepairController : ControllerBase
 
     // POST api/<RepairController>
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] RepairDto repairDto)
+    public async Task<IActionResult> Post([FromBody] PostRepairDto repairDto)
     {
         var createdDto = await _repairService.CreateAsync(repairDto);
 

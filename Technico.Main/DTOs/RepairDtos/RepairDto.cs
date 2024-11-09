@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Technico.Main.Models.Enums;
 
-namespace Technico.Main.DTOs;
+namespace Technico.Main.DTOs.RepairDtos;
 
 public class RepairDto
 {
@@ -15,4 +15,5 @@ public class RepairDto
     public decimal Cost { get; set; }
 
     public Guid PropertyId { get; set; }
+    public DateTime CreatedAt { get; set; }
 }

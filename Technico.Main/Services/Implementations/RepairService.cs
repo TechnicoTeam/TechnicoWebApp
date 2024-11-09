@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Technico.Main.Data;
 using Technico.Main.DTOs;
+using Technico.Main.DTOs.RepairDtos;
 using Technico.Main.Mappers;
 using Technico.Main.Models;
 using Technico.Main.Repositories;
@@ -27,7 +28,7 @@ namespace Technico.Main.Services.Implementations
             return repairs.Select(r => r.ConvertToDto()).ToList();
         }
 
-        public async Task<RepairDto?> CreateAsync(RepairDto repairDto)
+        public async Task<RepairDto?> CreateAsync(PostRepairDto repairDto)
         {
             var property = await _context.Properties
                 .Include(p => p.Owners)
