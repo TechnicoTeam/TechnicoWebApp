@@ -2,7 +2,7 @@
 using Technico.Main.Models;
 
 namespace Technico.Main.Mappers;
-// Maybe is better to try automapper
+//TODO: maybe need to change the implementation to AutoMapper ???
 public static class OwnerMapper
 {
     public static OwnerDtoRequest ConvertToOwnerDtoRequest(this Owner owner)

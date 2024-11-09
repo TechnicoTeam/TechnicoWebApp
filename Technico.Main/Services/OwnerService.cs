@@ -4,6 +4,13 @@ using Technico.Main.Models;
 using Technico.Main.Models.Enums;
 using Technico.Main.Repositories.Implementations;
 
+//the main logic is 
+//Take as argument a OwnerRequest
+// return a OwnerResponse.
+
+//TODO: Validations 
+//TODO: Update operation
+
 namespace Technico.Main.Services
 {
     public class OwnerService : IOwnerService
@@ -43,9 +50,5 @@ namespace Technico.Main.Services
 
             return owner.ConvertToOwnerDtoResponse();
         }
-
-
-
-
     }
 }
