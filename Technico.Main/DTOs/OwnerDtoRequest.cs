@@ -5,7 +5,6 @@ namespace Technico.Main.DTOs
 {
     public class OwnerDtoRequest
     {
-        public Guid Id { get; set; }
         required public string Vat { get; set; }
         required public string Firstname { get; set; }
         required public string Lastname { get; set; }

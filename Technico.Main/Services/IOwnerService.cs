@@ -1,12 +1,13 @@
-﻿using Technico.Main.Models;
+﻿using Technico.Main.DTOs;
+using Technico.Main.Models;
 
 namespace Technico.Main.Services
 {
     public interface IOwnerService
     {
-        Task<Owner> Create(Owner owner);
+        Task<OwnerDtoResponse> Create(OwnerDtoRequest owner);
         Task<bool> Delete(Guid id);
-        Task<IEnumerable<Owner>> GetAllOwners();
-        Task<Owner> GetOwnerByVAT(string VAT);
+        Task<IEnumerable<OwnerDtoResponse>> GetAllOwners();
+        Task<OwnerDtoResponse> GetOwnerByVAT(string VAT);
     }
 }
