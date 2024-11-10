@@ -48,6 +48,11 @@ public class PropertyService : IPropertyService
     public async Task<PropertyDtoResponse?> CreateAsync(PropertyDtoRequest property)
     {
 
+        // check if the E9 exists
+        if (property.E9.IsNullOrEmpty())
+        {
+            return null;
+        }
         // Check if the property E9 is unique
         var existingE9 = await _context.Properties.AnyAsync(e => e.E9.ToLower() == property.E9.ToLower());
         if (existingE9) {
