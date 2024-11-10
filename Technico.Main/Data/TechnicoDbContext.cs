@@ -39,16 +39,16 @@ public class TechnicoDbContext: DbContext
         modelBuilder.Entity<Owner>().HasData(
              new Owner()
               {
-                  Id = Guid.NewGuid(),
-                  Firstname = "John",
-                  Lastname = "Doe",
-                  Vat = "123098765",
-                  Phone = "6945542230",
-                  Email = "john.doe@example.com",
-                  Password = "Password123@",
-                  Role = TypeOfUser.Admin,
-                  Address = "Dramas 1, 64100, Eleftheroupoli, Greece",
-                  Properties = new List<Property>()
+                 Id = Guid.NewGuid(),
+                 Firstname = "John",
+                 Lastname = "Doe",
+                 Vat = "123098765",
+                 Phone = "6945542230",
+                 Email = "john.doe@example.com",
+                 Password = "Password123@",
+                 Role = TypeOfUser.Admin,
+                 Address = "Dramas 1, 64100, Eleftheroupoli, Greece",
+                 Properties = new List<Property>()
 
               }
             );
