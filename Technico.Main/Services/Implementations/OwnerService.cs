@@ -21,15 +21,16 @@ namespace Technico.Main.Services.Implementations
             _ownerRepository = ownerRepository;
         }
 
-        public async Task<OwnerDtoResponse> Create(OwnerDtoRequest ownerDtoResponse)
+        public async Task<OwnerDtoResponse> Create(OwnerDtoRequest ownerDtoRequest)
         {
             //check if the owner is in the database
-            var foundOwner = await _ownerRepository.GetByVatAsync(ownerDtoResponse.Vat); //find a better way 
+            var foundOwner = await _ownerRepository.GetByVatAsync(ownerDtoRequest.Vat); //find a better way 
             if (foundOwner is not null)
             {
                 return null;
             }
-            var createdOwner = await _ownerRepository.AddAsync(ownerDtoResponse.ConvertToOwner());
+            var createdOwner = await _ownerRepository.
+                AddAsync(ownerDtoRequest.ConvertToOwner());
             return createdOwner.ConvertToOwnerDtoResponse();
         }
         public async Task<bool> Delete(Guid id)
