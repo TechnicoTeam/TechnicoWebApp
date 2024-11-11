@@ -8,6 +8,9 @@ using Technico.Main.Services;
 using Technico.Main.Services.Implementations;
 
 
+using Technico.Main.Services.Implementations;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -25,8 +28,10 @@ builder.Services.AddScoped<IPropertyService, PropertyService>();
 //builder.Services.AddScoped<IPropertyService, PropertyService>();
 
 builder.Services.AddScoped<IRepairRepository, RepairRepository>();
+builder.Services.AddScoped<IRepairService, RepairService>();
 builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
 builder.Services.AddScoped<IOwnerService, OwnerService>();
+
 
 
 
