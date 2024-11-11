@@ -30,6 +30,17 @@ namespace Technico.Main.Controllers
             return View(ownerModelView); 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Register(OwnerDtoRequest ownerDto)
+        {
+            var owner = await _ownerService.Create(ownerDto);
+            var ownerModelView = new OwnerViewModel
+            {
+                Owner = owner
+            };
+
+            return View("~/Views/Owner/Profile.cshtml", ownerModelView);
+        }
      
 
     }
