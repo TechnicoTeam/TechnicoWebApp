@@ -12,7 +12,7 @@ using Technico.Main.Data;
 namespace Technico.Main.Migrations
 {
     [DbContext(typeof(TechnicoDbContext))]
-    [Migration("20241106115252_M1")]
+    [Migration("20241109210004_M1")]
     partial class M1
     {
         /// <inheritdoc />
@@ -85,7 +85,21 @@ namespace Technico.Main.Migrations
                     b.HasIndex("Vat")
                         .IsUnique();
 
-                    b.ToTable("Owner");
+                    b.ToTable("Owners");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("701542de-ccba-4269-ad1b-d05bed5015e1"),
+                            Address = "Dramas 1, 64100, Eleftheroupoli, Greece",
+                            Email = "john.doe@example.com",
+                            Firstname = "John",
+                            Lastname = "Doe",
+                            Password = "Password123@",
+                            Phone = "6945542230",
+                            Role = 1,
+                            Vat = "123098765"
+                        });
                 });
 
             modelBuilder.Entity("Technico.Main.Models.Property", b =>
@@ -101,10 +115,17 @@ namespace Technico.Main.Migrations
                     b.Property<int>("ConstructionYear")
                         .HasColumnType("int");
 
+                    b.Property<string>("E9")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("E9")
+                        .IsUnique();
 
                     b.ToTable("Properties");
                 });

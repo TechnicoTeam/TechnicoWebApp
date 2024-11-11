@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Technico.Main.DTOs;
+using Technico.Main.Models;
+using Technico.Main.Services;
 
 namespace Technico.Main.Controllers
 {
@@ -68,6 +71,33 @@ namespace Technico.Main.Controllers
         required public string Phone { get; set; }
 
         public string Address { get; set; } = string.Empty; // the user is not required to fill this 
+       private readonly IOwnerService _ownerService;
+
+        public OwnerController(IOwnerService ownerService)
+        {
+            _ownerService = ownerService;
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateOwner(OwnerDtoRequest owner)
+        {
+            var response = await _ownerService.Create(owner);
+            if (response == null) return BadRequest(response);
+          return Ok(response);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllOwners()
+        {
+            var response = await _ownerService.GetAllOwners();
+            if (response == null) return BadRequest(response);
+            return Ok(response);
+        }
+        //[HttpGet]
+        //public async Task<IActionResult> GetOwnerByVAT(string VAT)
+        //{
+        //    var response = await _ownerService.GetOwnerByVAT(VAT);
+        //    if (response == null) return BadRequest(response);
+        //    return Ok(response);
+        //}
     }
 
 
