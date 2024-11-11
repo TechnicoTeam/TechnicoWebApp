@@ -1,4 +1,4 @@
-﻿@model Technico.Main.Controllers.Profile
+﻿@model Technico.Main.Models.OwnerViewModel
 
 @{
     ViewData["Title"] = "Profile";
@@ -9,27 +9,27 @@
     <div class="card p-4">
         <div class="mb-3 row">
             <p class="col-sm-5 col"><strong>Firstname:</strong></p>
-            <span class="col-xs col">@Model.Firstname</span>
+            <span class="col-xs col">@Model.Owner.Firstname</span>
         </div>
         <div class="mb-3 row">
             <p class="col-sm-5 col"><strong>Lastname:</strong></p>
-            <span class="col-6">@Model.Lastname</span>
+            <span class="col-6">@Model.Owner.Lastname</span>
         </div>
         <div class="mb-3 row">
             <p class="col-sm-5 col"><strong>Email:</strong></p>
-            <span class="col-sm-5 col-6">@Model.Email</span>
+            <span class="col-sm-5 col-6">@Model.Owner.Email</span>
         </div>
         <div class="mb-3 row">
             <p class="col-sm-5 col"><strong>Phone:</strong></p>
-            <span class="col-6">@Model.Phone</span>
+            <span class="col-6">@Model.Owner.Phone</span>
         </div>
         <div class="mb-3 row">
             <p class="col-sm-5 col"><strong>Address:</strong></p>
-            <span class="col-6">@Model.Address</span>
+            <span class="col-6">@Model.Owner.Address</span>
         </div>
         <div class="mb-3 row">
             <p class="col-sm-5 col"><strong>VAT:</strong></p>
-            <span class="col">@Model.Vat</span>
+            <span class="col">@Model.Owner.Vat</span>
         </div>
     </div>
     <div class="row  mt-5">
@@ -52,3 +52,6 @@
         alert("Button clicked!");
     }
 </script>
+
+
+  

@@ -1,6 +1,6 @@
 ﻿using Technico.Main.Models.Enums;
 
-namespace Technico.Main.Models;
+namespace Technico.Main.Models.Domain;
 
 public class Property
 {
@@ -10,6 +10,6 @@ public class Property
     required public string E9 { get; set; }
 
     public TypeOfProperty Type { get; set; }
-    required public List<Owner> Owners { get; set; }
+    public List<Owner> Owners { get; set; } = [];
     public List<Repair> Repairs { get; set; } = [];
 }

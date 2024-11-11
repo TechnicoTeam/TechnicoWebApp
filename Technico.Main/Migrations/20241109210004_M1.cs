@@ -12,7 +12,7 @@ namespace Technico.Main.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Owner",
+                name: "Owners",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -27,7 +27,7 @@ namespace Technico.Main.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Owner", x => x.Id);
+                    table.PrimaryKey("PK_Owners", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -37,6 +37,7 @@ namespace Technico.Main.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ConstructionYear = table.Column<int>(type: "int", nullable: false),
+                    E9 = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -55,9 +56,9 @@ namespace Technico.Main.Migrations
                 {
                     table.PrimaryKey("PK_OwnerProperty", x => new { x.OwnersId, x.PropertiesId });
                     table.ForeignKey(
-                        name: "FK_OwnerProperty_Owner_OwnersId",
+                        name: "FK_OwnerProperty_Owners_OwnersId",
                         column: x => x.OwnersId,
-                        principalTable: "Owner",
+                        principalTable: "Owners",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -91,22 +92,33 @@ namespace Technico.Main.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Owner_Email",
-                table: "Owner",
-                column: "Email",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Owner_Vat",
-                table: "Owner",
-                column: "Vat",
-                unique: true);
+            migrationBuilder.InsertData(
+                table: "Owners",
+                columns: new[] { "Id", "Address", "Email", "Firstname", "Lastname", "Password", "Phone", "Role", "Vat" },
+                values: new object[] { new Guid("701542de-ccba-4269-ad1b-d05bed5015e1"), "Dramas 1, 64100, Eleftheroupoli, Greece", "john.doe@example.com", "John", "Doe", "Password123@", "6945542230", 1, "123098765" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OwnerProperty_PropertiesId",
                 table: "OwnerProperty",
                 column: "PropertiesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Owners_Email",
+                table: "Owners",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Owners_Vat",
+                table: "Owners",
+                column: "Vat",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Properties_E9",
+                table: "Properties",
+                column: "E9",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Repairs_PropertyId",
@@ -124,7 +136,7 @@ namespace Technico.Main.Migrations
                 name: "Repairs");
 
             migrationBuilder.DropTable(
-                name: "Owner");
+                name: "Owners");
 
             migrationBuilder.DropTable(
                 name: "Properties");
