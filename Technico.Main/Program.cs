@@ -8,9 +8,6 @@ using Technico.Main.Services;
 using Technico.Main.Services.Implementations;
 
 
-using Technico.Main.Services.Implementations;
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

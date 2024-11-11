@@ -5,6 +5,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using Technico.Main.DTOs;
 using Technico.Main.Models;
 using Technico.Main.Services;
+using Technico.Main.Models.Domain;
 
 namespace Technico.Main.Controllers
 {
