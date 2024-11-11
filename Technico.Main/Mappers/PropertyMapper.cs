@@ -19,6 +19,7 @@ public static class PropertyMapper
                 Id = o.Id,
                 Firstname = o.Firstname,
                 Lastname = o.Lastname,
+                Vat = o.Vat,
                
             }).ToList()
         }).ToList();
