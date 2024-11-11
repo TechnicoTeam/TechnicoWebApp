@@ -118,7 +118,7 @@ public class PropertyRepository : IPropertyRepository
 
     
 
-    // Get all the properties of a owner (with all the onwers)
+    // Get all the properties of a owner (with all the owners)
     public async Task<List<Property>> GetAll(Guid ownerId)
     {
         

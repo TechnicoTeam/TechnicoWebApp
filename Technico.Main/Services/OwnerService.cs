@@ -1,0 +1,54 @@
+﻿using Technico.Main.DTOs;
+using Technico.Main.Mappers;
+using Technico.Main.Models;
+using Technico.Main.Models.Enums;
+using Technico.Main.Repositories.Implementations;
+
+//the main logic is 
+//Take as argument a OwnerRequest
+// return a OwnerResponse.
+
+//TODO: Validations 
+//TODO: Update operation
+
+namespace Technico.Main.Services
+{
+    public class OwnerService : IOwnerService
+    {
+        private readonly IOwnerRepository _ownerRepository;
+        public OwnerService(IOwnerRepository ownerRepository)
+        {
+            _ownerRepository = ownerRepository;
+        }
+
+        public async Task<OwnerDtoResponse> Create(OwnerDtoRequest ownerDtoResponse)
+        {
+            //check if the owner is in the database
+            var foundOwner = await _ownerRepository.GetByVatAsync(ownerDtoResponse.Vat); //find a better way 
+            if (foundOwner is not null)
+            {
+                return null;
+            }
+            var createdOwner = await _ownerRepository.
+                AddAsync(ownerDtoResponse.ConvertToOwner());
+            return createdOwner.ConvertToOwnerDtoResponse();
+        }
+        public async Task<bool> Delete(Guid id)
+        {
+            return await _ownerRepository.DeleteAsync(id);
+        }
+        public async Task<IEnumerable<OwnerDtoResponse>> GetAllOwners()
+        {
+            var owners = await _ownerRepository.GetAllAsync();
+            owners.Select(owner => owner.ConvertToOwnerDtoResponse());
+            return owners.Select(owner => owner.ConvertToOwnerDtoResponse());
+        }
+
+        public async Task<OwnerDtoResponse> GetOwnerByVAT(string VAT)
+        {
+            var owner = await _ownerRepository.GetByVatAsync(VAT);
+
+            return owner.ConvertToOwnerDtoResponse();
+        }
+    }
+}
