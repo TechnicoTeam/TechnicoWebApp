@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Technico.Main.Repositories;
 using Technico.Main.Repositories.Implementations;
 using Technico.Main.Services;
+
 using Technico.Main.Services.Implementations;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,11 @@ builder.Services.AddDbContext<TechnicoDbContext>(option => option.UseSqlServer(b
 builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
 builder.Services.AddScoped<IPropertyService, PropertyService>();
 //builder.Services.AddScoped<IPropertyService, PropertyService>();
+
+builder.Services.AddScoped<IRepairRepository, RepairRepository>();
+builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
+builder.Services.AddScoped<IOwnerService, OwnerService>();
+
 
 
 //services end here.............
