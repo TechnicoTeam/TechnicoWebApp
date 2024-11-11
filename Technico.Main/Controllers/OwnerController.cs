@@ -16,13 +16,15 @@ namespace Technico.Main.Controllers
         {
             _ownerService = ownerService;
         }
+
         [HttpPost]
-        public async Task<IActionResult> CreateOwner(OwnerDtoRequest owner)
+        public async Task<IActionResult> CreateOwner([FromBody] OwnerDtoRequest owner)
         {
             var response = await _ownerService.Create(owner);
             if (response == null) return BadRequest(response);
-          return Ok(response);
+            return Ok(response);
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAllOwners()
         {

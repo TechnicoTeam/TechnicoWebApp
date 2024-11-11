@@ -29,8 +29,7 @@ namespace Technico.Main.Services.Implementations
             {
                 return null;
             }
-            var createdOwner = await _ownerRepository.
-                AddAsync(ownerDtoResponse.ConvertToOwner());
+            var createdOwner = await _ownerRepository.AddAsync(ownerDtoResponse.ConvertToOwner());
             return createdOwner.ConvertToOwnerDtoResponse();
         }
         public async Task<bool> Delete(Guid id)
