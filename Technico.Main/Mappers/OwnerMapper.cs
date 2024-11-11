@@ -1,5 +1,5 @@
 ﻿using Technico.Main.DTOs;
-using Technico.Main.Models;
+using Technico.Main.Models.Domain;
 
 namespace Technico.Main.Mappers;
 //TODO: maybe need to change the implementation to AutoMapper ???

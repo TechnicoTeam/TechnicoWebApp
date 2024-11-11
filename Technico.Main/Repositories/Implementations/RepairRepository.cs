@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Technico.Main.Data;
-using Technico.Main.Models;
+using Technico.Main.Models.Domain;
 
 namespace Technico.Main.Repositories.Implementations;
 

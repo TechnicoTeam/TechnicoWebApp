@@ -1,11 +1,11 @@
 ﻿using Technico.Main.Data;
-using Technico.Main.Models;
 using Technico.Main.Models.Enums;
 using Technico.Main.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Technico.Main.DTOs;
 using Technico.Main.Mappers;
 using Microsoft.IdentityModel.Tokens;
+using Technico.Main.Models.Domain;
 
 namespace Technico.Main.Services.Implementations;
 

@@ -1,8 +1,8 @@
 ﻿using Technico.Main.Data;
 using Microsoft.AspNetCore.Mvc;
-using Technico.Main.Models;
 using Technico.Main.Models.Enums;
 using Technico.Main.DTOs;
+using Technico.Main.Models.Domain;
 
 namespace Technico.Main.Repositories;
 

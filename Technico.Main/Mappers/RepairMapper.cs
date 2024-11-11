@@ -1,5 +1,5 @@
 ﻿using Technico.Main.DTOs.RepairDtos;
-using Technico.Main.Models;
+using Technico.Main.Models.Domain;
 
 namespace Technico.Main.Mappers;
 

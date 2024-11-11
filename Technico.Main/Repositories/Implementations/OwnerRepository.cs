@@ -1,10 +1,10 @@
 ﻿using Technico.Main.Data;
-using Technico.Main.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Technico.Main.Models.Domain;
 
 namespace Technico.Main.Repositories.Implementations
 {

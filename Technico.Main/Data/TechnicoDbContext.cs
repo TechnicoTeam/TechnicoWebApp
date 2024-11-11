@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Technico.Main.Models.Enums;
-using Technico.Main.Models;
+using Technico.Main.Models.Domain;
 
 namespace Technico.Main.Data;
 

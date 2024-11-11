@@ -1,4 +1,4 @@
-﻿using Technico.Main.Models;
+﻿using Technico.Main.Models.Domain;
 
 namespace Technico.Main.Repositories.Implementations
 {

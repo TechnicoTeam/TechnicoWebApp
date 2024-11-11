@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Technico.Main.Models.Enums;
 
-namespace Technico.Main.Models;
+namespace Technico.Main.Models.Domain;
 
 public class Repair
 {

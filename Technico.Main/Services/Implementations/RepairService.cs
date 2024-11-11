@@ -4,6 +4,7 @@ using Technico.Main.DTOs;
 using Technico.Main.DTOs.RepairDtos;
 using Technico.Main.Mappers;
 using Technico.Main.Models;
+using Technico.Main.Models.Domain;
 using Technico.Main.Repositories;
 
 namespace Technico.Main.Services.Implementations
