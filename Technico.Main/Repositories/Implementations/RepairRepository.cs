@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Technico.Main.Data;
 using Technico.Main.Models;
 
@@ -64,12 +65,26 @@ public class RepairRepository : IRepairRepository
             return null;
         }
 
-        repair.Type = updatedRepair.Type;
-        repair.Description = updatedRepair.Description;
-        repair.Status = updatedRepair.Status;
-        repair.Cost = updatedRepair.Cost;
+        if (!string.IsNullOrWhiteSpace(updatedRepair.Type.ToString()))
+        {
+            repair.Type = updatedRepair.Type;
+        }
 
-        
+        if (!string.IsNullOrWhiteSpace(updatedRepair.Description))
+        {
+            repair.Description = updatedRepair.Description;
+        }
+
+        if (!string.IsNullOrWhiteSpace(updatedRepair.Status.ToString()))
+        {
+            repair.Status = updatedRepair.Status;
+        }
+
+        if (!string.IsNullOrWhiteSpace(updatedRepair.Cost.ToString()))
+        {
+            repair.Cost = updatedRepair.Cost;
+        }
+
         await _context.SaveChangesAsync();
         
 
