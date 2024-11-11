@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Technico.Main.Models;
+using Technico.Main.Models.Enums;
 
-namespace Technico.Main.Models.Enums;
+namespace Technico.Main.Models;
 
 public class Owner
 {
