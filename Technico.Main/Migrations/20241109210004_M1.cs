@@ -95,7 +95,7 @@ namespace Technico.Main.Migrations
             migrationBuilder.InsertData(
                 table: "Owners",
                 columns: new[] { "Id", "Address", "Email", "Firstname", "Lastname", "Password", "Phone", "Role", "Vat" },
-                values: new object[] { new Guid("ce80b06b-1691-446e-a843-8f83f25146d4"), "Dramas 1, 64100, Eleftheroupoli, Greece", "john.doe@example.com", "John", "Doe", "Password123@", "6945542230", 1, "123098765" });
+                values: new object[] { new Guid("701542de-ccba-4269-ad1b-d05bed5015e1"), "Dramas 1, 64100, Eleftheroupoli, Greece", "john.doe@example.com", "John", "Doe", "Password123@", "6945542230", 1, "123098765" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OwnerProperty_PropertiesId",

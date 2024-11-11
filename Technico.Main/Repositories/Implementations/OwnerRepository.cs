@@ -37,6 +37,15 @@ namespace Technico.Main.Repositories.Implementations
             return owner;
         }
 
+        public async Task<Owner?> GetByVatAsync(string VAT)
+        {
+            _logger.LogInformation("Retrieving owner with VAT: {Id}", VAT);
+            var owner = await _context.Owners
+                .Include(o => o.Properties)
+                .FirstOrDefaultAsync(o => o.Vat.Equals(VAT));
+            return owner;
+        }
+
         public async Task<Owner> AddAsync(Owner owner)
         {
             _logger.LogInformation("Adding a new owner with ID: {Id}", owner.Id);

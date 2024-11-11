@@ -87,7 +87,7 @@ namespace Technico.Main.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ce80b06b-1691-446e-a843-8f83f25146d4"),
+                            Id = new Guid("701542de-ccba-4269-ad1b-d05bed5015e1"),
                             Address = "Dramas 1, 64100, Eleftheroupoli, Greece",
                             Email = "john.doe@example.com",
                             Firstname = "John",
