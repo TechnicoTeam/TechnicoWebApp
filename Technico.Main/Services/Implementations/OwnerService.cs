@@ -11,7 +11,7 @@ using Technico.Main.Repositories.Implementations;
 //TODO: Validations 
 //TODO: Update operation
 
-namespace Technico.Main.Services
+namespace Technico.Main.Services.Implementations
 {
     public class OwnerService : IOwnerService
     {
