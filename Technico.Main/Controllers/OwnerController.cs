@@ -6,6 +6,7 @@ using Technico.Main.DTOs;
 using Technico.Main.Models;
 using Technico.Main.Services;
 using Technico.Main.Models.Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Technico.Main.Controllers
 {

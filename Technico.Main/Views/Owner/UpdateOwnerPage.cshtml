@@ -4,54 +4,59 @@
 
 }
 
-<h3>Update Owner:</h3>
 
-<form asp-controller="Owner" asp-action="Update" method="post" asp-route-id="@Model.Id" >
-    <div>
-        <label asp-for="Vat">VAT</label>
-        <input asp-for="Vat" class="form-control" />
-        <span asp-validation-for="Vat" class="text-danger"></span>
-    </div>
+<div class="card col-md-8 col-lg-6 mx-auto shadow-lg p-4 my-5">
+    <h3 class="card-title mb-4 text-center">Update Owner</h3>
+    <form asp-controller="Owner" asp-action="Update" method="post" asp-route-id="@Model.Id">
+        <div class="form-group mb-3">
+            <label asp-for="Vat" class="form-label">VAT</label>
+            <input asp-for="Vat" class="form-control" />
+            <span asp-validation-for="Vat" class="text-danger"></span>
+        </div>
 
-    <div>
-        <label asp-for="Firstname">First Name</label>
-        <input asp-for="Firstname" class="form-control" />
-        <span asp-validation-for="Firstname" class="text-danger"></span>
-    </div>
+        <div class="form-group mb-3">
+            <label asp-for="Firstname" class="form-label">First Name</label>
+            <input asp-for="Firstname" class="form-control" />
+            <span asp-validation-for="Firstname" class="text-danger"></span>
+        </div>
 
-    <div>
-        <label asp-for="Lastname">Last Name</label>
-        <input asp-for="Lastname" class="form-control" />
-        <span asp-validation-for="Lastname" class="text-danger"></span>
-    </div>
+        <div class="form-group mb-3">
+            <label asp-for="Lastname" class="form-label">Last Name</label>
+            <input asp-for="Lastname" class="form-control" />
+            <span asp-validation-for="Lastname" class="text-danger"></span>
+        </div>
 
-    <div>
-        <label asp-for="Email">Email</label>
-        <input asp-for="Email" type="email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
+        <div class="form-group mb-3">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" type="email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
 
-    <div>
-        <label asp-for="Phone">Phone</label>
-        <input asp-for="Phone" type="tel" class="form-control" />
-        <span asp-validation-for="Phone" class="text-danger"></span>
-    </div>
+        <div class="form-group mb-3">
+            <label asp-for="Phone" class="form-label">Phone</label>
+            <input asp-for="Phone" type="tel" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
 
-    <div>
-        <label asp-for="Address">Address (Optional)</label>
-        <input asp-for="Address" class="form-control" />
-    </div>
+        <div class="form-group mb-3">
+            <label asp-for="Address" class="form-label">Address (Optional)</label>
+            <input asp-for="Address" class="form-control" />
+        </div>
 
-    <div>
-        <label asp-for="Role">Role</label>
-        <select asp-for="Role" class="form-control">
-            <option value="User">User</option>
-            <option value="Admin">Admin</option>
-            <option value="OtherRole">Other Role</option>
-            <!-- Add any additional roles here -->
-        </select>
-    </div>
+        <div class="form-group mb-4">
+            <label asp-for="Role" class="form-label">Role</label>
+            <select asp-for="Role" class="form-select">
+                <option value="User">User</option>
+                <option value="Admin">Admin</option>
+                <option value="OtherRole">Other Role</option>
+                <!-- Additional roles can go here -->
+            </select>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <a asp-controller="Owner" asp-action="AdminView" class="btn btn-secondary">Cancel</a>
-</form>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary px-4 me-2">Update</button>
+            <a asp-controller="Owner" asp-action="AdminView" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
