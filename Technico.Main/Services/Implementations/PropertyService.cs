@@ -51,7 +51,7 @@ public class PropertyService : IPropertyService
     {
 
         // check if the E9 is valid
-        var validE9 = await _validator.E9Valid(property.E9);
+        var validE9 =  _validator.E9Valid(property.E9);
         if (validE9 is null) {
             _logger.LogWarning("The Create Failed. Invalid E9.");
             return null; 
@@ -65,8 +65,8 @@ public class PropertyService : IPropertyService
         }
     
         // Check is Owners'Ids are valid
-        var validOwnerIds = await _validator.OwnerIdValid(property.OwnersIds);
-        if (!validOwnerIds.Any()) {
+        var validOwnerIds = _validator.OwnerIdValid(property.OwnersIds);
+        if (validOwnerIds is null) {
             _logger.LogWarning("The Create Failed. Invalid owners' Ids.");
             return null; 
         }
@@ -91,8 +91,8 @@ public class PropertyService : IPropertyService
     public async Task<PropertyDtoResponse?> UpdateAsync(PropertyDtoUpdateRequest property)
     {
         // Check is Owners'Ids are valid
-        var validOwnerIds = await _validator.OwnerIdValid(property.OwnersIds);
-        if (!validOwnerIds.Any())
+        var validOwnerIds = _validator.OwnerIdValid(property.OwnersIds);
+        if (validOwnerIds is null)
         {
             _logger.LogWarning("The Update Failed. Invalid owners' Ids.");
             return null;
