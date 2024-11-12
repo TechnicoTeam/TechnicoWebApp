@@ -27,6 +27,7 @@ builder.Services.AddScoped<IPropertyService, PropertyService>();
 
 builder.Services.AddScoped<IRepairRepository, RepairRepository>();
 builder.Services.AddScoped<IRepairService, RepairService>();
+
 builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
 builder.Services.AddScoped<IOwnerService, OwnerService>();
 
