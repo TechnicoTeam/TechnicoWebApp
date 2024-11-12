@@ -16,4 +16,8 @@ public class RepairDto
 
     public Guid PropertyId { get; set; }
     public DateTime CreatedAt { get; set; }
+
+    public bool IsActive => Status == StatusOfRepair.In_progress;
+
+    public PropertyDtoResponse Property { get; set; }
 }
