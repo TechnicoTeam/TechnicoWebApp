@@ -1,4 +1,4 @@
-﻿using Technico.Main.DTOs;
+﻿using Technico.Main.DTOs.PropertyDtos;
 using Technico.Main.Models;
 
 namespace Technico.Main.Mappers;
@@ -19,6 +19,7 @@ public static class PropertyMapper
                 Id = o.Id,
                 Firstname = o.Firstname,
                 Lastname = o.Lastname,
+                Vat = o.Vat,
                
             }).ToList()
         }).ToList();
@@ -47,7 +48,20 @@ public static class PropertyMapper
         };
     }
 
-    public static Property MapToProperty(this PropertyDtoRequest property) {
+    public static Property MapToPropertyUpadate(this PropertyDtoUpdateRequest property) {
+
+
+        return new Property
+        {
+            Address = property.Address,
+            ConstructionYear = (int)property.ConstructionYear,
+            E9 = string.Empty,
+            Type = property.Type
+        };
+    }
+
+    public static Property MapToPropertyCreate(this PropertyDtoCreateRequest property)
+    {
 
 
         return new Property

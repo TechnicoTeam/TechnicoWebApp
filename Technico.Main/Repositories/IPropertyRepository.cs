@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Technico.Main.Models;
 using Technico.Main.Models.Enums;
-using Technico.Main.DTOs;
+using Technico.Main.DTOs.PropertyDtos;
 
 namespace Technico.Main.Repositories;
 
@@ -19,7 +19,7 @@ public interface IPropertyRepository
     public Task<Property?> GetById(Guid propertyid);
 
     // Update a property
-    public Task<Property?>Update(PropertyDtoRequest property, List<Owner> owners);
+    public Task<Property?>Update(PropertyDtoUpdateRequest property, List<Owner> owners);
 
     // Delete a Property 
     public Task<bool> DeleteById(Guid propertyid);

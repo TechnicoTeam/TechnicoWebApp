@@ -30,11 +30,9 @@ namespace Technico.Main.Repositories.Implementations
         public async Task<Owner?> GetByIdAsync(Guid id)
         {
             _logger.LogInformation("Retrieving owner with ID: {Id}", id);
-            var owner = await _context.Owners
-                .Include(o => o.Properties)
-                .FirstOrDefaultAsync(o => o.Id == id);
-
-            return owner;
+            return await _context.Owners
+                .Where(o => o.Id == id)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<Owner?> GetByVatAsync(string VAT)
@@ -80,6 +78,7 @@ namespace Technico.Main.Repositories.Implementations
             return false;
 
         }
+
     }
 
 
