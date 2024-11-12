@@ -31,6 +31,7 @@ builder.Services.AddScoped<IPropertyValidator, PropertyValidator>();
 
 builder.Services.AddScoped<IRepairRepository, RepairRepository>();
 builder.Services.AddScoped<IRepairService, RepairService>();
+
 builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
 builder.Services.AddScoped<IOwnerService, OwnerService>();
 

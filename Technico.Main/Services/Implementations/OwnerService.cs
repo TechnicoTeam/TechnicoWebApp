@@ -21,16 +21,16 @@ namespace Technico.Main.Services.Implementations
             _ownerRepository = ownerRepository;
         }
 
-        public async Task<OwnerDtoResponse> Create(OwnerDtoRequest ownerDtoResponse)
+        public async Task<OwnerDtoResponse> Create(OwnerDtoRequest ownerDtoRequest)
         {
             //check if the owner is in the database
-            var foundOwner = await _ownerRepository.GetByVatAsync(ownerDtoResponse.Vat); //find a better way 
+            var foundOwner = await _ownerRepository.GetByVatAsync(ownerDtoRequest.Vat); //find a better way 
             if (foundOwner is not null)
             {
                 return null;
             }
             var createdOwner = await _ownerRepository.
-                AddAsync(ownerDtoResponse.ConvertToOwner());
+                AddAsync(ownerDtoRequest.ConvertToOwner());
             return createdOwner.ConvertToOwnerDtoResponse();
         }
         public async Task<bool> Delete(Guid id)
@@ -50,5 +50,40 @@ namespace Technico.Main.Services.Implementations
 
             return owner.ConvertToOwnerDtoResponse();
         }
+
+        public async Task<OwnerDtoResponse> GetByIdAsync(Guid id)
+        {
+            var owner = await _ownerRepository.GetByIdAsync(id);
+
+            return owner.ConvertToOwnerDtoResponse();
+        }
+
+        public async Task<OwnerDtoResponse> Update(OwnerDtoResponse ownerDtoResponse)
+        {
+            // Find the owner in the database using the provided ID
+            var foundOwner = await _ownerRepository.GetByIdAsync(ownerDtoResponse.Id);
+
+            if (foundOwner == null)
+            {
+                return null;  // Return null if the owner is not found
+            }
+
+            // Update the existing owner's properties with values from the DTO
+            foundOwner.Vat = ownerDtoResponse.Vat;
+            foundOwner.Firstname = ownerDtoResponse.Firstname;
+            foundOwner.Lastname = ownerDtoResponse.Lastname;
+            foundOwner.Email = ownerDtoResponse.Email;
+            foundOwner.Phone = ownerDtoResponse.Phone;
+            foundOwner.Address = ownerDtoResponse.Address;
+            foundOwner.Role = ownerDtoResponse.Role;
+
+            // Call the repository's UpdateAsync method to persist changes in the database
+            var updatedOwner = await _ownerRepository.UpdateAsync(foundOwner);
+
+            // Return the updated owner as a DTO response
+            return updatedOwner.ConvertToOwnerDtoResponse();
+        }
+
+
     }
 }
