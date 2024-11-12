@@ -4,23 +4,34 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Technico.Main.Services;
 
 
 namespace Technico.Main.Controllers;
 
 public class AuthController : Controller
 {
-    private readonly List<User> _users = new List<User>
-        {
-            new User { Username = "test@gmail.com", Password = "test" }
-        };
+
+    private readonly IOwnerService _ownerService;
+
+    public AuthController(IOwnerService ownerService)
+    {
+        _ownerService = ownerService;
+    }
 
     [HttpPost("Auth/LogIn")]
-    public IActionResult Login([FromBody] LoginRequest request)
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
         Console.WriteLine($"Received Username: {request.Username}, Password: {request.Password}");
 
-        var user = _users.SingleOrDefault(u => u.Username == request.Username && u.Password == request.Password); // database connection to users
+        var owners = await _ownerService.GetAllOwners();
+        var owner = owners.Where(owner => owner.Email.Equals(request.Username)).FirstOrDefault();
+        var user = new User
+        {
+            Password = owner.Email,
+            Username = owner.Email,
+        };
+
         if (user == null)
         {
             Console.WriteLine("Invalid credentials");
