@@ -22,8 +22,14 @@
                 <div class="row mb-4">
                     <div class="col-md-6 mx-auto">
                         <input type="text" class="form-control" id="searchInput" placeholder="Search owners..." aria-label="Search">
+                        
                     </div>
                 </div>
+
+                <div class="mb-4">
+                    <a class="btn btn-primary" asp-action="AdminOwnerCreate" asp-controller="Owner">Create new owner</a>
+                </div>
+
                 <div class="table-responsive">
                     <table class="table table-striped table-hover table-bordered align-middle">
                         <thead class="table-dark sticky-top">
@@ -56,13 +62,14 @@
                                     <td class="text-center align-middle">
 
                                         <div class="btn-group" role="group">
-                                            <button class="btn btn-outline-primary btn-sm me-2 rounded-pill" data-bs-toggle="tooltip" title="Edit Owner">
-                                                <i class="fas fa-cog"></i>
-                                            </button>
 
-                                            <button class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Delete Owner">
+                                            <a asp-action="UpdateOwnerPage" asp-route-id="@owner.Id" class="btn btn-outline-primary btn-sm me-2 rounded-pill" data-bs-toggle="tooltip" title="Edit Owner">
+                                                <i class="fas fa-cog"></i>
+                                            </a>
+
+                                            <a asp-action="Delete" asp-route-id="@owner.Id" class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Delete Owner">
                                                 <i class="fas fa-trash"></i>
-                                            </button>
+                                            </a>
                                             
                                         </div>
                                     </td>
