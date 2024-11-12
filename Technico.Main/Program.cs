@@ -8,6 +8,11 @@ using Technico.Main.Services;
 using Technico.Main.Services.Implementations;
 
 
+using Technico.Main.Services.Implementations;
+using Technico.Main.Validators.Implementations;
+using Technico.Main.Validators;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -23,7 +28,7 @@ builder.Services.AddDbContext<TechnicoDbContext>(option => option.UseSqlServer(b
 
 builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
 builder.Services.AddScoped<IPropertyService, PropertyService>();
-//builder.Services.AddScoped<IPropertyService, PropertyService>();
+builder.Services.AddScoped<IPropertyValidator, PropertyValidator>();
 
 builder.Services.AddScoped<IRepairRepository, RepairRepository>();
 builder.Services.AddScoped<IRepairService, RepairService>();

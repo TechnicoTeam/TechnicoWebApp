@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Technico.Main.Data;
-using Technico.Main.DTOs;
-using Technico.Main.Models.Domain;
+using Technico.Main.DTOs.PropertyDtos;
+using Technico.Main.Models;
 using Technico.Main.Models.Enums;
 
 namespace Technico.Main.Repositories.Implementations;
@@ -31,10 +31,8 @@ public class PropertyRepository : IPropertyRepository
             owner.Properties.Add(property);
           
         }
-
         // Add the Property to the database
         _context.Properties.Add(property);
-
 
         // Save changes to the database
         await _context.SaveChangesAsync();
@@ -54,8 +52,8 @@ public class PropertyRepository : IPropertyRepository
                 return true; // Return the deleted property
             }
 
-           // _logger.LogWarning("Property with ID {PropertyId} not found.", propertyid);
-            return false;
+        _logger.LogWarning("The Delete Failed. The property does not exist.");
+        return false;
 
     }
 
@@ -108,7 +106,7 @@ public class PropertyRepository : IPropertyRepository
     }
 
     // Update a property (this is not including the relation user - property)
-    public async Task<Property?> Update(PropertyDtoRequest property, List<Owner> owners)
+    public async Task<Property?> Update(PropertyDtoUpdateRequest property, List<Owner> owners)
     {
         // Fetch the existing property from the database along with its associated Owners
         var existingProperty = await _context.Properties
@@ -118,6 +116,7 @@ public class PropertyRepository : IPropertyRepository
         // Check if the property exists
         if (existingProperty == null)
         {
+            _logger.LogWarning("The Update Failed. The property does not exist.");
             return null;
         }
 
