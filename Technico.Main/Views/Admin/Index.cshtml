@@ -6,38 +6,6 @@
 @{
 }
 
-<h2>Welcome </h2>
-
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <h2 class="mb-4 text-center text-primary">Property Information</h2>
-
-            <div class="table-responsive">
-                <table class="table table-hover table-striped table-bordered shadow-sm rounded">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">E9</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Construction Year</th>
-                            
-                            <th scope="col">Type of Property</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var property in Model)
-                        {
-                            <tr>
-                                <td>@property.E9</td>
-                                <td>@property.Address</td>
-                                <td>@property.ConstructionYear</td>
-                           
-                                <td>@property.Type</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+<h2>Welcome Admin </h2>
+<a class="btn btn-primary" asp-controller="AdminOwner" asp-action="Index" >Owners</a>
+<a class="btn btn-primary" asp-controller="AdminProperty" asp-action="Index">Properties</a>
