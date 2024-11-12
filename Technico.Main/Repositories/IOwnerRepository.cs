@@ -9,7 +9,7 @@ namespace Technico.Main.Repositories.Implementations
         Task<IEnumerable<Owner>> GetAllAsync();
         Task<Owner?> GetByIdAsync(Guid id);
         Task<Owner> UpdateAsync(Owner owner);
-        Task<Owner> GetByVatAsync(string VAT);
+        Task<Owner?> GetByVatAsync(string VAT);
 
     }
 }
