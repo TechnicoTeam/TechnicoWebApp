@@ -54,7 +54,7 @@ public class PropertyController : ControllerBase
     {
         var property = await _propertyService.GetByIdAsync(propertyId);
 
-        if (property == null)
+        if (property is null)
         {
             NotFound("Not property found with the id.");
         }
