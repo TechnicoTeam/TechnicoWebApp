@@ -14,6 +14,6 @@ namespace Technico.Main.DTOs
 
         public string Address { get; set; } = string.Empty; // the user is not required to fill this 
         public TypeOfUser Role { get; set; } = TypeOfUser.User;
-        //public List<Property> Properties { get; set; } = []; // I don't know If we need it 
+ 
     }
 }

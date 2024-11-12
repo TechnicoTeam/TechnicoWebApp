@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Technico.Main.DTOs;
+using Technico.Main.DTOs.PropertyDtos;
 using Technico.Main.Models;
 using Technico.Main.Models.Enums;
 using Technico.Main.Services;
@@ -65,7 +65,7 @@ public class PropertyController : ControllerBase
 
     // Create a new property
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] PropertyDtoRequest property)
+    public async Task<IActionResult> Create([FromBody] PropertyDtoCreateRequest property)
     {
         var response = await _propertyService.CreateAsync(property);
         if (response == null)
@@ -77,7 +77,7 @@ public class PropertyController : ControllerBase
 
     // Update a property
     [HttpPatch]
-    public async Task<IActionResult> Update([FromBody] PropertyDtoRequest property)
+    public async Task<IActionResult> Update([FromBody] PropertyDtoUpdateRequest property)
     {
         var response = await _propertyService.UpdateAsync(property);
         if (response == null)
