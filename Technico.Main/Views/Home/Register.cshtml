@@ -2,9 +2,9 @@
 @{
     ViewData["Title"] = "Register";
 }
-<div class="login-card col-4 offset-4">
+<div class="login-card col-4 offset-4 shadow-lg">
     <h1 class="mb-3 text-center">Register Menu</h1>
-    <form asp-controller="Owner" method="post" asp-action="Register">
+    <form asp-controller="Owner" method="post" asp-action="Register" >
         <div class="form-group pb-3">
             <input type="text" class="form-control" asp-for="Vat" placeholder="VAT Number" required>
         </div>
