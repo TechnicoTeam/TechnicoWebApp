@@ -8,5 +8,7 @@ namespace Technico.Main.Services
         Task<bool> Delete(Guid id);
         Task<IEnumerable<OwnerDtoResponse>> GetAllOwners();
         Task<OwnerDtoResponse> GetOwnerByVAT(string VAT);
+        Task<OwnerDtoResponse> GetByIdAsync(Guid id);
+        Task<OwnerDtoResponse> Update(OwnerDtoResponse owner);
     }
 }
