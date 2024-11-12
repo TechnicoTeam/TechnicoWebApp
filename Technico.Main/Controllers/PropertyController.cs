@@ -65,7 +65,7 @@ public class PropertyController : ControllerBase
 
     // Create a new property
     [HttpPost]
-    public async Task<IActionResult> Create(PropertyDtoRequest property)
+    public async Task<IActionResult> Create(PropertyDtoCreateRequest property)
     {
         var response = await _propertyService.CreateAsync(property);
         if (response == null)

@@ -1,4 +1,4 @@
-﻿using Technico.Main.Data;
+﻿using Technico.Main.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Technico.Main.Models.Enums;
 using Technico.Main.DTOs.PropertyDtos;

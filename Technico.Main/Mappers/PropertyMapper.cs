@@ -1,5 +1,5 @@
 ﻿using Technico.Main.DTOs.PropertyDtos;
-using Technico.Main.Models;
+using Technico.Main.Models.Domain;
 
 namespace Technico.Main.Mappers;
 
@@ -48,7 +48,7 @@ public static class PropertyMapper
         };
     }
 
-    public static Property MapToPropertyUpadate(this PropertyDtoUpdateRequest property) {
+    public static Property MapToPropertyUpdate(this PropertyDtoUpdateRequest property) {
 
 
         return new Property

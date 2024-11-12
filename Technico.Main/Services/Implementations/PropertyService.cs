@@ -6,6 +6,7 @@ using Technico.Main.Mappers;
 using Microsoft.IdentityModel.Tokens;
 using Technico.Main.DTOs.PropertyDtos;
 using Technico.Main.Validators;
+using Technico.Main.Models.Domain;
 
 namespace Technico.Main.Services.Implementations;
 

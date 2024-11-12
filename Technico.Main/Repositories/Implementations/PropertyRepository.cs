@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Technico.Main.Data;
 using Technico.Main.DTOs.PropertyDtos;
-using Technico.Main.Models;
+using Technico.Main.Models.Domain;
 using Technico.Main.Models.Enums;
 
 namespace Technico.Main.Repositories.Implementations;
