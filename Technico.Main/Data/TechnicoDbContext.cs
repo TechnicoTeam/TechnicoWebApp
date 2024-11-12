@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Technico.Main.Models.Enums;
 using Technico.Main.Models.Domain;
+using Technico.Main.DTOs;
 
 namespace Technico.Main.Data;
 
@@ -55,4 +56,6 @@ public class TechnicoDbContext: DbContext
 
         base.OnModelCreating(modelBuilder);
     }
+
+public DbSet<Technico.Main.DTOs.OwnerDtoResponse> OwnerDtoResponse { get; set; } = default!;
 }
