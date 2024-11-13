@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Technico.Main.DTOs.PropertyDtos;
 using Technico.Main.Models.Enums;
 
 namespace Technico.Main.DTOs.RepairDtos;

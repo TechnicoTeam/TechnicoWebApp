@@ -92,8 +92,8 @@ public class RepairController : ControllerBase
     }
     //Search Repairs
 
-    [HttpGet, Route("search/{Vat:string}")]
-    public async Task<IActionResult> Search(string Vat )
+    [HttpGet, Route("search/{Vat}")]
+    public async Task<IActionResult> Search(string Vat)
     {
         var repairs = await _repairService.SearchWithVatAsync(Vat);
 

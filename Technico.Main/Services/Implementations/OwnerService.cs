@@ -101,7 +101,7 @@ namespace Technico.Main.Services.Implementations
         {
             throw new ArgumentException("VAT format is invalid.", nameof(vat));
         }
-
+            var owner = await _ownerRepository.GetByVatAsync(vat);
             return owner.ConvertToOwnerDtoResponse();
         }
 
