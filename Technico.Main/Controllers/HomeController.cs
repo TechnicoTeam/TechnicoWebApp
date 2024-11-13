@@ -1,16 +1,40 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 using Technico.Main.Models;
+using Technico.Main.Services;
+using Technico.Main.Services.Implementations;
 
 namespace Technico.Main.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        readonly IOwnerService _ownerService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IOwnerService ownerService)
         {
             _logger = logger;
+            _ownerService = ownerService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Profile(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized("Token not found in request.");
+            }
+
+            // Proceed with the rest of the code using the 'token'
+            var owner = await _ownerService.GetByIdAsync(Guid.Parse(token));
+
+            var ownerModelView = new OwnerViewModel
+            {
+                Owner = owner
+            };
+
+            return View("~/Views/Owner/Profile.cshtml", ownerModelView);
         }
 
         public IActionResult Index()

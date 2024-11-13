@@ -79,6 +79,13 @@ namespace Technico.Main.Repositories.Implementations
 
         }
 
+        public async Task<Owner?> GetByEmailAndPasswordAsync(string email, string password)
+        {
+            return await _context.Owners
+                .Where(o => o.Email == email && o.Password == password) 
+                .FirstOrDefaultAsync();
+        }
+
     }
 
 

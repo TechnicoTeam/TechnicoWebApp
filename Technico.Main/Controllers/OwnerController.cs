@@ -7,6 +7,8 @@ using Technico.Main.Models;
 using Technico.Main.Services;
 using Technico.Main.Models.Domain;
 using Microsoft.AspNetCore.Authorization;
+using System.Net;
+using Azure.Core;
 
 namespace Technico.Main.Controllers
 {
@@ -19,18 +21,27 @@ namespace Technico.Main.Controllers
             _ownerService = ownerService;
         }
 
-        [HttpGet("Profile")]
+        public class TokenRequest
+        {
+            public string Token { get; set; }
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Profile()
         {
-            // Ensure this profile object is properly instantiated and not null
-            var ownerResponse = await _ownerService.GetOwnerByVAT("123455");
+            var id = Guid.Parse("83AE364C-68D9-420B-48E4-08DD02835C36");
+
+            // Await the asynchronous call to get the owner
+            var owner = await _ownerService.GetOwnerByVAT("amt");
+
+            // Create a view model to send the owner data to the view
             var ownerModelView = new OwnerViewModel
             {
-                Owner = ownerResponse
+                Owner = owner
             };
 
-            
-            return View(ownerModelView); 
+            // Return the view with the model data
+            return View("~/Views/Owner/Profile.cshtml", ownerModelView);
         }
 
         [HttpPost]

@@ -10,6 +10,6 @@ namespace Technico.Main.Repositories.Implementations
         Task<Owner?> GetByIdAsync(Guid id);
         Task<Owner> UpdateAsync(Owner owner);
         Task<Owner?> GetByVatAsync(string VAT);
-
+        Task<Owner?> GetByEmailAndPasswordAsync(string Email, string Password);
     }
 }

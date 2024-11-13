@@ -1,6 +1,6 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
+﻿
+document.addEventListener('DOMContentLoaded', function () {
     const token = localStorage.getItem('authToken');
-
     if (token) {
         document.querySelectorAll('.nav-item a[href="/Home/LogIn"], .nav-item a[href="/Home/Register"]').forEach(link => {
             link.style.display = 'none';   // hides login and register buttons
@@ -13,6 +13,48 @@
         document.getElementById('showRepairs').style.display = 'block';
     }
 });
+
+// Handle login button click or form submission
+function handleLogin(username, password) {
+    fetch('/Auth/LogIn', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Store the token in localStorage
+            localStorage.setItem('authToken', data.token);
+            // Redirect to profile or home page
+            window.location.href = '/Home/Index';
+        })
+        .catch(error => {
+            console.error('Error during login:', error);
+            alert('Login failed: ' + error.message);
+        });
+}
+
+function getAuthToken() {
+    return localStorage.getItem('authToken');
+}
+
+function getProfile() {
+    const token = getAuthToken();  // Fetch the token from localStorage
+
+    if (!token) {
+        console.error("No auth token found");
+        return;
+    }
+
+    // Create the URL with the token as a query parameter
+    const url = `/Home/Profile?token=${encodeURIComponent(token)}`;
+
+    // Redirect the user to the URL, which will call the controller's action and render the view
+    window.location.href = url;  // This changes the URL and triggers a GET request to the server
+}
+
 
 function logOut() { // Logs out the user
     // Remove the token from localStorage

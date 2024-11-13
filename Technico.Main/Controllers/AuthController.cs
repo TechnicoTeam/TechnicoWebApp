@@ -4,87 +4,51 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Technico.Main.DTOs;
+using Technico.Main.Repositories.Implementations;
 using Technico.Main.Services;
+using Technico.Main.Services.Implementations;
 
 
 namespace Technico.Main.Controllers;
 
+[Route("Auth")]
 public class AuthController : Controller
 {
-
     private readonly IOwnerService _ownerService;
+    private readonly IConfiguration _configuration;
 
-    public AuthController(IOwnerService ownerService)
+    public AuthController(IOwnerService ownerService, IConfiguration configuration)
     {
         _ownerService = ownerService;
+        _configuration = configuration;
     }
 
-    [HttpPost("Auth/LogIn")]
+    [HttpPost("LogIn")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        Console.WriteLine($"Received Username: {request.Username}, Password: {request.Password}");
+        var owner = await _ownerService.GetOwnerWithIdByEmailAndPassword(request.Username, request.Password);
 
-        var owners = await _ownerService.GetAllOwners();
-        var owner = owners.Where(owner => owner.Email.Equals(request.Username)).FirstOrDefault();
-        var user = new User
+        if (owner == null)
         {
-            Password = owner.Email,
-            Username = owner.Email,
-        };
-
-        if (user == null)
-        {
-            Console.WriteLine("Invalid credentials");
             return Unauthorized("Invalid credentials");
         }
 
-        var token = GenerateJwtToken(user);
+        var token = owner.Id.ToString(); // Using ID as token
+                                         // Store token in HTTP context
+        HttpContext.Items["authToken"] = token;
         return Ok(new { token });
     }
 
-    public string GenerateSecretKey()
+    public class LoginRequest
     {
-        using (var rng = new RNGCryptoServiceProvider())
-        {
-            byte[] secretKey = new byte[32];  // 256 bits
-            rng.GetBytes(secretKey);
-            return Convert.ToBase64String(secretKey);  // Return as a base64 string
-        }
+        public string? Username { get; set; }
+        public string? Password { get; set; }
     }
 
-    private string GenerateJwtToken(User user)
+    public class User
     {
-        var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.Username),
-                // Additional claims can be added here
-            };
-
-        var secretKey = GenerateSecretKey();
-        var key = new SymmetricSecurityKey(Convert.FromBase64String(secretKey));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        var token = new JwtSecurityToken(
-            issuer: "YourIssuer",
-            audience: "YourAudience",
-            claims: claims,
-            expires: DateTime.Now.AddMinutes(60),
-            signingCredentials: creds);
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        public string? Username { get; set; }
+        public string? Password { get; set; }
     }
 }
-
-public class LoginRequest
-{
-    public string ?Username { get; set; }
-    public string ?Password { get; set; }
-}
-
-public class User
-{
-    public string ?Username { get; set; }
-    public string ?Password { get; set; }
-}
-
-

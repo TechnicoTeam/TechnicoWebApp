@@ -84,6 +84,15 @@ namespace Technico.Main.Services.Implementations
             return updatedOwner.ConvertToOwnerDtoResponse();
         }
 
+        public async Task<OwnerDtoResponse?> GetOwnerWithIdByEmailAndPassword(string email, string password)
+        {
+            var owner = await _ownerRepository.GetByEmailAndPasswordAsync(email, password);
+            if (owner == null)
+            {
+                return null;
+            }
+            return owner.ConvertToOwnerDtoResponse();
+        }
 
     }
 }

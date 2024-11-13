@@ -10,5 +10,6 @@ namespace Technico.Main.Services
         Task<OwnerDtoResponse> GetOwnerByVAT(string VAT);
         Task<OwnerDtoResponse> GetByIdAsync(Guid id);
         Task<OwnerDtoResponse> Update(OwnerDtoResponse owner);
+        Task<OwnerDtoResponse> GetOwnerWithIdByEmailAndPassword(string email, string password);
     }
 }
