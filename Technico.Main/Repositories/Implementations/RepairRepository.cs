@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using Technico.Main.Data;
 using Technico.Main.Models;
+using Technico.Main.Models.Domain;
 using Technico.Main.Models.Enums;
 
 namespace Technico.Main.Repositories.Implementations;
