@@ -7,6 +7,7 @@ using Technico.Main.Models;
 using Technico.Main.Services;
 using Technico.Main.Models.Domain;
 using Microsoft.AspNetCore.Authorization;
+using Technico.Main.Services.Implementations;
 
 namespace Technico.Main.Controllers
 {
@@ -58,6 +59,32 @@ namespace Technico.Main.Controllers
             return View(owners.ToList());
         }
 
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var owner = await _ownerService.GetByIdAsync(id);
+            return View(owner);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Guid id, OwnerDtoResponse owner)
+        {
+            var result = await _ownerService.Update(owner);
+            var ownerModelView = new OwnerViewModel
+            {
+                Owner = result
+            };
+
+            return View("~/Views/Owner/Profile.cshtml", ownerModelView);
+        }
+        public async Task<IActionResult> Delete( Guid id)
+        {
+            var result = await _ownerService.Delete(id);
+
+            return  View("~/Views/Home/LogIn.cshtml");
+        }
+
+
     }
+    
 
 }

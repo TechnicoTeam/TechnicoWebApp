@@ -29,7 +29,17 @@
         </div>
     </div>
     <div class="row  mt-5">
-        <button type="button" class="col-3 offset-1 btn btn-danger" onclick="loadModalContent('Modals', 'DeleteProfile')">DELETE</button>
-        <button type="button" class="col-3 offset-4 btn btn-info" onclick="loadModalContent('Modals', 'UpdateProfile')">UPDATE </button>
+        <a type="button" asp-controller = "Owner" asp-action="Delete" asp-route-id="@Model.Owner.Id" class="col-3 offset-1 btn btn-danger" onclick="return confirmDelete();">DELETE</a>
+        <a type="button" class="col-3 offset-4 btn btn-info" asp-route-id="@Model.Owner.Id" asp-controller="Owner" asp-action="Update">UPDATE </a>
     </div>
 </div>
+
+
+<script>
+    function confirmDelete() {
+             localStorage.removeItem('authToken');
+            localStorage.removeItem('role');
+        return confirm("Are you sure you want to delete this account?");
+        
+    }
+</script>
