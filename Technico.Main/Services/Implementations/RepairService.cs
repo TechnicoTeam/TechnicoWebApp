@@ -116,6 +116,11 @@ namespace Technico.Main.Services.Implementations
             var repairs = await _repairRepo.SearchWithVatAsync(Vat);
             return repairs.MapToListOfRepairDtos();
         }
+        public async Task<List<RepairDto>> SearchForScheduledDateAsync(DateTime ScheduledAt)
+        {
+            var repairs = await _repairRepo.SearchForScheduledDateAsync(ScheduledAt);
+            return repairs.MapToListOfRepairDtos();
+        }
 
     }
 }

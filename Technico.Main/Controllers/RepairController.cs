@@ -133,4 +133,17 @@ public class RepairController : ControllerBase
         return Ok(repairs);
 
     }
+    [HttpGet, Route("searchfor/{ScheduledAt:datetime}")]
+    public async Task<IActionResult> SearchForScheduledDateAsync(DateTime ScheduledAt)
+    {
+        var repairs = await _repairService.SearchForScheduledDateAsync(ScheduledAt);
+
+        if (repairs == null || !repairs.Any())
+        {
+            NotFound();
+        }
+
+        return Ok(repairs);
+
+    }
 }

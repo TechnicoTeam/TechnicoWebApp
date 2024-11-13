@@ -16,5 +16,6 @@ public interface IRepairService
     Task<List<RepairDto>> SearchForDateAsync(DateTime CreatedAt);
     Task<List<RepairDto>> SearchForActiveAsync();
     Task<List<RepairDto>> SearchWithVatAsync(string Vat);
+    Task<List<RepairDto>> SearchForScheduledDateAsync(DateTime ScheduledAt);
 
 }

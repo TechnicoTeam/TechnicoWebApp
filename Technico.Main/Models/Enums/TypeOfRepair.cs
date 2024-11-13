@@ -2,8 +2,9 @@
 
 public enum TypeOfRepair
 {
-    Detached_House, // this could be just house
-    Maisonet,
-    Apartment,
-    Building
+    Painting, 
+    Insulation, 
+    Frames, 
+    Plumbing, 
+    ElectricalWork
 }

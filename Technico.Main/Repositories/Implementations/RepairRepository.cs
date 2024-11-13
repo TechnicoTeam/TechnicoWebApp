@@ -137,4 +137,13 @@ public class RepairRepository : IRepairRepository
                     .ToListAsync();
     }
 
+    public async Task<List<Repair>> SearchForScheduledDateAsync(DateTime ScheduledAt)
+    {
+        return await _context.Repairs
+                    .Include(r => r.Property)
+                    .ThenInclude(p => p.Owners)
+                    .Where(r => r.ScheduledAt == ScheduledAt)
+                    .ToListAsync();
+    }
+
 }

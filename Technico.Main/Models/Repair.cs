@@ -20,5 +20,6 @@ public class Repair
     required public Property Property { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime? ScheduledAt { get; set; }
     
 }

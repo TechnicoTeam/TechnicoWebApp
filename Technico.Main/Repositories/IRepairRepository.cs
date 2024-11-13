@@ -13,4 +13,5 @@ public interface IRepairRepository
     Task<List<Repair>> SearchForActiveAsync();
     Task<bool> DeleteAsync(Guid guid);
     Task<List<Repair>> SearchWithVatAsync(string Vat);
+    Task<List<Repair>> SearchForScheduledDateAsync(DateTime ScheduledAt);
 }
