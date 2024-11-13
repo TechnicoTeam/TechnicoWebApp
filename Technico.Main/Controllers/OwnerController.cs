@@ -20,10 +20,10 @@ namespace Technico.Main.Controllers
         }
 
         [HttpGet("Profile")]
-        public async Task<IActionResult> Profile()
+        public async Task<IActionResult> Profile([FromRoute] Guid id)
         {
             // Ensure this profile object is properly instantiated and not null
-            var ownerResponse = await _ownerService.GetOwnerByVAT("123455");
+            var ownerResponse = await _ownerService.GetByIdAsync(id);
             var ownerModelView = new OwnerViewModel
             {
                 Owner = ownerResponse

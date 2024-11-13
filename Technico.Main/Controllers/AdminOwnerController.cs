@@ -52,7 +52,7 @@ public class AdminOwnerController : Controller
     public async Task<IActionResult> Update(Guid id, OwnerDtoResponse owner)
     {
         var result = await _ownerService.Update(owner);
-        return RedirectToAction("AdminView");
+        return RedirectToAction("Index");
     }
 
 }
