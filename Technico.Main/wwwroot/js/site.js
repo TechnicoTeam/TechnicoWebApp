@@ -49,7 +49,7 @@ function getProfile() {
     }
 
     // Create the URL with the token as a query parameter
-    const url = `/Home/Profile?token=${encodeURIComponent(token)}`;
+    const url = `/Home/Profile?id=${encodeURIComponent(token)}`;
 
     // Redirect the user to the URL, which will call the controller's action and render the view
     window.location.href = url;  // This changes the URL and triggers a GET request to the server

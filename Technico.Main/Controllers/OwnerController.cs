@@ -7,41 +7,30 @@ using Technico.Main.Models;
 using Technico.Main.Services;
 using Technico.Main.Models.Domain;
 using Microsoft.AspNetCore.Authorization;
-using System.Net;
-using Azure.Core;
 
 namespace Technico.Main.Controllers
 {
     public class OwnerController : Controller
     {
-         readonly IOwnerService _ownerService;
+        readonly IOwnerService _ownerService;
 
         public OwnerController(IOwnerService ownerService)
         {
             _ownerService = ownerService;
         }
 
-        public class TokenRequest
+        [HttpGet("Profile")]
+        public async Task<IActionResult> Profile([FromRoute] Guid id)
         {
-            public string Token { get; set; }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Profile()
-        {
-            var id = Guid.Parse("83AE364C-68D9-420B-48E4-08DD02835C36");
-
-            // Await the asynchronous call to get the owner
-            var owner = await _ownerService.GetOwnerByVAT("amt");
-
-            // Create a view model to send the owner data to the view
+            // Ensure this profile object is properly instantiated and not null
+            var ownerResponse = await _ownerService.GetByIdAsync(id);
             var ownerModelView = new OwnerViewModel
             {
-                Owner = owner
+                Owner = ownerResponse
             };
 
-            // Return the view with the model data
-            return View("~/Views/Owner/Profile.cshtml", ownerModelView);
+
+            return View(ownerModelView);
         }
 
         [HttpPost]
@@ -55,7 +44,7 @@ namespace Technico.Main.Controllers
 
             return View("~/Views/Owner/Profile.cshtml", ownerModelView);
         }
-     
+
 
         [HttpGet("AdminView")]
         public async Task<IActionResult> AdminView()
@@ -64,11 +53,6 @@ namespace Technico.Main.Controllers
             return View(owners.ToList());
         }
 
-
-       
-
-        //actually update object.
-  
     }
 
 }

@@ -19,15 +19,15 @@ namespace Technico.Main.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Profile(string token)
+        public async Task<IActionResult> Profile(string id)
         {
-            if (string.IsNullOrEmpty(token))
+            if (string.IsNullOrEmpty(id))
             {
-                return Unauthorized("Token not found in request.");
+                return Unauthorized("Id not found in request.");
             }
 
             // Proceed with the rest of the code using the 'token'
-            var owner = await _ownerService.GetByIdAsync(Guid.Parse(token));
+            var owner = await _ownerService.GetByIdAsync(Guid.Parse(id));
 
             var ownerModelView = new OwnerViewModel
             {
