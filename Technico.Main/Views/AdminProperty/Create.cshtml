@@ -1,0 +1,44 @@
+﻿@using Technico.Main.Models
+@using Technico.Main.Models.Enums
+@model AdminPropertyCreateModel;
+@{
+    ViewData["Title"] = "Create Property";
+}
+<h2>Create New Property</h2>
+
+<!-- Property Creation Form -->
+<form id="createPropertyForm" method="post" action="Create">
+    <div class="mb-3">
+        <label for="propertyIdentificationNumber" class="form-label">Property ID</label>
+        <input type="text" class="form-control" id="propertyIdentificationNumber" placeholder="E9-XXX" name="E9" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <input type="text" class="form-control" id="address" placeholder="Enter address" name="address" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="yearOfConstruction" class="form-label">Year of Construction</label>
+        <input type="number" class="form-control" id="yearOfConstruction" placeholder="Year of Construction" name="ConstructionYear" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="propertyType" class="form-label">Property Type</label>
+        <select class="form-select" id="propertyType" name="Type" required>
+            <option value="@TypeOfProperty.Building">@TypeOfProperty.Building</option>
+            <option value="@TypeOfProperty.Detached_House" >@TypeOfProperty.Detached_House</option>
+            <option value="@TypeOfProperty.Maisonet">@TypeOfProperty.Maisonet</option>
+            <option value="@TypeOfProperty.Apartment">@TypeOfProperty.Apartment</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="vatNumber" class="form-label">VAT Number</label>
+        <input type="text" class="form-control" id="vatNumber" placeholder="Enter VAT Number" name="Vat" required>
+    </div>
+
+    <button id="addPropertyBtn" type="submit" class="btn btn-primary">Create Property</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+

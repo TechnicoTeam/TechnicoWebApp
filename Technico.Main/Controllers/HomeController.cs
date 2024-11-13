@@ -1,20 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 using Technico.Main.Models;
+using Technico.Main.Services;
+using Technico.Main.Services.Implementations;
 
 namespace Technico.Main.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        readonly IOwnerService _ownerService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IOwnerService ownerService)
         {
             _logger = logger;
+            _ownerService = ownerService;
         }
 
         public IActionResult Index()
         {
+
             return View();
         }
 

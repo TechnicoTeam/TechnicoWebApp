@@ -6,36 +6,31 @@ using Technico.Main.DTOs;
 using Technico.Main.Models;
 using Technico.Main.Services;
 using Technico.Main.Models.Domain;
+using Microsoft.AspNetCore.Authorization;
+using Technico.Main.Services.Implementations;
 
 namespace Technico.Main.Controllers
 {
     public class OwnerController : Controller
     {
-         readonly IOwnerService _ownerService;
+        readonly IOwnerService _ownerService;
 
         public OwnerController(IOwnerService ownerService)
         {
             _ownerService = ownerService;
         }
 
-        [HttpGet("Profile")]
-        public async Task<IActionResult> Profile()
+        [HttpGet]
+        public async Task<IActionResult> Profile(string id)
         {
-            // Ensure this profile object is properly instantiated and not null
-            var ownerResponse = await _ownerService.GetOwnerByVAT("123455");
-            var ownerModelView = new OwnerViewModel
+            if (string.IsNullOrEmpty(id))
             {
-                Owner = ownerResponse
-            };
+                return Unauthorized("Id not found in request.");
+            }
 
-            
-            return View(ownerModelView); 
-        }
+            // Proceed with the rest of the code using the 'token'
+            var owner = await _ownerService.GetByIdAsync(Guid.Parse(id));
 
-        [HttpPost]
-        public async Task<IActionResult> Register(OwnerDtoRequest ownerDto)
-        {
-            var owner = await _ownerService.Create(ownerDto);
             var ownerModelView = new OwnerViewModel
             {
                 Owner = owner
@@ -43,9 +38,14 @@ namespace Technico.Main.Controllers
 
             return View("~/Views/Owner/Profile.cshtml", ownerModelView);
         }
-     
 
-   
+        [HttpPost]
+        public async Task<IActionResult> Register(OwnerDtoRequest ownerDto)
+        {
+            var owner = await _ownerService.Create(ownerDto);
+            return View("~/Views/Home/Login.cshtml");
+        }
+
 
         [HttpGet("AdminView")]
         public async Task<IActionResult> AdminView()
@@ -54,6 +54,32 @@ namespace Technico.Main.Controllers
             return View(owners.ToList());
         }
 
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var owner = await _ownerService.GetByIdAsync(id);
+            return View(owner);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Guid id, OwnerDtoResponse owner)
+        {
+            var result = await _ownerService.Update(owner);
+            var ownerModelView = new OwnerViewModel
+            {
+                Owner = result
+            };
+
+            return View("~/Views/Owner/Profile.cshtml", ownerModelView);
+        }
+        public async Task<IActionResult> Delete( Guid id)
+        {
+            var result = await _ownerService.Delete(id);
+
+            return  View("~/Views/Home/LogIn.cshtml");
+        }
+
+
     }
+    
 
 }

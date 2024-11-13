@@ -13,7 +13,7 @@ namespace Technico.Main.DTOs
 
         required public string Phone { get; set; }
 
-        public string Address { get; set; } // the user is not required to fill this 
+        public string? Address { get; set; } // the user is not required to fill this 
         public TypeOfUser Role { get; set; }
     }
 }

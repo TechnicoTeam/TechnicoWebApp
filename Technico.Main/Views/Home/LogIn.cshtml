@@ -18,7 +18,7 @@
 
         <a class="nav-link text-dark text-center text-decoration-underline" asp-area="" asp-controller="Home" asp-action="Register">Are you not registered?</a>
 
-        <div id="error-message" class="alert alert-danger" style="display:none;"></div>
+        <div id="error-message" class="alert alert-danger" style="display:none;">Invalid credentials</div>
 
     </form>
 
@@ -33,31 +33,6 @@
          // Create a user object to send to the API
          const user = { username: username, password: password };
 
-         // Perform the AJAX request to your backend API
-         fetch('https://localhost:7061/Auth/LogIn', {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json'
-             },
-             body: JSON.stringify(user)
-         })
-             .then(response => {
-                 if (!response.ok) {
-                     throw new Error('Invalid credentials');
-                 }
-                 return response.json();  // Parse the response JSON
-             })
-             .then(data => {
-                 // If successful, store the token in localStorage or sessionStorage
-                 localStorage.setItem('authToken', data.token);
-
-                 // Redirect user to a protected page (example: Home page)
-                 window.location.href = '/Home';
-             })
-             .catch(error => {
-                 // Display error message if login fails
-                 document.getElementById('error-message').style.display = 'block';
-                 document.getElementById('error-message').textContent = 'Login failed: ' + error.message;
-             });
+         handleLogin(username, password);
      });
  </script>

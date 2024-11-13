@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Technico.Main.DTOs.RepairDtos;
 using Technico.Main.Models.Enums;
 
 namespace Technico.Main.Models.Domain;
@@ -6,6 +7,7 @@ namespace Technico.Main.Models.Domain;
 public class Repair
 {
     public Guid Id { get; set; }
+    public string? Vat { get; set; }
 
     required public TypeOfRepair Type { get; set; }
     public string Description { get; set; } = string.Empty;
@@ -18,4 +20,6 @@ public class Repair
     required public Property Property { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime? ScheduledAt { get; set; }
+    
 }
