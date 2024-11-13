@@ -36,7 +36,7 @@ namespace Technico.Main.Services.Implementations
                 .Where(p => p.Id == repairDto.PropertyId)
                 .FirstOrDefaultAsync();
 
-            if (property == null) 
+            if (property == null)
             {
                 return null;
             }
