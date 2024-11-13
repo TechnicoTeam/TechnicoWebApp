@@ -6,11 +6,17 @@ document.addEventListener('DOMContentLoaded', function () {
             link.style.display = 'none';   // hides login and register buttons
         });
 
-        // Show LogOut and profile link
-        document.getElementById('logoutLink').style.display = 'block';
-        document.getElementById('showUserName').style.display = 'block';
-        document.getElementById('showProperties').style.display = 'block';
-        document.getElementById('showRepairs').style.display = 'block';
+        const role = localStorage.getItem('role');
+        if (role == "User") {
+            document.getElementById('logoutLink').style.display = 'block';
+            document.getElementById('showUserName').style.display = 'block';
+            document.getElementById('showProperties').style.display = 'block';
+            document.getElementById('showRepairs').style.display = 'block';
+        }
+        else if (role == "Admin") {
+            document.getElementById('logoutLink').style.display = 'block';
+            document.getElementById('showUserName').style.display = 'block';
+        }
     }
 });
 
@@ -27,8 +33,14 @@ function handleLogin(username, password) {
         .then(data => {
             // Store the token in localStorage
             localStorage.setItem('authToken', data.token);
+            localStorage.setItem('role', data.role);
             // Redirect to profile or home page
-            window.location.href = '/Home/Index';
+            if (data.role == "User") {
+                window.location.href = '/Home/Index';
+            } else if (data.role == "Admin") {
+                window.location.href = '/admin';
+            }
+            
         })
         .catch(error => {
             console.error('Error during login:', error);
@@ -59,7 +71,7 @@ function getProfile() {
 function logOut() { // Logs out the user
     // Remove the token from localStorage
     localStorage.removeItem('authToken');
-
+    localStorage.removeItem('role');
     // Redirect the user to the homepage
     window.location.href = '/Home/Index';  // or simply '/';
 }

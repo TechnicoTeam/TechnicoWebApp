@@ -34,10 +34,10 @@ public class AuthController : Controller
             return Unauthorized("Invalid credentials");
         }
 
-        var token = owner.Id.ToString(); // Using ID as token
-                                         // Store token in HTTP context
-        HttpContext.Items["authToken"] = token;
-        return Ok(new { token });
+        var token = owner.Id.ToString();
+        var role = owner.Role.ToString(); // Using ID as token
+
+        return Ok(new { token, role });
     }
 
     public class LoginRequest
