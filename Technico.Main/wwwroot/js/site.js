@@ -31,20 +31,22 @@ function handleLogin(username, password) {
     })
         .then(response => response.json())
         .then(data => {
-            // Store the token in localStorage
-            localStorage.setItem('authToken', data.token);
-            localStorage.setItem('role', data.role);
-            // Redirect to profile or home page
-            if (data.role == "User") {
-                window.location.href = '/Home/Index';
-            } else if (data.role == "Admin") {
-                window.location.href = '/admin';
+            if (data.error) {
+                showErrorMessage(true, data.error); 
+            } else {
+                localStorage.setItem('authToken', data.token);
+                localStorage.setItem('role', data.role);
+                if (data.role == "User") {
+                    window.location.href = '/Home/Index';
+                } else if (data.role == "Admin") {
+                    window.location.href = '/admin';
+                }
             }
-            
         })
         .catch(error => {
             console.error('Error during login:', error);
-            alert('Login failed: ' + error.message);
+            console.log('Login failed: ' + error.message); 
+            showErrorMessage(true, 'An error occurred during login.'); 
         });
 }
 
@@ -99,6 +101,15 @@ function loadModalContent(folder, viewName) {     // Calls home controller to dy
             modalElement.show();
         })
         .catch(error => console.error('Error loading modal content:', error));  // shows an error if anything goes wrong
+}
+
+function showErrorMessage(show) {
+    const errorMessage = document.getElementById('error-message');
+    if (show) {
+        errorMessage.style.display = 'block';  // Show error message
+    } else {
+        errorMessage.style.display = 'none';   // Hide error message
+    }
 }
 
 

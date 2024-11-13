@@ -31,7 +31,7 @@ public class AuthController : Controller
 
         if (owner == null)
         {
-            return Unauthorized("Invalid credentials");
+            return null;
         }
 
         var token = owner.Id.ToString();

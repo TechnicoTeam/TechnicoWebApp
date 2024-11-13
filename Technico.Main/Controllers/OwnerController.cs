@@ -43,12 +43,7 @@ namespace Technico.Main.Controllers
         public async Task<IActionResult> Register(OwnerDtoRequest ownerDto)
         {
             var owner = await _ownerService.Create(ownerDto);
-            var ownerModelView = new OwnerViewModel
-            {
-                Owner = owner
-            };
-
-            return View("~/Views/Owner/Profile.cshtml", ownerModelView);
+            return View("~/Views/Home/Login.cshtml");
         }
 
 
