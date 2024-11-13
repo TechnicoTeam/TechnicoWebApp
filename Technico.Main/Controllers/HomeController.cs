@@ -15,6 +15,7 @@ namespace Technico.Main.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 

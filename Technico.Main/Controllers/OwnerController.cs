@@ -20,10 +20,10 @@ namespace Technico.Main.Controllers
         }
 
         [HttpGet("Profile")]
-        public async Task<IActionResult> Profile()
+        public async Task<IActionResult> Profile([FromRoute] Guid id)
         {
             // Ensure this profile object is properly instantiated and not null
-            var ownerResponse = await _ownerService.GetOwnerByVAT("123455");
+            var ownerResponse = await _ownerService.GetByIdAsync(id);
             var ownerModelView = new OwnerViewModel
             {
                 Owner = ownerResponse
@@ -54,53 +54,10 @@ namespace Technico.Main.Controllers
         }
 
 
-        [Route("{controller}/{id}")]
-        public async Task<IActionResult> Delete([FromRoute] Guid id)
-        {
-            var result = await _ownerService.Delete(id);
-
-            return RedirectToAction("AdminView");
-        }
+       
 
         //actually update object.
-        [HttpPost]
-        [Route("Owner/Update/{id}")]
-        public async Task<IActionResult> Update(Guid id, OwnerDtoResponse owner)
-        {
-            var result = await _ownerService.Update(owner);
-            return RedirectToAction("AdminView");
-        }
-
-
-        //view update page
-        [Route("{controller}/{id}/update")]
-        public async Task<IActionResult> UpdateOwnerPage([FromRoute]Guid id)
-        {
-            var owner = await _ownerService.GetByIdAsync(id);
-
-            return View("UpdateOwnerPage", owner);
-        }
-
-        //returns the view for adding new owner
-        [Route("admin/owner/add")]
-        public async Task<IActionResult> AdminOwnerCreate()
-        {
-            return View("CreateOwnerPage");
-        }
-
-        //post for create
-        [HttpPost]
-        [Route("admin/owner/add")]
-        public async Task<IActionResult> RegisterOwner(OwnerDtoRequest ownerDto)
-        {
-            var owner = await _ownerService.Create(ownerDto);
-            var ownerModelView = new OwnerViewModel
-            {
-                Owner = owner
-            };
-
-            return RedirectToAction("AdminView");
-        }
+  
     }
 
 }

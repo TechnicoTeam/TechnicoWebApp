@@ -1,0 +1,53 @@
+﻿@using Technico.Main.Models
+@using Technico.Main.Models.Enums;
+@model AdminPropertyUpdateModel;
+@{
+    ViewData["Title"] = "Create Property";
+}
+<h2>Create New Property</h2>
+
+<div class="card col-md-8 col-lg-6 mx-auto shadow-lg p-4 my-5">
+    <h3 class="card-title mb-4 text-center">Update Property @Model.E9</h3>
+    <form  asp-action="Update" method="post">
+        <div class="form-group mb-3">
+            <label asp-for="Vat" class="form-label">VAT</label>
+            <input asp-for="Vat" class="form-control" />
+            <span asp-validation-for="Vat" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Address" class="form-label">Address</label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ConstructionYear" class="form-label">ConstructionYear</label>
+            <input asp-for="ConstructionYear" class="form-control" />
+            <span asp-validation-for="ConstructionYear" class="text-danger"></span>
+        </div>     
+
+        <div class="form-group mb-3">
+            <label asp-for="Address" class="form-label">Address (Optional)</label>
+            <input asp-for="Address" class="form-control" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Type" class="form-label">Type</label>
+            <select asp-for="Type" class="form-select" id="propertyType" name="Type" required>
+                <option value="@TypeOfProperty.Building">@TypeOfProperty.Building</option>
+                <option value="@TypeOfProperty.Detached_House">@TypeOfProperty.Detached_House</option>
+                <option value="@TypeOfProperty.Maisonet">@TypeOfProperty.Maisonet</option>
+                <option value="@TypeOfProperty.Apartment">@TypeOfProperty.Apartment</option>
+            </select>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary px-4 me-2">Update</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+
+
