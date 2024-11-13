@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Technico.Main.DTOs;
 using Technico.Main.DTOs.RepairDtos;
+using Technico.Main.Models.Enums;
 using Technico.Main.Services;
+using Technico.Main.Services.Implementations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -86,5 +89,61 @@ public class RepairController : ControllerBase
         }
 
         return Ok("successfully delete this repair.");
+    }
+    //Search Repairs
+
+    [HttpGet, Route("search/{Vat}")]
+    public async Task<IActionResult> Search(string Vat)
+    {
+        var repairs = await _repairService.SearchWithVatAsync(Vat);
+
+        if (repairs == null || !repairs.Any())
+        {
+            NotFound();
+        }
+
+        return Ok(repairs);
+
+    }
+
+    [HttpGet, Route("search/active")]
+    public async Task<IActionResult> SearchForActiveAsync()
+    {
+        var repairs = await _repairService.SearchForActiveAsync();
+
+        if (repairs == null || !repairs.Any())
+        {
+            NotFound();
+        }
+
+        return Ok(repairs);
+
+    }
+
+    [HttpGet, Route("search/{CreatedAt:datetime}")]
+    public async Task<IActionResult> SearchForDateAsync(DateTime CreatedAt)
+    {
+        var repairs = await _repairService.SearchForDateAsync(CreatedAt);
+
+        if (repairs == null || !repairs.Any())
+        {
+            NotFound();
+        }
+
+        return Ok(repairs);
+
+    }
+    [HttpGet, Route("searchfor/{ScheduledAt:datetime}")]
+    public async Task<IActionResult> SearchForScheduledDateAsync(DateTime ScheduledAt)
+    {
+        var repairs = await _repairService.SearchForScheduledDateAsync(ScheduledAt);
+
+        if (repairs == null || !repairs.Any())
+        {
+            NotFound();
+        }
+
+        return Ok(repairs);
+
     }
 }

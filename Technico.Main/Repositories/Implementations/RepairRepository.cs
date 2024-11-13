@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using Technico.Main.Data;
 using Technico.Main.Models;
+using Technico.Main.Models.Enums;
 
 namespace Technico.Main.Repositories.Implementations;
 
@@ -110,4 +111,39 @@ public class RepairRepository : IRepairRepository
 
         return true;
     }
+
+    public async Task<List<Repair>> SearchForDateAsync(DateTime CreatedAt)
+    {
+        return await _context.Repairs
+                    .Include(r => r.Property)
+                    .ThenInclude(p => p.Owners)
+                    .Where(r => r.CreatedAt == CreatedAt )
+                    .ToListAsync();
+    }
+    public async Task<List<Repair>> SearchForActiveAsync()
+    {
+        return await _context.Repairs
+                    .Include(r => r.Property)
+                    .ThenInclude(p => p.Owners)
+                    .Where(r => r.Status == StatusOfRepair.In_progress)
+                    .ToListAsync();
+    }
+    public async Task<List<Repair>> SearchWithVatAsync(string Vat)
+    {
+        return await _context.Repairs
+                    .Include(r => r.Property)
+                    .ThenInclude(p => p.Owners)
+                    .Where(r => r.Vat == Vat)
+                    .ToListAsync();
+    }
+
+    public async Task<List<Repair>> SearchForScheduledDateAsync(DateTime ScheduledAt)
+    {
+        return await _context.Repairs
+                    .Include(r => r.Property)
+                    .ThenInclude(p => p.Owners)
+                    .Where(r => r.ScheduledAt == ScheduledAt)
+                    .ToListAsync();
+    }
+
 }
