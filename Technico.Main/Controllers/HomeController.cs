@@ -18,25 +18,6 @@ namespace Technico.Main.Controllers
             _ownerService = ownerService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Profile(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                return Unauthorized("Id not found in request.");
-            }
-
-            // Proceed with the rest of the code using the 'token'
-            var owner = await _ownerService.GetByIdAsync(Guid.Parse(id));
-
-            var ownerModelView = new OwnerViewModel
-            {
-                Owner = owner
-            };
-
-            return View("~/Views/Owner/Profile.cshtml", ownerModelView);
-        }
-
         public IActionResult Index()
         {
 
