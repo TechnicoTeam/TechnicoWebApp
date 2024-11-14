@@ -11,5 +11,6 @@ namespace Technico.Main.Services
         Task<OwnerDtoResponse> GetByIdAsync(Guid id);
         Task<OwnerDtoResponse> Update(OwnerDtoResponse owner);
         Task<OwnerDtoResponse> GetOwnerWithIdByEmailAndPassword(string email, string password);
+        Task<List<OwnerDtoResponse>> Search(string? vat, string? email);
     }
 }

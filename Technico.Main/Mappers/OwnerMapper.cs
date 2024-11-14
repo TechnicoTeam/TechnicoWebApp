@@ -1,4 +1,5 @@
 ﻿using Technico.Main.DTOs;
+using Technico.Main.DTOs.PropertyDtos;
 using Technico.Main.Models.Domain;
 
 namespace Technico.Main.Mappers;
@@ -46,6 +47,26 @@ public static class OwnerMapper
             Role = owner.Role,
             Password = owner.Password,
         };
+    }
+
+    public static List<OwnerDtoResponse> MapToOwnersDtoResponse(this List<Owner> owners)
+    {
+        // Handle null or empty list
+        if (owners == null || !owners.Any())
+        {
+            return new List<OwnerDtoResponse>();
+        }
+
+        return owners.Select(owner => new OwnerDtoResponse
+        {
+            Id = owner.Id,
+            Firstname = owner.Firstname,
+            Lastname = owner.Lastname,
+            Email = owner.Email,
+            Vat = owner.Vat,
+            Phone = owner.Phone,
+            Role = owner.Role
+        }).ToList();
     }
 
 }

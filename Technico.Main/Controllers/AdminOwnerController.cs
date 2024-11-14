@@ -2,6 +2,7 @@
 using Technico.Main.DTOs;
 using Technico.Main.Models;
 using Technico.Main.Services;
+using Technico.Main.Services.Implementations;
 
 namespace Technico.Main.Controllers;
 
@@ -55,4 +56,12 @@ public class AdminOwnerController : Controller
         return RedirectToAction("Index");
     }
 
+
+    [HttpPost]
+    public async Task<IActionResult> Search(string? vat, string? email)
+    {
+        List<OwnerDtoResponse>? result = await _ownerService.Search(vat, email);
+
+        return View("Search", result);
+    }
 }
