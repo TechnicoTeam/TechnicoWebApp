@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Technico.Main.Data;
 using Technico.Main.Models;
@@ -50,6 +51,14 @@ public class RepairRepository : IRepairRepository
             .ThenInclude(p => p.Owners)
             .FirstOrDefaultAsync(r => r.Id == guid);
         
+    }
+    public async Task<List<Repair>> GetByPropertyAsync(Guid propertyId)
+    {
+        var repairs= await _context.Repairs
+            .Include(r => r.Property)
+            .ThenInclude(p => p.Owners)
+            .Where(r=>r.Property.Id == propertyId).ToListAsync();
+        return repairs;
     }
 
     public async Task<Repair?> UpdateAsync (Repair updatedRepair)
@@ -113,38 +122,66 @@ public class RepairRepository : IRepairRepository
         return true;
     }
 
-    public async Task<List<Repair>> SearchForDateAsync(DateTime CreatedAt)
+
+    public async Task<List<Repair>> SearchAdminAsync(string? Vat, StatusOfRepair? status, DateTime? FromDate, DateTime? ToDate)
     {
-        return await _context.Repairs
-                    .Include(r => r.Property)
-                    .ThenInclude(p => p.Owners)
-                    .Where(r => r.CreatedAt == CreatedAt )
-                    .ToListAsync();
-    }
-    public async Task<List<Repair>> SearchForActiveAsync()
-    {
-        return await _context.Repairs
-                    .Include(r => r.Property)
-                    .ThenInclude(p => p.Owners)
-                    .Where(r => r.Status == StatusOfRepair.In_progress)
-                    .ToListAsync();
-    }
-    public async Task<List<Repair>> SearchWithVatAsync(string Vat)
-    {
-        return await _context.Repairs
-                    .Include(r => r.Property)
-                    .ThenInclude(p => p.Owners)
-                    .Where(r => r.Vat == Vat)
-                    .ToListAsync();
+        IQueryable<Repair> repairs = _context.Repairs
+            .Include(r => r.Property)
+            .ThenInclude(p => p.Owners);
+
+        // Filter by Vat if provided
+        if (!string.IsNullOrEmpty(Vat))  repairs = repairs.Where(repair =>repair.Property.Owners.Any(owner => owner.Vat == Vat));
+      
+
+        // Filter by status if provided
+        if (status != null)  repairs = repairs.Where(r => r.Status == status);
+
+
+        // Filter by date range
+        if (FromDate != null && ToDate != null)
+        {
+            repairs = repairs.Where(r => r.CreatedAt >= FromDate && r.CreatedAt <= ToDate);
+        }
+        else if (FromDate != null)
+        {
+            repairs = repairs.Where(r => r.CreatedAt >= FromDate);
+        }
+        else if (ToDate != null)
+        {
+            repairs = repairs.Where(r => r.CreatedAt <= ToDate);
+        }
+
+        // Execute the query and return the results
+        return await repairs.ToListAsync();
     }
 
-    public async Task<List<Repair>> SearchForScheduledDateAsync(DateTime ScheduledAt)
+
+    public async Task<List<Repair>> SearchOwnerPropertyAsync(TypeOfRepair? type, StatusOfRepair? status, Guid propertyId)
+    {
+        var repairs = _context.Repairs.Include(r=>r.Property).ThenInclude(r=>r.Owners).Where(r=>r.Property.Id == propertyId);
+
+        if (status != null) repairs = repairs.Where(r => r.Status == status);
+        if (type != null) repairs = repairs.Where(r=>r.Type == type);
+        return await repairs.ToListAsync();
+    }
+
+    public async Task<List<Repair>> SearchOwnerAsync(TypeOfRepair? type, StatusOfRepair? status, Guid ownerId)
+    {
+        IQueryable<Repair> repairs = _context.Repairs.Include(r => r.Property).ThenInclude(r => r.Owners).Where(r => r.Property.Owners.Any(r => r.Id == ownerId));
+
+        if (status != null) repairs = repairs.Where(r => r.Status == status);
+        if (type != null) repairs = repairs.Where(r => r.Type == type);
+
+        return await repairs.ToListAsync();
+
+    }
+
+    public async Task <List<Repair>> GetByOwnerAsync(Guid ownerId)
     {
         return await _context.Repairs
-                    .Include(r => r.Property)
-                    .ThenInclude(p => p.Owners)
-                    .Where(r => r.ScheduledAt == ScheduledAt)
-                    .ToListAsync();
+            .Include(r => r.Property)
+            .ThenInclude(r => r.Owners)
+            .Where(r => r.Property.Owners.Any(r => r.Id == ownerId)).ToListAsync();
     }
 
 }

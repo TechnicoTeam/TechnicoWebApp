@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Build.Framework;
+using Microsoft.EntityFrameworkCore;
 using Technico.Main.DTOs.PropertyDtos;
 using Technico.Main.Models.Enums;
 
@@ -15,10 +16,8 @@ public class RepairDto
 
     public decimal Cost { get; set; }
 
-    public Guid PropertyId { get; set; }
     public DateTime CreatedAt { get; set; }
 
-    public bool IsActive => Status == StatusOfRepair.In_progress;
+    required public PropertyDtoResponse Property {  get; set; } 
 
-    public PropertyDtoResponse Property { get; set; }
 }

@@ -32,14 +32,15 @@ public class RepairsController : Controller
             return BadRequest("Invalid propertyId");
         }
         var propertyResponse = await _propertyService.GetByIdAsync(propertyId);
-        List<RepairDto> repairsResponse = await _repairService.GetByIdAsync(propertyId);
+        List<RepairDto> repairsResponse = await _repairService.GetByPropertyAsync(propertyId);
         var propertyModelView = new PropertyRepairsViewModel
         {
             Property = propertyResponse,
             Repairs = repairsResponse 
         };
-        return View("~/Views/Owner/Repairs.cshtml", propertyModelView);
+        return View("~/Views/Owner/PropertyRepairs.cshtml", propertyModelView);
     }
+
 
     //[HttpGet("{propertyId:guid}/repairs")]
     //public async Task<IActionResult> Index(Guid propertyId)

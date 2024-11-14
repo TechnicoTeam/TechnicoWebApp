@@ -88,7 +88,7 @@
             </div>
 
             <div class="col-md-4">
-                <select class="form-select" name="Type" id="status">
+                <select class="form-select" name="Status" id="Status">
                     <option selected hidden>Choose Status </option>
                     <option value="@StatusOfRepair.Pending">@StatusOfRepair.Pending</option>
                     <option value="@StatusOfRepair.In_progress">@StatusOfRepair.In_progress</option>
@@ -101,12 +101,11 @@
     </form>
    
 
-    <div class="table-responsive my-4  px-4">
+    <div class="table-responsive my-4 px-4">
         <table class="table table-striped table-hover table-bordered align-middle">
             <thead class="table-dark sticky-top">
                 <tr class="text-center">
                     <th class="align-middle">Type</th>
-                    <th class="align-middle">Description</th>
                     <th class="align-middle">Status</th>
                     <th class="align-middle">Cost</th>
                     <th class="align-middle">Created_at</th>
@@ -126,7 +125,6 @@
                     {
                         <tr class="repairs-row">
                             <td class="align-middle">@r.Type</td>
-                            <td class="align-middle">@r.Description</td>
                             <td class="align-middle">@r.Status</td>
                             <td class="align-middle">@r.Cost</td>
                             <td class="align-middle">@r.CreatedAt</td>
