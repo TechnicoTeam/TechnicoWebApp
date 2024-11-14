@@ -54,16 +54,16 @@ function getAuthToken() {
     return localStorage.getItem('authToken');
 }
 
-function getProfile() {
+function getProfile(controller,action) {
     const token = getAuthToken();  // Fetch the token from localStorage
-
+   
     if (!token) {
         console.error("No auth token found");
         return;
     }
 
     // Create the URL with the token as a query parameter
-    const url = `/Owner/Profile?id=${encodeURIComponent(token)}`;
+    const url = `/` + controller + `/` + action +`?id=${encodeURIComponent(token)}`;
 
     // Redirect the user to the URL, which will call the controller's action and render the view
     window.location.href = url;  // This changes the URL and triggers a GET request to the server

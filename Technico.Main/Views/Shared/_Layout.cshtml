@@ -32,13 +32,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
                         </li>
                         <li class="nav-item" id="showProperties" style="display: none;">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Properties" asp-action="MyProperties">Properties</a>
+                            <a class="nav-link text-dark" href="javascript:void(0);" onclick="getProfile('Properties','MyProperties');">Properties</a>
                         </li>
                         <li class="nav-item" id="showRepairs" style="display: none;">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Repairs">Repairs</a>
                         </li>
                         <li class="nav-item" id="showUserName"  style="display: none;">
-                            <a class="nav-link text-dark" href="javascript:void(0);" onclick="getProfile();">Profile</a>
+                            <a class="nav-link text-dark" href="javascript:void(0);" onclick="getProfile('Owner','Profile');">Profile</a>
                         </li>
                         <li class="nav-item" id="logoutLink" style="display: none;">
                              <a class="nav-link text-dark" href="javascript:void(0);" onclick="logOut()">LogOut</a>

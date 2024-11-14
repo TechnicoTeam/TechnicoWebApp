@@ -1,29 +1,77 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using Technico.Main.DTOs;
+using Technico.Main.DTOs.PropertyDtos;
+using Technico.Main.Models;
+using Technico.Main.Models.Enums;
+using Technico.Main.Services;
+using Technico.Main.Services.Implementations;
 
 namespace Technico.Main.Controllers
 {
     public class PropertiesController : Controller
     {
 
-        public IActionResult MyProperties()
+        readonly IPropertyService _propertyService;
+        readonly IOwnerService _ownerService;
+
+        public PropertiesController(IPropertyService propertyService, IOwnerService ownerService)
         {
-            return View("~/Views/Owner/Properties.cshtml");
+            _propertyService = propertyService;
+            _ownerService = ownerService;
         }
 
-        // Action method to handle form submission and pass data to the modal
+        [HttpGet]
+        public async Task<IActionResult> MyProperties(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return Unauthorized("Id not found in request.");
+            }
+
+            var properties = await _propertyService.GetAllAsync(Guid.Parse(id));
+
+            return View("~/Views/Owner/Properties.cshtml", properties);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest("Invalid property ID.");
+            }
+
+            var result = await _propertyService.DeleteAsync(id);
+
+            if (!result)
+            {
+                return NotFound("Property not found or could not be deleted.");
+            }
+
+            return Ok("Property deleted successfully.");
+        }
+
+        [HttpGet]
+        public IActionResult Create([FromQuery] Guid id)
+        {
+            var property = new PropertyDtoCreateRequest
+            {
+                Address = string.Empty,
+                ConstructionYear = 0,
+                E9 = string.Empty,
+                Type = 0,
+                OwnersIds = [id]
+            };
+            return View("~/Views/Owner/CreateProperty.cshtml",property);
+        }
+
         [HttpPost]
-        public IActionResult MyProperties(string E9,string address, string yearOfConstruction,string propertyType,string vatNumber)
+        public async Task<IActionResult> Create(PropertyDtoCreateRequest propertyViewModel,Guid id)
         {
-            // Store the submitted name in ViewData
-            ViewData["E9"] = E9;
-            ViewData["address"] = address;
-            ViewData["yearOfConstruction"] = yearOfConstruction;
-            ViewData["propertyType"] = propertyType;
-            ViewData["vatNumber"] = vatNumber;
-
-            // Return the view with the updated ViewData
-            return View("~/Views/Owner/Properties.cshtml");
+            propertyViewModel.OwnersIds = [id];
+            await _propertyService.CreateAsync(propertyViewModel);
+            return Redirect($"/Properties/MyProperties?id={id}");
         }
-
     }
 }
