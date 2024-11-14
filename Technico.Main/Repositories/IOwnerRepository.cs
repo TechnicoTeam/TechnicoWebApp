@@ -1,4 +1,5 @@
-﻿using Technico.Main.Models.Domain;
+﻿using Technico.Main.DTOs;
+using Technico.Main.Models.Domain;
 
 namespace Technico.Main.Repositories.Implementations
 {
@@ -11,5 +12,6 @@ namespace Technico.Main.Repositories.Implementations
         Task<Owner> UpdateAsync(Owner owner);
         Task<Owner?> GetByVatAsync(string VAT);
         Task<Owner?> GetByEmailAndPasswordAsync(string Email, string Password);
+        Task<List<Owner>> Search(string? vat, string? email);
     }
 }

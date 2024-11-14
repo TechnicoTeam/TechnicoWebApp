@@ -2,15 +2,10 @@
 @using Technico.Main.Models.Enums;
 @model List<OwnerDtoResponse>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Owner Administration</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+@{
+    ViewData["Title"] = "Owner";
+}
 
-</head>
-<body >
     <div class="container my-5">
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white text-center">
@@ -18,13 +13,60 @@
                     <i class="fas fa-user-shield me-2"></i>Owner Administration
                 </h3>
             </div>
+
+           
             <div class="card-body p-4">
-                <div class="row mb-4">
-                    <div class="col-md-6 mx-auto">
-                        <input type="text" class="form-control" id="searchInput" placeholder="Search owners..." aria-label="Search">
-                        
-                    </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Admin Home Page
+                    </a>
                 </div>
+
+                <div class="card shadow-sm mb-4">
+                            <div class="card-header bg-light">
+                                <h5 class="card-title mb-0">Property Search</h5>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" asp-controller="AdminOwner" asp-action="Search">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="vat"
+                                                       name="vat"
+                                                       placeholder="Search by VAT"
+                                                       oninput="validateForm()">
+                                                <label for="vat">VAT Number</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="email"
+                                                       name="email"
+                                                       placeholder="Search by Email"
+                                                       oninput="validateForm()">
+                                                <label for="email">Email</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                <button type="reset" class="btn btn-outline-secondary" onclick="validateForm()">Clear</button>
+                                                <button type="submit"
+                                                        class="btn btn-primary"
+                                                        id="searchButton"
+                                                        disabled>
+                                                    <i class="bi bi-search"></i> Search
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
 
                 <div class="mb-4">
                     <a class="btn btn-primary" asp-action="Create">Create new owner</a>
@@ -91,30 +133,22 @@
                 new bootstrap.Tooltip(tooltipTriggerEl)
             });
 
-            //Filter function for the search bar
-            document.getElementById('searchInput').addEventListener('input', function () {
-                const searchTerm = this.value.toLowerCase();
-                const rows = document.querySelectorAll('#ownerTableBody .owner-row');
-
-                rows.forEach(row => {
-                    const rowText = row.textContent.toLowerCase();
-                    if (rowText.includes(searchTerm)) {
-                        row.style.display = '';
-                    }
-                    else {
-                        row.style.display = 'none';
-                    }
-                });
-
-
-            });
         });
 
         function confirmDelete() {
             return confirm("Are you sure you want to delete this owner?");
         }
 
-    </script>
+        function validateForm() {
+            const emailInput = document.getElementById('email').value.trim();
+            const vatInput = document.getElementById('vat').value.trim();
+            const searchButton = document.getElementById('searchButton');
 
-</body>
-</html>
+            // Enable button only if at least one field has a value
+            searchButton.disabled = (emailInput === '' && vatInput === '');
+        }
+
+            // Initial validation on page load
+        document.addEventListener('DOMContentLoaded', validateForm);
+
+    </script>

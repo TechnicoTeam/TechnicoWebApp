@@ -30,7 +30,12 @@ namespace Technico.Main.Controllers
         public async Task<IActionResult> Create(AdminPropertyCreateModel propertyViewModel)
         {
             var owner = await _ownerService.GetOwnerByVAT(propertyViewModel.Vat);
-            if(owner == null) return NotFound();
+
+            if(owner is null)
+            {
+                return View("NotFoundView");
+            }
+
             PropertyDtoCreateRequest property = new PropertyDtoCreateRequest {
                 E9 = propertyViewModel.E9,
                 ConstructionYear = propertyViewModel.ConstructionYear,
@@ -70,6 +75,13 @@ namespace Technico.Main.Controllers
             };
             var result = await _propertyService.UpdateAsync(property);
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Search(string? e9, string? vat)
+        {
+            var result = await _propertyService.SearchAsync(e9, null, vat);
+            return View("Search", result);
         }
     }
 }

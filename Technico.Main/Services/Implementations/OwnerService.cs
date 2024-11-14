@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using Technico.Main.DTOs;
+using Technico.Main.DTOs.PropertyDtos;
 using Technico.Main.Mappers;
 using Technico.Main.Models;
 using Technico.Main.Models.Enums;
@@ -89,19 +90,21 @@ namespace Technico.Main.Services.Implementations
             return owners.Select(owner => owner.ConvertToOwnerDtoResponse());
         }
 
-    public async Task<OwnerDtoResponse> GetOwnerByVAT(string vat)
-    {
-        if (string.IsNullOrWhiteSpace(vat))
+        public async Task<OwnerDtoResponse?> GetOwnerByVAT(string vat)
         {
-            throw new ArgumentException("VAT cannot be null or empty.", nameof(vat));
-        }
+            if (string.IsNullOrWhiteSpace(vat))
+            {
+                throw new ArgumentException("VAT cannot be null or empty.", nameof(vat));
+            }
 
-        // Validate VAT format
-        if (!Regex.IsMatch(vat, @"^\d{9}$")) // Modify pattern as needed
-        {
-            throw new ArgumentException("VAT format is invalid.", nameof(vat));
-        }
+
             var owner = await _ownerRepository.GetByVatAsync(vat);
+
+            if (owner is null)
+            {
+                return null;
+            }
+
             return owner.ConvertToOwnerDtoResponse();
         }
 
@@ -146,6 +149,13 @@ namespace Technico.Main.Services.Implementations
                 return null;
             }
             return owner.ConvertToOwnerDtoResponse();
+        }
+
+        public async Task<List<OwnerDtoResponse>> Search(string? vat, string? email)
+        {
+            var owners = await _ownerRepository.Search(vat, email);
+
+            return owners.MapToOwnersDtoResponse();
         }
 
     }
