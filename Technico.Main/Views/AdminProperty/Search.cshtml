@@ -1,0 +1,77 @@
+﻿@using Technico.Main.DTOs.PropertyDtos;
+@using Technico.Main.Models.Enums;
+@model List<PropertyDtoResponse>
+
+@{
+    ViewData["Title"] = "Properties - Search Result";
+}
+
+<div class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+            <h3 class="card-title mb-0">
+                <i class="fas me-2"></i>Properties - Search Results
+            </h3>
+        </div>
+        <div class="card-body p-4">
+           
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered align-middle">
+                    <thead class="table-dark sticky-top">
+                        <tr class="text-center">
+                            <th class="align-middle">E9</th>
+                            <th class="align-middle">Vat</th>
+                            <th class="align-middle">Address</th>
+                            <th class="align-middle">Construction Year</th>
+                            <th class="align-middle">Type of Property</th>
+                            <th class="align-middle" style="width: 150px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-light" id="propertyTableBody">
+                        @foreach (var property in Model)
+                        {
+                            <tr class="property-row">
+                                <td>@property.E9</td>
+                                <td>@property?.Owners?.FirstOrDefault()?.Vat</td>
+                                <td>@property.Address</td>
+                                <td>@property.ConstructionYear</td>
+                                <td>@property.Type</td>
+                                <td class="text-center align-middle">
+
+                                    <div class="btn-group" role="group">
+
+                                        <a asp-action="Update" asp-route-id="@property.Id" class="btn btn-outline-primary btn-sm me-2 rounded-pill" data-bs-toggle="tooltip" title="Edit Property">
+                                            <i class="fas fa-cog"></i>
+                                        </a>
+
+                                        <a asp-action="Delete" asp-route-id="@property.Id" class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Delete Property"
+                                           onclick="return confirmDelete();">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //Initialize tooltips
+    document.addEventListener('DOMContentLoaded', function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+            new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
+    });
+
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this property?");
+    }
+
+</script>
