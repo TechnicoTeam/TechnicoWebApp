@@ -13,6 +13,7 @@ public interface IRepairService
     Task<List<RepairDto>> GetByPropertyAsync(Guid propertyId);
     Task<bool> DeleteAsync(Guid id);
     Task<RepairDto?> UpdateAsync(UpdateRepairDto repairDto);
+    Task<List<RepairDto>> SearchAdminAsync(string? Vat, StatusOfRepair? status, DateTime? FromDate, DateTime? ToDate);
 
     Task<List<RepairDto>> GetByOwnerAsync(Guid ownerId);
     //Task<List<RepairDto>> SearchForDateAsync(DateTime CreatedAt);

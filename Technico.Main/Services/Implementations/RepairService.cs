@@ -114,27 +114,9 @@ public class RepairService : IRepairService
         var updatedRepair = await _repairRepo.UpdateAsync(repairToUpdate);
         return updatedRepair?.ConvertToDto();
     }
-
-    //public async Task<List<RepairDto>> SearchForDateAsync(DateTime CreatedAt)
-    //{
-    //    var repairs = await _repairRepo.SearchForDateAsync(CreatedAt);
-    //    return repairs.MapToListOfRepairDtos();
-    //}
-
-    //public async Task<List<RepairDto>> SearchForActiveAsync()
-    //{
-    //    var repairs = await _repairRepo.SearchForActiveAsync();
-    //    return repairs.MapToListOfRepairDtos();
-    //}
-    //public async Task<List<RepairDto>> SearchWithVatAsync(string Vat)
-    //{
-    //    var repairs = await _repairRepo.SearchWithVatAsync(Vat);
-    //    return repairs.MapToListOfRepairDtos();
-    //}
-    //public async Task<List<RepairDto>> SearchForScheduledDateAsync(DateTime ScheduledAt)
-    //{
-    //    var repairs = await _repairRepo.SearchForScheduledDateAsync(ScheduledAt);
-    //    return repairs.MapToListOfRepairDtos();
-    //}
-
+    public async Task <List<RepairDto>>SearchAdminAsync(string? Vat, StatusOfRepair? status, DateTime? FromDate, DateTime? ToDate)
+    {
+        var repairs  = await _repairRepo.SearchAdminAsync( Vat, status,FromDate,ToDate);
+        return repairs.Select (rep =>rep.ConvertToDto()).ToList();
+    }
 }
