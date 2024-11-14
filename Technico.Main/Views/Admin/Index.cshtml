@@ -9,56 +9,62 @@
 @{
 }
 
-<h2>Welcome Admin </h2>
-<a class="btn btn-primary" asp-controller="AdminOwner" asp-action="Index" >Owners</a>
-<a class="btn btn-primary" asp-controller="AdminProperty" asp-action="Index">Properties</a>
+<h2 class="text-center my-4">Welcome To Admin HomePage</h2>
 
-<div class="px-4 mb-3 table-responsive">
-    <table class="table table-striped table-hover table-bordered align-middle">
-        <thead class="table-dark sticky-top">
-            <tr class="text-center">
-                <th class="align-middle">E9</th>
-                <th class="align-middle">Type</th>
-                <th class="align-middle">Status</th>
-                <th class="align-middle">Cost</th>
+<div class="d-flex justify-content-center mb-4">
+    
+</div>
 
-                <th class="align-middle">CreatedAt</th>
-                <th class="align-middle">Actions</th>
-            </tr>
-        </thead>
-        <tbody class="table-light" id="RepairTableBody">
-            @if (!Model.Repairs.Any())
-            {
-                <tr class="repairs-row">
-                    The are not any repair for this property.
+<div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white text-center">
+        <h3 class="card-title mb-0">
+            <i class="fas fa-user-shield me-2"></i>Repair Administration
+        </h3>
+    </div>
+    <div class="px-4 py-3 table-responsive">
+        <table class="table table-striped table-hover table-bordered align-middle">
+            <thead class="table-dark sticky-top">
+                <tr class="text-center">
+                    <th class="align-middle">E9</th>
+                    <th class="align-middle">Type</th>
+                    <th class="align-middle">Status</th>
+                    <th class="align-middle">Cost</th>
+                    <th class="align-middle">Scheduled Date</th>
                 </tr>
-            }
-            else
-            {
-                @foreach (var r in Model.Repairs)
+            </thead>
+            <tbody class="table-light" id="RepairTableBody">
+                @if (!Model.Repairs.Any())
                 {
-                    <tr class="repairs-row">
-                        <td>@r.Property.E9</td>
-                        <td class="align-middle">@r.Type</td>
-                        <td class="align-middle">@r.Status</td>
-                        <td class="align-middle">@r.Cost</td>
-                        <td class="align-middle">@r.CreatedAt</td>
-                        <td class="text-center align-middle">
-
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-outline-primary btn-sm me-2 rounded-pill" data-bs-toggle="tooltip" title="Edit Repair">
-                                    <i class="fas fa-cog"></i>
-                                </button>
-
-                                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Delete Repair">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-
-                            </div>
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">
+                            <em>There are no repairs for this property.</em>
                         </td>
                     </tr>
                 }
-            }
-        </tbody>
-    </table>
+                else
+                {
+                    @foreach (var r in Model.Repairs)
+                    {
+                        <tr class="text-center">
+                            <td class="align-middle">@r.Property.E9</td>
+
+                            <td class="align-middle"> <span class="badge bg-success"> @r.Type </span> </td>
+                            <td class="align-middle">
+                                @* Inline Razor conditions for badge styling *@
+                                <span class="badge
+                                @(r.Status == StatusOfRepair.Pending ? "bg-warning text-dark" :
+                                  r.Status == StatusOfRepair.Complete ? "bg-success" :
+                                  r.Status == StatusOfRepair.In_progress ? "bg-info text-dark" :
+                                    "bg-secondary")">
+                                  @r.Status.ToString().Replace("_", " ")
+                                </span>
+                            </td>
+                            <td class="align-middle">@r.Cost.ToString("C")</td>
+                            <td class="align-middle">@r.CreatedAt.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
