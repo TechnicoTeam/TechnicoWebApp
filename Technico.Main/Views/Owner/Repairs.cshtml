@@ -8,95 +8,98 @@
     ViewData["Title"] = "Repairs";
 }
 
+
 <div class="container col-md-8">
 
-    <div class="px-4 d-flex justify-content-between mb-3">
-        <h3 class="card-title "><i class="fa-solid fa-house-crack"></i> Repairs</h3>
-        <div style="width:250px;" class="d-flex justify-content-end">
-            <a class="btn btn-primary" asp-action="Create">Create new Repair</a>
-         </div>
-    </div>
-
-    <div class="px-5 mb-3">
-        <hr />
-        <form class="d-flex gap-4">
-
-            <h6 class="my-auto"><i class="fa-solid fa-filter"></i> Filters</h6>
-            <div class="col-3">
-                <select id="searchType" class="form-select" name="searchType">
-                    <option selected hidden> Choose Type </option>
-                    <option value="@TypeOfRepair.Plumbing"> @TypeOfRepair.Plumbing </option>
-                    <option value="@TypeOfRepair.Insulation"> @TypeOfRepair.Insulation </option>
-                    <option value="@TypeOfRepair.Painting"> @TypeOfRepair.Painting </option>
-                    <option value="@TypeOfRepair.Frames"> @TypeOfRepair.Frames </option>
-                    <option value="@TypeOfRepair.Electrical_Work"> @TypeOfRepair.Electrical_Work </option>
-                </select>
+    <div class="card shadow-sm my-4">
+        <div class="card-header d-flex justify-content-between mb-3">
+            <h3 class="card-title "><i class="fa-sharp fa-solid fa-hammer"></i> Repairs</h3>
+            <div style="width:250px;" class="d-flex justify-content-end">
+                <a class="btn btn-primary" asp-action="Create">Create new Repair</a>
             </div>
-            <div class="col-3">
-                <select id="searchStatus" class="form-select" name="searchStatus">
-                    <option selected hidden> Choose Type </option>
-                    <option value="@StatusOfRepair.Pending"> @StatusOfRepair.Pending </option>
-                    <option value="@StatusOfRepair.In_progress"> @StatusOfRepair.In_progress </option>
-                    <option value="@StatusOfRepair.Complete"> @StatusOfRepair.Complete </option>
-                </select>
+        </div>
+        <div class="card-body p-4">
+
+            <div class="px-5">
+                <hr />
+                <form class="d-flex gap-4">
+
+                    <h6 class="my-auto"><i class="fa-solid fa-filter"></i> Filters</h6>
+                    <div class="col-3">
+                        <select id="searchType" class="form-select" name="searchType">
+                            <option selected hidden> Choose Type </option>
+                            <option value="@TypeOfRepair.Plumbing"> @TypeOfRepair.Plumbing </option>
+                            <option value="@TypeOfRepair.Insulation"> @TypeOfRepair.Insulation </option>
+                            <option value="@TypeOfRepair.Painting"> @TypeOfRepair.Painting </option>
+                            <option value="@TypeOfRepair.Frames"> @TypeOfRepair.Frames </option>
+                            <option value="@TypeOfRepair.Electrical_Work"> @TypeOfRepair.Electrical_Work </option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select id="searchStatus" class="form-select" name="searchStatus">
+                            <option selected hidden> Choose Status </option>
+                            <option value="@StatusOfRepair.Pending"> @StatusOfRepair.Pending </option>
+                            <option value="@StatusOfRepair.In_progress"> @StatusOfRepair.In_progress </option>
+                            <option value="@StatusOfRepair.Complete"> @StatusOfRepair.Complete </option>
+                        </select>
+                    </div>
+
+                </form>
+                <hr />
+
             </div>
 
-        </form>
-        <hr />
-
-    </div>
-   
-   
-
-    <div class="px-4 mb-3 table-responsive">
-        <table class="table table-striped table-hover table-bordered align-middle">
-            <thead class="table-dark sticky-top">
-                <tr class="text-center">
-                    <th class="align-middle">E9</th>
-                    <th class="align-middle">Type</th>
-                    <th class="align-middle">Status</th>
-                    <th class="align-middle">Cost</th>
-
-                    <th class="align-middle">CreatedAt</th>
-                    <th class="align-middle">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="table-light" id="RepairTableBody">
-                @if (!Model.Repairs.Any())
-                {
-                    <tr class="repairs-row">
-                        The are not any repair for this property.
-                    </tr>
-                }
-                else
-                {
-                    @foreach (var r in Model.Repairs)
-                    {
-                        <tr class="repairs-row">
-                            <td>@r.Property.E9</td>
-                            <td class="align-middle">@r.Type</td>
-                            <td class="align-middle">@r.Status</td>
-                            <td class="align-middle">@r.Cost</td>
-                            <td class="align-middle">@r.CreatedAt</td>
-                            <td class="text-center align-middle">
-
-                                <div class="btn-group" role="group">
-                                    <button class="btn btn-outline-primary btn-sm me-2 rounded-pill" data-bs-toggle="tooltip" title="Edit Repair">
-                                        <i class="fas fa-cog"></i>
-                                    </button>
-
-                                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Delete Repair">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-
-                                </div>
-                            </td>
+            <div class="mb-3 table-responsive">
+                <table class="table table-striped table-hover table-bordered align-middle">
+                    <thead class="table-dark sticky-top">
+                        <tr class="text-center">
+                            <th class="align-middle">E9</th>
+                            <th class="align-middle">Type</th>
+                            <th class="align-middle">Status</th>
+                            <th class="align-middle">Cost</th>
+                            <th class="align-middle">CreatedAt</th>
+                            <th class="align-middle">Actions</th>
                         </tr>
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
+                    </thead>
+                    <tbody class="table-light" id="RepairTableBody">
+                        @if (!Model.Repairs.Any())
+                        {
+                            <tr class="repairs-row">
+                                The are not any repair for this property.
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var r in Model.Repairs)
+                            {
+                                <tr class="repairs-row">
+                                    <td>@r.Property.E9</td>
+                                    <td class="align-middle">@r.Type</td>
+                                    <td class="align-middle">@r.Status</td>
+                                    <td class="align-middle">@r.Cost</td>
+                                    <td class="align-middle">@r.CreatedAt</td>
+                                    <td class="text-center align-middle">
 
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-outline-primary btn-sm me-2 rounded-pill" data-bs-toggle="tooltip" title="Edit Repair">
+                                                <i class="fas fa-cog"></i>
+                                            </button>
+
+                                            <button class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Delete Repair">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
 
 </div>
