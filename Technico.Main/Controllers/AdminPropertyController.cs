@@ -71,6 +71,13 @@ namespace Technico.Main.Controllers
             var result = await _propertyService.UpdateAsync(property);
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Search(string? e9, string? vat)
+        {
+            var result = await _propertyService.SearchAsync(e9, null, vat);
+            return View("Search", result);
+        }
     }
 }
 
