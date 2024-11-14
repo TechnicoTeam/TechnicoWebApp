@@ -89,16 +89,22 @@ namespace Technico.Main.Services.Implementations
             return owners.Select(owner => owner.ConvertToOwnerDtoResponse());
         }
 
-        public async Task<OwnerDtoResponse> GetOwnerByVAT(string vat)
+        public async Task<OwnerDtoResponse?> GetOwnerByVAT(string vat)
         {
-        if (string.IsNullOrWhiteSpace(vat))
-        {
-            throw new ArgumentException("VAT cannot be null or empty.", nameof(vat));
-        }
+            if (string.IsNullOrWhiteSpace(vat))
+            {
+                throw new ArgumentException("VAT cannot be null or empty.", nameof(vat));
+            }
 
 
-        var owner = await _ownerRepository.GetByVatAsync(vat);
-        return owner.ConvertToOwnerDtoResponse();
+            var owner = await _ownerRepository.GetByVatAsync(vat);
+
+            if (owner is null)
+            {
+                return null;
+            }
+
+            return owner.ConvertToOwnerDtoResponse();
         }
 
         public async Task<OwnerDtoResponse> GetByIdAsync(Guid id)
