@@ -57,5 +57,4 @@ public class TechnicoDbContext: DbContext
         base.OnModelCreating(modelBuilder);
     }
 
-public DbSet<Technico.Main.DTOs.OwnerDtoResponse> OwnerDtoResponse { get; set; } = default!;
 }
