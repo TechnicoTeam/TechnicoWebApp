@@ -1,0 +1,125 @@
+﻿@model RepairsViewModel
+@using Technico.Main.Models.Enums
+@using Technico.Main.DTOs.RepairDtos
+@using Technico.Main.DTOs
+
+
+@{
+    ViewData["Title"] = "Repairs";
+}
+
+<div class="container col-md-12">
+
+    <div class="card">
+        <form class="card-body p-4" method="get" asp-action="Search" asp-route-id="@Model.ownerId">
+            <hr />
+            <div class="gap-4 d-flex justify-content-between">
+                <h6><i class="fa-solid fa-filter"></i> Filter</h6>
+
+                <div class="col-md-4">
+                    <select class="form-select" name="type" id="type">
+                        <option selected hidden>Type</option>
+                        <option value="Plumbing">Plumbing</option>
+                        <option value="Painting">Painting</option>
+                        <option value="Electrical_Work">Electrical Work</option>
+                        <option value="Frames">Frames</option>
+                        <option value="Insulation">Insulation</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <select class="form-select" name="status" id="status">
+                        <option selected hidden>Status</option>
+                        <option value="Pending">Pending</option>
+                        <option value="In_progress">In progress</option>
+                        <option value="Complete">Complete</option>
+                    </select>
+                </div>
+
+          
+            </div>
+            <hr />
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-magnifying-glass"></i> Search
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card shadow-sm my-4">
+        <div class="card-header d-flex justify-content-between mb-3">
+            <h3 class="card-title "><i class="fa-sharp fa-solid fa-hammer"></i> Repairs</h3>
+            <div style="width:250px;" class="d-flex justify-content-end">
+                <a class="btn btn-primary" href="javascript:void(0);" onclick="getProfile('OwnerRepairs','Create');">Create new Repair</a>
+            </div>
+        </div>
+        <div class="card-body p-4">
+
+            <div class="mb-3 table-responsive">
+                <table class="table table-striped table-hover table-bordered align-middle">
+                    <thead class="table-dark sticky-top">
+                        <tr class="text-center">
+                            <th class="align-middle">E9</th>
+                            <th class="align-middle">Type</th>
+                            <th class="align-middle">Status</th>
+                            <th class="align-middle">Cost</th>
+                            <th class="align-middle">Date</th>
+                            <th class="align-middle">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-light" id="RepairTableBody">
+                        @if (!Model.Repairs.Any())
+                        {
+                            <tr class="repairs-row">
+                                The are not any repair for this property.
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var r in Model.Repairs)
+                            {
+                                <tr class="repairs-row">
+                                    <td>@r.Property.E9</td>
+                                    <td class="align-middle">@r.Type</td>
+                                    <td class="align-middle">
+                                        @* Inline Razor conditions for badge styling *@
+                                        <span class="badge
+                                            @(r.Status == StatusOfRepair.Pending ? "bg-warning text-dark" :
+                                              r.Status == StatusOfRepair.Complete ? "bg-success" :
+                                              r.Status == StatusOfRepair.In_progress ? "bg-info text-dark" :"bg-secondary")">
+                                            @r.Status.ToString().Replace("_", " ")
+                                        </span>
+                                    </td>
+                                    <td class="align-middle">@r.Cost</td>
+                                    <td class="align-middle">@r.CreatedAt.ToString("dd-MM-yyyy")</td>
+                                    <td class="text-center align-middle">
+
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-outline-primary btn-sm me-2 rounded-pill" data-bs-toggle="tooltip" title="Edit Repair">
+                                                <i class="fas fa-cog"></i>
+                                            </button>
+
+                                            <a class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Delete Repair" asp-controller="Repairs" asp-action="Delete" asp-route-userid="@r.Property.Owners.FirstOrDefault().Id" asp-route-id="@r.Id" onclick="confirmDelete()">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+        function confirmDelete() {
+        return confirm("Are you sure you want to delete this repair?");
+    }
+</script>

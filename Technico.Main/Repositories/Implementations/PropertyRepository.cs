@@ -96,9 +96,12 @@ public class PropertyRepository : IPropertyRepository
        
       
             IQueryable<Property> search = _context.Properties;
-            if (E9 is not null) search = search.Include(c => c.Owners).Where(a => a.E9 == E9);
+
+            if (E9 is not null) search = search.Include(c => c.Owners).Where(a => a.E9.Contains(E9));
+
             if (type is not null) search = search.Include(c => c.Owners).Where(b => b.Type == type);
-            if (vat is not null) search = search.Include(c => c.Owners).Where(c => c.Owners.Any(o => o.Vat == vat));
+
+            if (vat is not null) search = search.Include(c => c.Owners).Where(c => c.Owners.Any(o => o.Vat.Contains(vat)));
 
             return await search.ToListAsync();
       

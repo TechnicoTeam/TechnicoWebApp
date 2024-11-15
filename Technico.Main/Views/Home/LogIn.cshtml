@@ -2,37 +2,64 @@
     ViewData["Title"] = "LogIn";
 }
 
+<style>
+    body {
+        
+        background-size: auto; /* Ensures the background covers the entire screen */
+        height: 100vh; /* Ensure the body takes full viewport height */
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+    }
 
-    <form id="loginForm" class="p-4 col-4 offset-4 mt-5">
-        <h1 class="mb-3 text-center">Login Menu</h1>
+    .login-container {
+        display: flex;
+        justify-content: center; /* Horizontally centers the form */
+        align-items: center; /* Vertically centers the form */
+        height: 100vh; /* Take the full height of the viewport */
+    }
 
-        <div class="form-group pb-3">
-            <input id="username" type="email" class="form-control" placeholder="Email" required>
-        </div>
+    form#loginForm { 
+        background: url('/imgs/LoginBanner.jpg') no-repeat center top fixed;
+        color :white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 100%; /* Make the form take full width for responsiveness */
+        max-width: 400px; /* Limit the form width to make it more centered */
+    }
 
-        <div class="form-group pb-3">
-            <input id="password" type="password" class="form-control" placeholder="Password" required>
-        </div>
+    h1 {
+        font-family: 'Poppins', sans-serif;
+    }
+</style>
 
-        <button type="submit" class="btn btn-primary pt-3 pb-3 col-4 offset-4">Sign In</button>
+<form id="loginForm" class="p-4 col-4 offset-4 mt-5 ">
+    <h1 class="mb-3 text-center">Login Menu</h1>
 
-        <a class="nav-link text-dark text-center text-decoration-underline" asp-area="" asp-controller="Home" asp-action="Register">Are you not registered?</a>
+    <div class="form-group pb-3">
+        <input id="username" type="email" class="form-control" placeholder="Email" required>
+    </div>
 
-        <div id="error-message" class="alert alert-danger" style="display:none;">Invalid credentials</div>
+    <div class="form-group pb-3">
+        <input id="password" type="password" class="form-control" placeholder="Password" required>
+    </div>
 
-    </form>
+    <button type="submit" class="btn btn-primary pt-3 pb-3 col-4 offset-4">Sign In</button>
 
+    <a class="text-white nav-link text-dark text-center text-decoration-underline" asp-area="" asp-controller="Home" asp-action="Register">Are you not registered?</a>
 
- <script>
-     document.getElementById('loginForm').addEventListener('submit', function (e) {
-         e.preventDefault();  // Prevent form from submitting the default way
+    <div id="error-message" class="alert alert-danger" style="display:none;">Invalid credentials</div>
+</form>
 
-         const username = document.getElementById('username').value;
-         const password = document.getElementById('password').value;
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();  // Prevent form from submitting the default way
 
-         // Create a user object to send to the API
-         const user = { username: username, password: password };
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-         handleLogin(username, password);
-     });
- </script>
+        // Create a user object to send to the API
+        const user = { username: username, password: password };
+
+        handleLogin(username, password);
+    });
+</script>

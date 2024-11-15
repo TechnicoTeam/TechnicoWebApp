@@ -23,42 +23,40 @@ public class OwnerRepairsController : Controller
         _propertyService = propertyService;
     }
 
-    [HttpGet("{controller}/{ownerId:guid}")]
-    public async Task<IActionResult> Index()
+    [HttpGet]
+    public async Task<IActionResult> Index([FromQuery]Guid id)
     {
-        var routeDataOwnerId = RouteData.Values["ownerId"]?.ToString();
-        Console.WriteLine($"RouteData ownerId: {routeDataOwnerId}");
-
-        if (!Guid.TryParse(routeDataOwnerId, out var ownerId))
-        {
-            return BadRequest("Invalid ownerId");
-        }
-
-        List<RepairDto> repairsResponse = await _repairService.GetByOwnerAsync(ownerId);
+        List<RepairDto> repairsResponse = await _repairService.GetByOwnerAsync(id);
         var RepairsViewModel = new RepairsViewModel
         {
-            Repairs = repairsResponse
+            Repairs = repairsResponse,
+            ownerId = id
         };
-        return View("~/Views/Owner/Repairs.cshtml", RepairsViewModel);
+        return View("~/Views/OwnerRepairs/Repairs.cshtml", RepairsViewModel);
     }
 
 
     [HttpGet]
-    public async Task<IActionResult> Search(TypeOfRepair? type, StatusOfRepair? status, Guid ownerId)
+    public async Task<IActionResult> Search(TypeOfRepair? type, StatusOfRepair? status, [FromRoute] Guid Id)
     {
 
         // Call the service with the resolved values
-        List<RepairDto> repairResponse = await _repairService.SearchOwnerAsync(type, status, ownerId);
+        List<RepairDto> repairResponse = await _repairService.SearchOwnerAsync(type, status, Id);
 
         var repairsViewModel = new RepairsViewModel
         {
-            Repairs = repairResponse
+            Repairs = repairResponse,
+            ownerId = Id
         };
 
-        return View("~/Views/Owner/Repairs.cshtml", repairsViewModel);
+        return View("~/Views/OwnerRepairs/Repairs.cshtml", repairsViewModel);
     }
 
-    
+    //public async Task<IActionResult> Create([FromQuery] Guid OwnerId)
+    //{
+    //    return View()
+
+    //}
 
     [HttpPatch]
     public async Task<IActionResult> Update(UpdateRepairDto repairDto)
@@ -83,12 +81,25 @@ public class OwnerRepairsController : Controller
         return RedirectToAction("Index");
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Create([FromQuery] Guid id)
+    {
+        ViewData["UserId"] = id;
+        var properties = await _propertyService.GetAllAsync(id);
+        ViewData["Properties"] = properties;
+        return View("CreateRepair");
+    }
+
     [HttpPost]
-    public async Task<IActionResult> create(PostRepairDto repairDto)
+    public async Task<IActionResult> Create([FromRoute] Guid id,PostRepairDto repairDto)
     {
         var create = await _repairService.CreateAsync(repairDto);
-        //if (create != null) {}
-        return RedirectToAction("Index");
+
+        if (create == null)
+        {
+            return NotFound("not found the property's id.");
+        }
+        return Redirect($"/OwnerRepairs/Index?id={id}");
     }
 
     [HttpGet]
