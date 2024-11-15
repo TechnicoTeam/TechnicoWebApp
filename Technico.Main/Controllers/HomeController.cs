@@ -41,12 +41,6 @@ namespace Technico.Main.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult Repairs()
-        {
-            return View("~/Views/Owner/Repairs.cshtml");
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
