@@ -2,9 +2,10 @@
 
 public enum TypeOfRepair
 {
-    Painting, 
-    Insulation, 
-    Frames, 
-    Plumbing, 
-    ElectricalWork
+
+  Plumbing,
+  Painting,
+  Electrical_Work,
+  Frames,
+  Insulation
 }

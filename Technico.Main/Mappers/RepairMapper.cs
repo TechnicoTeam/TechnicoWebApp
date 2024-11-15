@@ -15,11 +15,11 @@ public static class RepairMapper
             Description = repair.Description,
             Status = repair.Status,
             Cost = repair.Cost,
-            PropertyId = repair.Property.Id,
+            Property = repair.Property.MapToPropertyDtos(),
             CreatedAt = repair.CreatedAt,
 
         };
-        dto.Property = repair.Property.MapToPropertyDtos();
+        //dto.Property = repair.Property.MapToPropertyDtos();
 
         return dto;
     }
@@ -32,9 +32,8 @@ public static class RepairMapper
             Description = p.Description,
             Status = p.Status,
             Cost = p.Cost,
-            PropertyId = p.Property.Id,
+            Property = p.Property.MapToPropertyDtos(),
             CreatedAt = p.CreatedAt,
-            Property = p.Property.MapToPropertyDtos()
         }).ToList();
     }
 

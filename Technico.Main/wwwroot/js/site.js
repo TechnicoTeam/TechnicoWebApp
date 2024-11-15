@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         else if (role == "Admin") {
             document.getElementById('logoutLink').style.display = 'block';
-            document.getElementById('showUserName').style.display = 'block';
+            document.getElementById('adminOwner').style.display = 'block';
+            document.getElementById('adminProperty').style.display = 'block';
         }
     }
 });
