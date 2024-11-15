@@ -99,12 +99,12 @@ public class OwnerRepository : IOwnerRepository
 
         if (!string.IsNullOrWhiteSpace(vat))
         {
-            query = query.Where(o => o.Vat == vat);
+            query = query.Where(o => o.Vat.Contains(vat));
         }
 
         if (!string.IsNullOrWhiteSpace(email))
         {
-            query = query.Where(o => o.Email == email);
+            query = query.Where(o => o.Email.Contains(email));
         }
 
         return await query.ToListAsync();
