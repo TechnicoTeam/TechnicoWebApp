@@ -1,0 +1,37 @@
+﻿@model Technico.Main.DTOs.RepairDtos.PostRepairDto
+@{
+    ViewData["Title"] = "Create Repair";
+}
+<h2>Create New Repair</h2>
+
+<!-- Property Creation Form -->
+<form id="CreateREpairForm"  asp-action="Create" asp-route-id="@ViewData["UserId"]">
+    <div class="mb-3">
+        <label class="form-label">Property ID</label>
+        <input type="text" class="form-control" id="PropertyId" placeholder="Id" asp-for="PropertyId" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <input type="text" class="form-control" id="repairDescription" placeholder="Write what you need" asp-for="Description" required>
+    </div>
+    <div class="mb-3">
+    <label class="form-label">Repair Type</label>
+    <select asp-for="Type">
+        <option value="0">Plumbing</option>
+        <option value="1">Painting</option>
+        <option value="2">Electrical_Work</option>
+        <option value="3">Frames</option>
+        <option value="4">Insulation</option>
+    </select>
+    </div>
+    <div class="mb-3">
+    <label class="form-label">Repair Status</label>
+    <select asp-for="Status">
+        <option value="0">Pending</option>
+        <option value="1">In_progress</option>
+        <option value="2">Complete</option>
+    </select>
+    </div>
+    <input type="hidden" value="0" asp-for="Cost"/>
+    <button id="addRepairBtn" type="submit" class="btn btn-primary">Create Repair</button>
+</form>

@@ -30,7 +30,7 @@ public class OwnerRepairsController : Controller
         var RepairsViewModel = new RepairsViewModel
         {
             Repairs = repairsResponse,
-            ownerId =ownerId
+            ownerId = id
         };
         return View("~/Views/OwnerRepairs/Repairs.cshtml", RepairsViewModel);
     }
@@ -81,12 +81,23 @@ public class OwnerRepairsController : Controller
         return RedirectToAction("Index");
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Create([FromQuery] Guid id)
+    {
+        ViewData["UserId"] = id;
+        return View("CreateRepair");
+    }
+
     [HttpPost]
-    public async Task<IActionResult> create(PostRepairDto repairDto)
+    public async Task<IActionResult> Create([FromRoute] Guid id,PostRepairDto repairDto)
     {
         var create = await _repairService.CreateAsync(repairDto);
-        //if (create != null) {}
-        return RedirectToAction("Index");
+
+        if (create == null)
+        {
+            return NotFound("not found the property's id.");
+        }
+        return Redirect($"/OwnerRepairs/Index?id={id}");
     }
 
     [HttpGet]

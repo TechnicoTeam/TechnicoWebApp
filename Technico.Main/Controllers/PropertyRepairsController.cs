@@ -41,7 +41,7 @@ public class PropertyRepairsController : Controller
             Property = propertyResponse,
             Repairs = repairsResponse 
         };
-        return View("~/Views/Owner/PropertyRepairs.cshtml", propertyModelView);
+        return View("~/Views/OwnerRepairs/PropertyRepairs.cshtml", propertyModelView);
     }
 
 
@@ -62,7 +62,7 @@ public class PropertyRepairsController : Controller
             Repairs = repairsResponse
         };
 
-        return View("~/Views/Owner/PropertyRepairs.cshtml", propertyModelView);
+        return View("~/Views/OwnerRepairs/PropertyRepairs.cshtml", propertyModelView);
     }
 
     [HttpPatch]
