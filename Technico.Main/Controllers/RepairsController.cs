@@ -41,6 +41,22 @@ public class RepairsController : Controller
         return View("~/Views/Owner/PropertyRepairs.cshtml", propertyModelView);
     }
 
+    public async Task<IActionResult> Delete([FromRoute] Guid id, [FromQuery] Guid userid)
+    {
+        if (id == Guid.Empty)
+        {
+            return BadRequest("Invalid property ID.");
+        }
+
+        var result = await _repairService.DeleteAsync(id);
+
+        if (!result)
+        {
+            return NotFound("Property not found or could not be deleted.");
+        }
+
+        return Redirect($"~/OwnerRepairs/Index?id={userid}");
+    }
 
     //[HttpGet("{propertyId:guid}/repairs")]
     //public async Task<IActionResult> Index(Guid propertyId)

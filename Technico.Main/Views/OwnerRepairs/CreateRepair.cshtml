@@ -1,37 +1,63 @@
 ﻿@model Technico.Main.DTOs.RepairDtos.PostRepairDto
 @{
     ViewData["Title"] = "Create Repair";
+    var properties = ViewData["Properties"] as List<Technico.Main.DTOs.PropertyDtos.PropertyDtoResponse>;
 }
-<h2>Create New Repair</h2>
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow p-4" style="max-width: 600px; width: 100%;">
+        <h2 class="text-center mb-4">Create New Repair</h2>
 
-<!-- Property Creation Form -->
-<form id="CreateREpairForm"  asp-action="Create" asp-route-id="@ViewData["UserId"]">
-    <div class="mb-3">
-        <label class="form-label">Property ID</label>
-        <input type="text" class="form-control" id="PropertyId" placeholder="Id" asp-for="PropertyId" required>
+        <!-- Property Creation Form -->
+        <form id="CreateRepairForm" asp-action="Create" asp-route-id="@ViewData["UserId"]">
+            <!-- Property Selection -->
+            <div class="mb-3">
+                <label class="form-label">Property</label>
+                <select class="form-select" asp-for="PropertyId" required>
+                    <option value="" disabled selected>Select a property</option>
+                    @foreach (var property in properties)
+                    {
+                        <option value="@property.Id">@property.E9</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" id="repairDescription" placeholder="Describe the repair" asp-for="Description" rows="3" required></textarea>
+            </div>
+
+            <!-- Repair Type -->
+            <div class="mb-3">
+                <label class="form-label">Repair Type</label>
+                <select class="form-select" asp-for="Type" required>
+                    <option value="" disabled selected>Select a repair type</option>
+                    <option value="0">Plumbing</option>
+                    <option value="1">Painting</option>
+                    <option value="2">Electrical Work</option>
+                    <option value="3">Frames</option>
+                    <option value="4">Insulation</option>
+                </select>
+            </div>
+
+            <!-- Repair Status -->
+            <div class="mb-3">
+                <label class="form-label">Repair Status</label>
+                <select class="form-select" asp-for="Status" required>
+                    <option value="" disabled selected>Select repair status</option>
+                    <option value="0">Pending</option>
+                    <option value="1">In Progress</option>
+                    <option value="2">Complete</option>
+                </select>
+            </div>
+
+            <!-- Hidden Input for Cost -->
+            <input type="hidden" value="0" asp-for="Cost" />
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button id="addRepairBtn" type="submit" class="btn btn-primary">Create Repair</button>
+            </div>
+        </form>
     </div>
-    <div class="mb-3">
-        <label class="form-label">Description</label>
-        <input type="text" class="form-control" id="repairDescription" placeholder="Write what you need" asp-for="Description" required>
-    </div>
-    <div class="mb-3">
-    <label class="form-label">Repair Type</label>
-    <select asp-for="Type">
-        <option value="0">Plumbing</option>
-        <option value="1">Painting</option>
-        <option value="2">Electrical_Work</option>
-        <option value="3">Frames</option>
-        <option value="4">Insulation</option>
-    </select>
-    </div>
-    <div class="mb-3">
-    <label class="form-label">Repair Status</label>
-    <select asp-for="Status">
-        <option value="0">Pending</option>
-        <option value="1">In_progress</option>
-        <option value="2">Complete</option>
-    </select>
-    </div>
-    <input type="hidden" value="0" asp-for="Cost"/>
-    <button id="addRepairBtn" type="submit" class="btn btn-primary">Create Repair</button>
-</form>
+</div>

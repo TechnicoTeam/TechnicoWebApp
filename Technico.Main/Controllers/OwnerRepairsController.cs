@@ -85,6 +85,8 @@ public class OwnerRepairsController : Controller
     public async Task<IActionResult> Create([FromQuery] Guid id)
     {
         ViewData["UserId"] = id;
+        var properties = await _propertyService.GetAllAsync(id);
+        ViewData["Properties"] = properties;
         return View("CreateRepair");
     }
 
