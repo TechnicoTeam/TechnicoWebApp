@@ -17,71 +17,46 @@
           </tr>
       </thead>
       <tbody>
-          <!-- Rows will be added here -->
+            @foreach (var property in Model)
+            {
+                <tr>
+                    <td>@property.E9</td>
+                    <td>@property.Address</td>
+                    <td>@property.ConstructionYear</td>
+                    <td>@property.Type</td>
+                    <td>
+                        <a class="editBtn btn border" href="/Properties/Update?id=@property.Id" >
+                            <i class="bi bi-gear"></i>
+                        </a>
+                        <button class="deleteBtn btn border" onclick="deleteProperty('@property.Id')">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
       </tbody>
   </table>
 
 
-  <!-- Template for a property row -->
-  <script id="propertyRowTemplate" type="text/template">
-      <tr>
-          <td>{{e9}}</td>
-          <td>{{address}}</td>
-          <td>{{constructionYear}}</td>
-          <td>{{type}}</td>
-          <td>
-            <button class="editBtn btn border"><i class="bi bi-gear"></i></button>
-          <button class="deleteBtn btn border" onclick="deleteProperty('{{id}}')"><i class="bi bi-trash"></i></button>
-          </td>
-      </tr>
-  </script>
 
   <script>
-
-    const properties = @Html.Raw(Json.Serialize(Model));
-
-    // Function to render the properties table
-    function renderProperties() {
-        const tableBody = document.querySelector('#propertiesTable tbody');
-        tableBody.innerHTML = ''; // Clear any existing rows
-
-        properties.forEach(property => {
-            const rowTemplate = document.getElementById('propertyRowTemplate').innerHTML;
-            const rowHTML = rowTemplate
-                .replace('{{e9}}', property.e9)
-                .replace('{{address}}', property.address)
-                .replace('{{constructionYear}}', property.constructionYear)
-                .replace('{{type}}', property.type)
-                .replace('{{id}}', property.id);
-
-            const rowElement = document.createElement('tr');
-            rowElement.innerHTML = rowHTML;
-            tableBody.appendChild(rowElement);
-
-                const deleteBtn = rowElement.querySelector('.deleteBtn');
-                deleteBtn.addEventListener('click', function () {
-            });
-        });
-    }
 
     function deleteProperty(id) {
         if (confirm("Are you sure you want to delete this property?")) {
             fetch(`/Properties/Delete/${id}`, {
                 method: 'DELETE'
             })
-                .then(response => {
-                    if (response.ok) {
-                        location.reload();
-                    } else {
-                        alert("Failed to delete property.");
-                    }
-                })
-                .catch(error => console.error('Error deleting property:', error));
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert("Failed to delete property.");
+                }
+            })
+            .catch(error => console.error('Error deleting property:', error));
         }
     }
 
-    // Render the properties
-    renderProperties();
   </script>
 
 

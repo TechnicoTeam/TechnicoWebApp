@@ -1,5 +1,6 @@
 ﻿using Technico.Main.DTOs.PropertyDtos;
 using Technico.Main.Models.Domain;
+using Technico.Main.Models.Enums;
 
 namespace Technico.Main.Mappers;
 

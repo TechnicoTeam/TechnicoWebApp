@@ -58,7 +58,6 @@ namespace Technico.Main.Controllers
             var property = new PropertyDtoCreateRequest
             {
                 Address = string.Empty,
-                ConstructionYear = 0,
                 E9 = string.Empty,
                 Type = 0,
                 OwnersIds = [id]
@@ -72,6 +71,36 @@ namespace Technico.Main.Controllers
             propertyViewModel.OwnersIds = [id];
             await _propertyService.CreateAsync(propertyViewModel);
             return Redirect($"/Properties/MyProperties?id={id}");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update([FromQuery] Guid id)
+        {
+            var property = await _propertyService.GetByIdAsync(id);
+
+            if (property == null)
+            {
+                return NotFound();
+            }
+
+            var propertyDtoUpdateRequest = new PropertyDtoUpdateRequest
+            {
+                Id = property.Id,
+                Address = property.Address,
+                ConstructionYear = property.ConstructionYear,
+                Type = property.Type,
+                OwnersIds = property.Owners.Select(o => o.Id).ToList()
+            };
+
+            return View("~/Views/Owner/UpdateProperty.cshtml", propertyDtoUpdateRequest);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Update(PropertyDtoUpdateRequest property)
+        {
+            await _propertyService.UpdateAsync(property);
+            return Redirect($"/Properties/MyProperties?id={property.OwnersIds.FirstOrDefault()}");
         }
     }
 }

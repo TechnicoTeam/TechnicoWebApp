@@ -1,29 +1,18 @@
-﻿@model Technico.Main.DTOs.PropertyDtos.PropertyDtoCreateRequest
-@{
-    ViewData["Title"] = "Create Property";
-}
-<h2>Create New Property</h2>
-
-<!-- Property Creation Form -->
-<form id="createPropertyForm" method="post" asp-action="Create" asp-route-id="@Model.OwnersIds[0]">
-    <div class="mb-3">
-        <label for="propertyIdentificationNumber" class="form-label">Property ID</label>
-        <input type="text" class="form-control" id="propertyIdentificationNumber" placeholder="E9-XXX" asp-for="E9" required>
-    </div>
-
-    <div class="mb-3">
+﻿@model Technico.Main.DTOs.PropertyDtos.PropertyDtoUpdateRequest
+<h2>Update Property</h2>
+<form id="createPropertyForm" method="post" asp-action="Update">
+    <input type="hidden" asp-for="Id" />
+        <div class="mb-3">
         <label for="address" class="form-label">Address</label>
         <input type="text" class="form-control" id="address" placeholder="Enter address" asp-for="Address" required>
     </div>
-
     <div class="mb-3">
         <label for="yearOfConstruction" class="form-label">Year of Construction</label>
         <input type="number" class="form-control" id="yearOfConstruction" placeholder="Year of Construction" asp-for="ConstructionYear" required>
     </div>
-
     <div class="mb-3">
         <label asp-for="Type" class="form-label">Property Type</label>
-        <select class="form-select" id="propertyType" name="propertyType" required>
+        <select class="form-select" id="propertyType" asp-for="Type" required>
             <option value="0">Detached House</option>
             <option value="1">Maisonet</option>
             <option value="2">Apartment</option>
@@ -31,5 +20,10 @@
         </select>
     </div>
 
-    <button id="addPropertyBtn" type="submit" class="btn btn-primary">Create Property</button>
+    @for (int i = 0; i < Model.OwnersIds.Count; i++)
+    {
+        <input type="hidden" name="OwnersIds[@i]" value="@Model.OwnersIds[i]" />
+    }
+
+    <button id="addPropertyBtn" type="submit" class="btn btn-primary">Update Property</button>
 </form>
