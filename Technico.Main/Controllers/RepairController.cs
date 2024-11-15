@@ -90,60 +90,75 @@ public class RepairController : ControllerBase
 
         return Ok("successfully delete this repair.");
     }
-    //Search Repairs
 
-    [HttpGet, Route("search/{Vat}")]
-    public async Task<IActionResult> Search(string Vat)
+    // GET: api/<RepairController>
+    [HttpGet("ByProperty/{propertyId:guid}")]
+    public async Task<IActionResult> GetByProperty(Guid propertyId)
     {
-        var repairs = await _repairService.SearchWithVatAsync(Vat);
+        var repairsDto = await _repairService.GetByPropertyAsync(propertyId);
 
-        if (repairs == null || !repairs.Any())
+        if (repairsDto == null)
         {
             NotFound();
         }
 
-        return Ok(repairs);
-
+        return Ok(repairsDto);
     }
 
-    [HttpGet, Route("search/active")]
-    public async Task<IActionResult> SearchForActiveAsync()
-    {
-        var repairs = await _repairService.SearchForActiveAsync();
+    ////Search Repairs
 
-        if (repairs == null || !repairs.Any())
-        {
-            NotFound();
-        }
+    //[HttpGet, Route("search/{Vat}")]
+    //public async Task<IActionResult> Search(string Vat)
+    //{
+    //    var repairs = await _repairService.SearchWithVatAsync(Vat);
 
-        return Ok(repairs);
+    //    if (repairs == null || !repairs.Any())
+    //    {
+    //        NotFound();
+    //    }
 
-    }
+    //    return Ok(repairs);
 
-    [HttpGet, Route("search/{CreatedAt:datetime}")]
-    public async Task<IActionResult> SearchForDateAsync(DateTime CreatedAt)
-    {
-        var repairs = await _repairService.SearchForDateAsync(CreatedAt);
+    //}
 
-        if (repairs == null || !repairs.Any())
-        {
-            NotFound();
-        }
+    //[HttpGet, Route("search/active")]
+    //public async Task<IActionResult> SearchForActiveAsync()
+    //{
+    //    var repairs = await _repairService.SearchForActiveAsync();
 
-        return Ok(repairs);
+    //    if (repairs == null || !repairs.Any())
+    //    {
+    //        NotFound();
+    //    }
 
-    }
-    [HttpGet, Route("searchfor/{ScheduledAt:datetime}")]
-    public async Task<IActionResult> SearchForScheduledDateAsync(DateTime ScheduledAt)
-    {
-        var repairs = await _repairService.SearchForScheduledDateAsync(ScheduledAt);
+    //    return Ok(repairs);
 
-        if (repairs == null || !repairs.Any())
-        {
-            NotFound();
-        }
+    //}
 
-        return Ok(repairs);
+    //[HttpGet, Route("search/{CreatedAt:datetime}")]
+    //public async Task<IActionResult> SearchForDateAsync(DateTime CreatedAt)
+    //{
+    //    var repairs = await _repairService.SearchForDateAsync(CreatedAt);
 
-    }
+    //    if (repairs == null || !repairs.Any())
+    //    {
+    //        NotFound();
+    //    }
+
+    //    return Ok(repairs);
+
+    //}
+    //[HttpGet, Route("searchfor/{ScheduledAt:datetime}")]
+    //public async Task<IActionResult> SearchForScheduledDateAsync(DateTime ScheduledAt)
+    //{
+    //    var repairs = await _repairService.SearchForScheduledDateAsync(ScheduledAt);
+
+    //    if (repairs == null || !repairs.Any())
+    //    {
+    //        NotFound();
+    //    }
+
+    //    return Ok(repairs);
+
+    //}
 }
