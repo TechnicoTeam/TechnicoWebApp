@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('logoutLink').style.display = 'block';
             document.getElementById('adminOwner').style.display = 'block';
             document.getElementById('adminProperty').style.display = 'block';
+            document.getElementById('adminRepairs').style.display = 'block';
         }
     }
 });
