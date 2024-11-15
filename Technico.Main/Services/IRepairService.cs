@@ -2,6 +2,7 @@
 using Technico.Main.DTOs;
 using Technico.Main.DTOs.RepairDtos;
 using Technico.Main.Models;
+using Technico.Main.Models.Domain;
 using Technico.Main.Models.Enums;
 
 
@@ -16,9 +17,9 @@ public interface IRepairService
     Task<List<RepairDto>> SearchAdminAsync(string? Vat, StatusOfRepair? status, DateTime? FromDate, DateTime? ToDate);
 
     Task<List<RepairDto>> GetByOwnerAsync(Guid ownerId);
-    //Task<List<RepairDto>> SearchForDateAsync(DateTime CreatedAt);
-    //Task<List<RepairDto>> SearchForActiveAsync();
-    //Task<List<RepairDto>> SearchWithVatAsync(string Vat);
-    //Task<List<RepairDto>> SearchForScheduledDateAsync(DateTime ScheduledAt);
+
+    Task<List<RepairDto>> SearchOwnerPropertyAsync(TypeOfRepair? type, StatusOfRepair? status, Guid propertyId);
+    Task<List<RepairDto>> SearchOwnerAsync(TypeOfRepair? type, StatusOfRepair? status, Guid ownerId);
+
 
 }

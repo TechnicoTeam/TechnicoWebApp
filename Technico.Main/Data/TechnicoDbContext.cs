@@ -56,4 +56,5 @@ public class TechnicoDbContext: DbContext
 
         base.OnModelCreating(modelBuilder);
     }
+
 }

@@ -167,7 +167,7 @@ public class RepairRepository : IRepairRepository
 
     public async Task<List<Repair>> SearchOwnerAsync(TypeOfRepair? type, StatusOfRepair? status, Guid ownerId)
     {
-        IQueryable<Repair> repairs = _context.Repairs.Include(r => r.Property).ThenInclude(r => r.Owners).Where(r => r.Property.Owners.Any(r => r.Id == ownerId));
+        var repairs = _context.Repairs.Include(r => r.Property).ThenInclude(r => r.Owners).Where(r => r.Property.Owners.Any(r => r.Id == ownerId));
 
         if (status != null) repairs = repairs.Where(r => r.Status == status);
         if (type != null) repairs = repairs.Where(r => r.Type == type);

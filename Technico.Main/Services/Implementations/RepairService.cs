@@ -29,13 +29,13 @@ public class RepairService : IRepairService
 
     public async Task<RepairDto?> CreateAsync(PostRepairDto repairDto)
     {
-        // Validate input data
-        if (repairDto == null) throw new ArgumentNullException(nameof(repairDto), "Repair data cannot be null.");
-        if (repairDto.Cost <= 0) throw new ArgumentException("Cost must be greater than zero.", nameof(repairDto.Cost));
-        if (string.IsNullOrWhiteSpace(repairDto.Description))
-            throw new ArgumentException("Description cannot be null or empty.", nameof(repairDto.Description));
-        if (repairDto.PropertyId == Guid.Empty)
-            throw new ArgumentException("Property ID must be a valid GUID.", nameof(repairDto.PropertyId));
+        //// Validate input data
+        //if (repairDto == null) throw new ArgumentNullException(nameof(repairDto), "Repair data cannot be null.");
+       
+        //if (string.IsNullOrWhiteSpace(repairDto.Description))
+        //    throw new ArgumentException("Description cannot be null or empty.", nameof(repairDto.Description));
+        //if (repairDto.PropertyId == Guid.Empty)
+        //    throw new ArgumentException("Property ID must be a valid GUID.", nameof(repairDto.PropertyId));
 
         // Check if the associated property exists
         var property = await _context.Properties
@@ -63,7 +63,7 @@ public class RepairService : IRepairService
 
     public async Task<RepairDto?> GetAsync(Guid id)
     {
-        if (id == Guid.Empty) throw new ArgumentException("ID must be a valid GUID.", nameof(id));
+        //if (id == Guid.Empty) throw new ArgumentException("ID must be a valid GUID.", nameof(id));
 
         var repair = await _repairRepo.GetByIdAsync(id);
         return repair?.ConvertToDto();
@@ -82,7 +82,7 @@ public class RepairService : IRepairService
 
     public async Task<bool> DeleteAsync(Guid id)
     {
-        if (id == Guid.Empty) throw new ArgumentException("ID must be a valid GUID.", nameof(id));
+        //if (id == Guid.Empty) throw new ArgumentException("ID must be a valid GUID.", nameof(id));
         return await _repairRepo.DeleteAsync(id);
     }
 
@@ -118,5 +118,17 @@ public class RepairService : IRepairService
     {
         var repairs  = await _repairRepo.SearchAdminAsync( Vat, status,FromDate,ToDate);
         return repairs.Select (rep =>rep.ConvertToDto()).ToList();
+    }
+
+    public async Task<List<RepairDto>> SearchOwnerPropertyAsync(TypeOfRepair? type, StatusOfRepair? status, Guid propertyId)
+    {
+        var repairs = await _repairRepo.SearchOwnerPropertyAsync( type, status, propertyId);
+        return repairs.Select (rep =>rep.ConvertToDto()).ToList();
+    }
+
+    public async Task<List<RepairDto>> SearchOwnerAsync(TypeOfRepair? type, StatusOfRepair? status, Guid ownerId)
+    {
+        var repairs = await _repairRepo.SearchOwnerAsync( type, status, ownerId);
+        return repairs.Select(rep => rep.ConvertToDto()).ToList();
     }
 }
