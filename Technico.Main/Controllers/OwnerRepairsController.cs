@@ -29,28 +29,34 @@ public class OwnerRepairsController : Controller
         List<RepairDto> repairsResponse = await _repairService.GetByOwnerAsync(id);
         var RepairsViewModel = new RepairsViewModel
         {
-            Repairs = repairsResponse
+            Repairs = repairsResponse,
+            ownerId =ownerId
         };
         return View("~/Views/OwnerRepairs/Repairs.cshtml", RepairsViewModel);
     }
 
 
     [HttpGet]
-    public async Task<IActionResult> Search(TypeOfRepair? type, StatusOfRepair? status, Guid ownerId)
+    public async Task<IActionResult> Search(TypeOfRepair? type, StatusOfRepair? status, [FromRoute] Guid Id)
     {
 
         // Call the service with the resolved values
-        List<RepairDto> repairResponse = await _repairService.SearchOwnerAsync(type, status, ownerId);
+        List<RepairDto> repairResponse = await _repairService.SearchOwnerAsync(type, status, Id);
 
         var repairsViewModel = new RepairsViewModel
         {
-            Repairs = repairResponse
+            Repairs = repairResponse,
+            ownerId = Id
         };
 
         return View("~/Views/OwnerRepairs/Repairs.cshtml", repairsViewModel);
     }
 
-    
+    //public async Task<IActionResult> Create([FromQuery] Guid OwnerId)
+    //{
+    //    return View()
+
+    //}
 
     [HttpPatch]
     public async Task<IActionResult> Update(UpdateRepairDto repairDto)

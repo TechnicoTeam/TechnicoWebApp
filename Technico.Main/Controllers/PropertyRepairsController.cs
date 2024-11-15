@@ -48,7 +48,11 @@ public class PropertyRepairsController : Controller
     [HttpGet]
     public async Task<IActionResult> Search(TypeOfRepair? type, StatusOfRepair? status, Guid propertyId)
     {
-
+        // Validate property ID
+        if (propertyId == Guid.Empty)
+        {
+            return BadRequest("Invalid property ID.");
+        }
         var propertyResponse = await _propertyService.GetByIdAsync(propertyId);
         List<RepairDto> repairsResponse = await _repairService.SearchOwnerPropertyAsync(type, status, propertyId);
 
