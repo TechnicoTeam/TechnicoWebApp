@@ -8,6 +8,7 @@ using Technico.Main.Services;
 using Technico.Main.Services.Implementations;
 using Technico.Main.Validators.Implementations;
 using Technico.Main.Validators;
+using Technico.Main.Middleware;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,16 +35,14 @@ builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
 builder.Services.AddScoped<IOwnerService, OwnerService>();
 
 
-
+builder.Services.AddTransient<GlobalMiddleware>();
 
 
 //services end here.............
 //build
 var app = builder.Build();
 
-
-// Here we will write our interfaces and services 
-//builder.Services.AddScoped<Interface, Service>(); - when we call an interface , a service comes
+app.UseMiddleware<GlobalMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

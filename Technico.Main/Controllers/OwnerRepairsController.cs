@@ -23,24 +23,16 @@ public class OwnerRepairsController : Controller
         _propertyService = propertyService;
     }
 
-    [HttpGet("{controller}/{ownerId:guid}")]
-    public async Task<IActionResult> Index()
+    [HttpGet]
+    public async Task<IActionResult> Index([FromQuery]Guid id)
     {
-        var routeDataOwnerId = RouteData.Values["ownerId"]?.ToString();
-        Console.WriteLine($"RouteData ownerId: {routeDataOwnerId}");
-
-        if (!Guid.TryParse(routeDataOwnerId, out var ownerId))
-        {
-            return BadRequest("Invalid ownerId");
-        }
-
-        List<RepairDto> repairsResponse = await _repairService.GetByOwnerAsync(ownerId);
+        List<RepairDto> repairsResponse = await _repairService.GetByOwnerAsync(id);
         var RepairsViewModel = new RepairsViewModel
         {
             Repairs = repairsResponse,
-            ownerId =ownerId
+            ownerId = id
         };
-        return View("~/Views/Owner/Repairs.cshtml", RepairsViewModel);
+        return View("~/Views/OwnerRepairs/Repairs.cshtml", RepairsViewModel);
     }
 
 
@@ -57,7 +49,7 @@ public class OwnerRepairsController : Controller
             ownerId = Id
         };
 
-        return View("~/Views/Owner/Repairs.cshtml", repairsViewModel);
+        return View("~/Views/OwnerRepairs/Repairs.cshtml", repairsViewModel);
     }
 
     //public async Task<IActionResult> Create([FromQuery] Guid OwnerId)
@@ -99,12 +91,25 @@ public class OwnerRepairsController : Controller
         return Redirect($"~/OwnerRepairs/Index?id={userid}");
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Create([FromQuery] Guid id)
+    {
+        ViewData["UserId"] = id;
+        var properties = await _propertyService.GetAllAsync(id);
+        ViewData["Properties"] = properties;
+        return View("CreateRepair");
+    }
+
     [HttpPost]
-    public async Task<IActionResult> create(PostRepairDto repairDto)
+    public async Task<IActionResult> Create([FromRoute] Guid id,PostRepairDto repairDto)
     {
         var create = await _repairService.CreateAsync(repairDto);
-        //if (create != null) {}
-        return RedirectToAction("Index");
+
+        if (create == null)
+        {
+            return NotFound("not found the property's id.");
+        }
+        return Redirect($"/OwnerRepairs/Index?id={id}");
     }
 
     [HttpGet]
