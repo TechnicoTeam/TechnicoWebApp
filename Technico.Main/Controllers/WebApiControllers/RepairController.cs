@@ -8,7 +8,7 @@ using Technico.Main.Services.Implementations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Technico.Main.Controllers;
+namespace Technico.Main.Controllers.WebApiControllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -41,7 +41,7 @@ public class RepairController : ControllerBase
     {
         var dto = await _repairService.GetAsync(id);
 
-        if (dto == null) 
+        if (dto == null)
         {
             return NotFound("Not found repair with this id.");
         }
@@ -104,62 +104,4 @@ public class RepairController : ControllerBase
 
         return Ok(repairsDto);
     }
-
-
-    ////Search Repairs
-
-    //[HttpGet, Route("search/{Vat}")]
-    //public async Task<IActionResult> Search(string Vat)
-    //{
-    //    var repairs = await _repairService.SearchWithVatAsync(Vat);
-
-    //    if (repairs == null || !repairs.Any())
-    //    {
-    //        NotFound();
-    //    }
-
-    //    return Ok(repairs);
-
-    //}
-
-    //[HttpGet, Route("search/active")]
-    //public async Task<IActionResult> SearchForActiveAsync()
-    //{
-    //    var repairs = await _repairService.SearchForActiveAsync();
-
-    //    if (repairs == null || !repairs.Any())
-    //    {
-    //        NotFound();
-    //    }
-
-    //    return Ok(repairs);
-
-    //}
-
-    //[HttpGet, Route("search/{CreatedAt:datetime}")]
-    //public async Task<IActionResult> SearchForDateAsync(DateTime CreatedAt)
-    //{
-    //    var repairs = await _repairService.SearchForDateAsync(CreatedAt);
-
-    //    if (repairs == null || !repairs.Any())
-    //    {
-    //        NotFound();
-    //    }
-
-    //    return Ok(repairs);
-
-    //}
-    //[HttpGet, Route("searchfor/{ScheduledAt:datetime}")]
-    //public async Task<IActionResult> SearchForScheduledDateAsync(DateTime ScheduledAt)
-    //{
-    //    var repairs = await _repairService.SearchForScheduledDateAsync(ScheduledAt);
-
-    //    if (repairs == null || !repairs.Any())
-    //    {
-    //        NotFound();
-    //    }
-
-    //    return Ok(repairs);
-
-    //}
 }

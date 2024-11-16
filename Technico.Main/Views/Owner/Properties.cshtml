@@ -31,6 +31,9 @@
                         <button class="deleteBtn btn border" onclick="deleteProperty('@property.Id')">
                             <i class="bi bi-trash"></i>
                         </button>
+                    <a asp-controller="PropertyRepairs" asp-action="Index" asp-route-propertyId="@property.Id" class="btn btn-outline-primary btn-sm me-2 rounded-pill" data-bs-toggle="tooltip" title="View Property">
+                        <i class="fa-regular fa-eye"></i>
+                    </a>
                     </td>
                 </tr>
             }
