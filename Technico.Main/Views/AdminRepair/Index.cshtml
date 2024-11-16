@@ -11,57 +11,77 @@
 
 <!-- Include the delete modal partial view -->
 
-<div class="container col-md-12">
+<div class="container my-5">
 
+    <!-- ------------------------>
 
-    <div class="card">
-        <form class="card-body p-4" method="get" asp-action="Search">
-            <div class="row mb-4">
-                <div class="col-md-6 mx-auto">
-                    <input type="text" class="form-control" value="" placeholder="Search by owner's VAT" name="vat" id="vat" aria-label="Search" />
-                </div>
-            </div>
+    
 
-            <hr />
-            <div class="d-flex gap-4">
-                <h6 class="my-auto"><i class="fa-solid fa-filter"></i> Filters</h6>
-
-                <div class="col-3">
-                    <select id="status" class="form-select" name="status">
-                        <option selected hidden> Status </option>
-                        <option value="Pending">Pending</option>
-                        <option value="In_progress">In Progress</option>
-                        <option value="Complete">Complete</option>
-                    </select>
-                </div>
-
-                <div class="col-3">
-                    <input type="date" class="form-control" name="fromDate" id="fromDate" />
-                </div>
-                <div class="col-3">
-                    <input type="date" class="form-control" name="toDate" id="toDate" />
-                </div>
-            </div>
-            <hr />
-
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa-solid fa-magnifying-glass"></i> Search
-                </button>
-            </div>
-        </form>
-
-    </div>
+    <!-------------------------------------------------->
 
     <div class="card shadow-sm my-4">
-        <div class="card-header d-flex text-white bg-primary justify-content-between mb-3">
-            <h3 class="card-title"><i class="fa-sharp fa-solid fa-hammer"></i> Repairs</h3>
-            <div style="width:250px;" class="d-flex justify-content-end">
-                <a class="btn btn-primary" asp-action="CreateForm">Create New Repair</a>
-            </div>
+        <div class="card-header bg-primary text-white text-center">
+            <h3 class="card-title">
+                <i class="fas fa-user-shield me-2"></i>Repairs
+            </h3>
         </div>
         <div class="card-body p-4 ">
 
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Admin Home Page
+                </a>
+            </div>
+
+
+
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">Repair Search</h5>
+                </div>
+                <form class="card-body" method="get" asp-action="Search">
+                    <div class="row mb-4">
+                        <div class="col-md-6 mx-auto">
+                            <input type="text" class="form-control" value="" placeholder="Search by owner's VAT" name="vat" id="vat" aria-label="Search" />
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="d-flex gap-4">
+                        <h6 class="my-auto"><i class="fa-solid fa-filter"></i> Filters</h6>
+
+                        <div class="col-3">
+                            <select id="status" class="form-select" name="status">
+                                <option selected hidden> Status </option>
+                                <option value="Pending">Pending</option>
+                                <option value="In_progress">In Progress</option>
+                                <option value="Complete">Complete</option>
+                            </select>
+                        </div>
+
+                        <div class="col-3">
+                            <input type="date" class="form-control" name="fromDate" id="fromDate" />
+                        </div>
+                        <div class="col-3">
+                            <input type="date" class="form-control" name="toDate" id="toDate" />
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-magnifying-glass"></i> Search
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+
+            <div class="mb-4">
+                <a class="btn btn-primary" asp-action="CreateForm">Create New Repair</a>
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-hover table-bordered align-middle">
                     <thead class="table-dark sticky-top">
