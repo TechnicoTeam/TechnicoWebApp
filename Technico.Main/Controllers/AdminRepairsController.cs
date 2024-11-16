@@ -23,7 +23,7 @@ public class AdminRepairsController : Controller
         _propertyService = propertyService;
     }
 
-    [HttpGet("{controller}")]
+    [HttpGet]
     public async Task<IActionResult> Index()
     {
 

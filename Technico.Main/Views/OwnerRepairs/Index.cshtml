@@ -80,9 +80,9 @@
                             @foreach (var r in Model.Repairs)
                             {
                                 <tr class="repairs-row">
-                                    <td>@r.Property.E9</td>
-                                    <td class="align-middle">@r.Type</td>
-                                    <td class="align-middle">
+                                    <td class="text-center">@r.Property.E9</td>
+                                    <td class="text-center">@r.Type</td>
+                                    <td class ="text-center">
                                         @* Inline Razor conditions for badge styling *@
                                         <span class="badge
                                             @(r.Status == StatusOfRepair.Pending ? "bg-warning text-dark" :
@@ -91,18 +91,18 @@
                                             @r.Status.ToString().Replace("_", " ")
                                         </span>
                                     </td>
-                                    <td class="align-middle">@r.Cost</td>
-                                    <td class="align-middle">@r.CreatedAt.ToString("dd-MM-yyyy")</td>
-                                    <td class="text-center align-middle">
+                                    <td class="text-center">@r.Cost</td>
+                                    <td class="text-center">@r.CreatedAt.ToString("dd-MM-yyyy")</td>
+                                    <td class="text-center">
 
                                         <div class="btn-group" role="group">
-                                            <button class="btn btn-outline-primary btn-sm me-2 rounded-pill" data-bs-toggle="tooltip" title="Edit Repair">
+                                            <a asp-action="UpdateForm" asp-route-userId="@Model.ownerId" asp-route-repairId="@r.Id" class="btn btn-outline-primary btn-sm me-2 rounded-pill">
                                                 <i class="fas fa-cog"></i>
-                                            </button>
+                                            </a>
 
                                             <a class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Delete Repair" asp-controller="OwnerRepairs" asp-action="Delete" asp-route-userid="@Model.ownerId" asp-route-id="@r.Id" onclick="confirmDelete()">
                                                 <i class="fas fa-trash"></i>
-                                            </button>
+                                            </a>
 
                                         </div>
                                     </td>

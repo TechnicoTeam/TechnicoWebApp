@@ -87,7 +87,7 @@
                             @foreach (var r in Model.Repairs)
                             {
                                 <tr class="repairs-row">
-                                    <td>
+                                    <td class="text-center">
                                         @foreach (var owner in r.Property.Owners)
                                         {
                                             @owner.Vat
@@ -95,9 +95,9 @@
                                             <br />
                                         }
                                     </td>
-                                    <td>@r.Property.E9</td>
-                                    <td class="align-middle">@r.Type.ToString().Replace("_", " ")</td>
-                                    <td class="align-middle">
+                                    <td class="text-center">@r.Property.E9</td>
+                                    <td class="text-center">@r.Type.ToString().Replace("_", " ")</td>
+                                    <td class="text-center">
                                         @* Inline Razor conditions for badge styling *@
                                         <span class="badge
                                             @(r.Status == StatusOfRepair.Pending ? "bg-warning text-dark" :
@@ -106,9 +106,9 @@
                                             @r.Status.ToString().Replace("_", " ")
                                         </span>
                                     </td>
-                                    <td class="align-middle">@r.Cost</td>
-                                    <td class="align-middle">@r.CreatedAt.ToString("dd-MM-yyyy")</td>
-                                    <td class="text-center align-middle">
+                                    <td class="text-center">@r.Cost</td>
+                                    <td class="text-center">@r.CreatedAt.ToString("dd-MM-yyyy")</td>
+                                    <td class="text-center">
                                         <div class="btn-group" role="group">
 
                                             <a asp-action="UpdateForm" asp-route-repairid="@r.Id" class="btn btn-outline-primary btn-sm me-2 rounded-pill" >

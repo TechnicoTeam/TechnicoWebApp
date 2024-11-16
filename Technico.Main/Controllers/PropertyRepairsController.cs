@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using Technico.Main.DTOs;
 using Technico.Main.DTOs.RepairDtos;
 
@@ -17,31 +19,25 @@ public class PropertyRepairsController : Controller
     readonly IPropertyService _propertyService;
 
 
-    public PropertyRepairsController(IPropertyService propertyService,IRepairService repairService)
+    public PropertyRepairsController(IPropertyService propertyService, IRepairService repairService)
     {
 
         _repairService = repairService;
         _propertyService = propertyService;
     }
 
-    [HttpGet("{controller}/{propertyId:guid}")]
-    public async Task<IActionResult> Index()
+    [HttpGet]
+    public async Task<IActionResult> Index([FromQuery]Guid propertyId)
     {
-        var routeDataPropertyId = RouteData.Values["propertyId"]?.ToString();
-        Console.WriteLine($"RouteData propertyId: {routeDataPropertyId}");
-
-        if (!Guid.TryParse(routeDataPropertyId, out var propertyId))
-        {
-            return BadRequest("Invalid propertyId");
-        }
+      
         var propertyResponse = await _propertyService.GetByIdAsync(propertyId);
         List<RepairDto> repairsResponse = await _repairService.GetByPropertyAsync(propertyId);
         var propertyModelView = new PropertyRepairsViewModel
         {
             Property = propertyResponse,
-            Repairs = repairsResponse 
+            Repairs = repairsResponse
         };
-        return View("~/Views/OwnerRepairs/PropertyRepairs.cshtml", propertyModelView);
+        return View("~/Views/PropertyRepairs/Index.cshtml", propertyModelView);
     }
 
 
@@ -62,11 +58,22 @@ public class PropertyRepairsController : Controller
             Repairs = repairsResponse
         };
 
-        return View("~/Views/OwnerRepairs/PropertyRepairs.cshtml", propertyModelView);
+        return View("~/Views/PropertyRepairs/Index.cshtml", propertyModelView);
     }
 
-    [HttpPatch]
-    public async Task<IActionResult> Update([FromBody] UpdateRepairDto repairDto)
+
+    [HttpGet]
+    public async Task<IActionResult> UpdateForm([FromQuery]Guid propertyId, [FromQuery]Guid repairId)
+    {
+        var repair = await _repairService.GetAsync(repairId);
+        ViewData["Repair"]= repair;
+        ViewData["PropertyId"] = propertyId;
+        return View("~/Views/PropertyRepairs/Update.cshtml");
+        
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Update([FromQuery] Guid PropertyId,UpdateRepairDto repairDto)
     {
         if (!ModelState.IsValid)
         {
@@ -80,30 +87,51 @@ public class PropertyRepairsController : Controller
             return BadRequest("Failed to update the repair.");
         }
 
-
-        //TempData["SuccessMessage"] = "Repair updated successfully!";
-        return RedirectToAction("Index");
+        return RedirectToAction("Index", new { propertyId = PropertyId });
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete(Guid repairId)
+
+    public async Task<IActionResult> Delete([FromRoute] Guid id, [FromQuery] Guid PropertyId)
     {
-        bool delete = await _repairService.DeleteAsync(repairId);
-        //if (!delete)
-        //{
 
-        //}
+        if (id == Guid.Empty)
+        {
+            return BadRequest("Invalid Repair ID.");
+        }
+        if (PropertyId == Guid.Empty)
+        {
+            return BadRequest("Invalid Property ID.");
+        }
 
-        return RedirectToAction("Index");
+
+        var result = await _repairService.DeleteAsync(id);
+
+        if (!result)
+        {
+            return NotFound("Property not found or could not be deleted.");
+        }
+
+        return RedirectToAction("Index", new { propertyId = PropertyId });
+    }
+
+    [HttpGet]
+    public IActionResult CreateForm([FromQuery] Guid propertyId )
+    {
+        ViewData["PropertyId"]=propertyId;
+        return View("~/Views/PropertyRepairs/Create.cshtml");
     }
 
     [HttpPost]
-    public async Task<IActionResult> create(PostRepairDto repairDto)
+    public async Task<IActionResult> Create([FromQuery] Guid PropertyId,PostRepairDto repairDto)
     {
         var create = await _repairService.CreateAsync(repairDto);
-        //if (create != null) {}
-        return RedirectToAction("Index");
+        if (create == null)
+        {
+            return NotFound("not found the property's id.");
+        }
+        return RedirectToAction("Index",new { propertyId = PropertyId });
     }
+
 
     [HttpGet]
     public async Task<IActionResult> GetRepair(Guid repairId)

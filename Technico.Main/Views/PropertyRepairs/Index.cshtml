@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="row justify-content-center col-lg-7">
-
+            
                         <div class="mb-3 row">
                             <h6 for="e9" class="col-sm-6">E9:</h6>
                             <span class="col-sm-6 text-end" id="e9">@Model.Property.E9</span>
@@ -104,7 +104,7 @@
             <i class="fa-sharp fa-solid fa-hammer"></i> Repairs
         </h3>
 
-        <button class="btn btn-primary" onclick="">Add Repair</button>
+        <a class="btn btn-primary" asp-action="CreateForm" asp-route-propertyId="@Model.Property.Id">Create New Repair</a>
     </div>
     <div class="table-responsive my-4 px-4">
         <table class="table table-striped table-hover table-bordered align-middle">
@@ -138,20 +138,20 @@
                                               r.Status == StatusOfRepair.In_progress ? "bg-info text-dark" :"bg-secondary")">
                                     @r.Status.ToString().Replace("_", " ")
                                 </span>
+                              
                             </td>
                             <td class="align-middle">@r.Cost</td>
                             <td class="align-middle">@r.CreatedAt.ToString("dd-MM-yyyy")</td>
                             <td class="text-center align-middle">
                                 <div class="btn-group" role="group">
 
-                                    <a asp-action="UpdateForm" asp-route-id="@r.Id" class="btn btn-outline-primary btn-sm me-2 rounded-pill" data-bs-toggle="tooltip" title="Edit Property">
+                                    <a asp-action="UpdateForm" asp-route-repairId="@r.Id" asp-route-propertyId="@r.Property.Id" class="btn btn-outline-primary btn-sm me-2 rounded-pill" data-bs-toggle="tooltip" title="Edit Property">
                                         <i class="fas fa-cog"></i>
                                     </a>
 
-                                    <a asp-action="DeleteForm" asp-route-id="@r.Id" class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Delete Property"
-                                       onclick="return confirmDelete();">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
+                                    <a class="btn btn-outline-danger btn-sm" asp-controller="PropertyRepairs" asp-action="Delete" asp-route-Id="@r.Id" asp-route-PropertyId="@r.Property.Id" onclick="confirmDelete()">
+                                         <i class="fas fa-trash"></i>
+                                     </a>
 
                                 </div>
                             </td>
@@ -164,3 +164,9 @@
      </div>
 </div>
 
+<script>
+     function confirmDelete() {
+        return confirm("Are you sure you want to delete this repair?");
+    }
+
+</script>
