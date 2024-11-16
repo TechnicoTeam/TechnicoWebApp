@@ -57,7 +57,7 @@
         <div class="card-header d-flex text-white bg-primary justify-content-between mb-3">
             <h3 class="card-title"><i class="fa-sharp fa-solid fa-hammer"></i> Repairs</h3>
             <div style="width:250px;" class="d-flex justify-content-end">
-                <a class="btn btn-primary" asp-action="Create">Create new Repair</a>
+                <a class="btn btn-primary" asp-action="CreateForm">Create New Repair</a>
             </div>
         </div>
         <div class="card-body p-4 ">
@@ -111,12 +111,11 @@
                                     <td class="text-center align-middle">
                                         <div class="btn-group" role="group">
 
-                                            <a asp-action="UpdateForm" asp-route-id="@r.Id" class="btn btn-outline-primary btn-sm me-2 rounded-pill" data-bs-toggle="tooltip" title="Edit Property">
+                                            <a asp-action="UpdateForm" asp-route-repairid="@r.Id" class="btn btn-outline-primary btn-sm me-2 rounded-pill" >
                                                 <i class="fas fa-cog"></i>
                                             </a>
 
-                                            <a asp-action="DeleteForm" asp-route-id="@r.Id" class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Delete Property"
-                                               onclick="return confirmDelete();">
+                                            <a class="btn btn-outline-danger btn-sm" asp-controller="AdminRepairs" asp-action="Delete" asp-route-repairId="@r.Id" onclick="confirmDelete()">
                                                 <i class="fas fa-trash"></i>
                                             </a>
 
@@ -136,7 +135,12 @@
 </div>
 
 
+<script>
+            function confirmDelete() {
+        return confirm("Are you sure you want to delete this repair?");
+    }
 
+</script>
 
 
 

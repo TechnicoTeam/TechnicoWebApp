@@ -1,4 +1,52 @@
-﻿<-- This is the Update-->
+﻿@model Technico.Main.DTOs.RepairDtos.RepairDto
+@using Technico.Main.Models
+@using Technico.Main.Models.Enums
     @{
         ViewData["Title"] = "Update";
     }
+<h2>Update Repair</h2>
+
+<form id="updateRepairForm" method="post" asp-action="Update">
+    <input type="hidden" value="@Model.Id" asp-for="Id" id="Id">
+
+    <div class="mb-3">
+        <label for="E9" class="form-label">E9</label>
+        <input type="text" class="form-control" id="E9" value="@Model.Property.E9" placeholder="E9-XXX" name="E9" required>
+    </div>
+   
+
+    <div class="mb-3">
+        <label for="Type" class="form-label">Repair Type</label>
+        <select class="form-select" id="Type" asp-for="Type" required>
+            <option value="@Model.Type" selected hidden>@Model.Type.ToString().Replace('_', ' ')</option>
+            <option value="@TypeOfRepair.Painting">Painting</option>
+            <option value="@TypeOfRepair.Electrical_Work">Electrical Work</option>
+            <option value="@TypeOfRepair.Frames">Frames</option>
+            <option value="@TypeOfRepair.Insulation">Insulation</option>
+            <option value="@TypeOfRepair.Plumbing">Plumbing</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="Description" class="form-label" asp-for="Description">Description</label>
+        <input type="text" class="form-control" id="Description" value="@Model.Description" placeholder="Description">
+    </div>
+
+    <div class="mb-3">
+        <label for="Status" class="form-label">Status Type</label>
+        <select class="form-select" id="Status" name="Status" asp-for="Status" required>
+            <option value="@Model.Status" selected hidden>@Model.Status.ToString().Replace('_', ' ')</option>
+            <option value="@StatusOfRepair.Pending">Pending</option>
+            <option value="@StatusOfRepair.In_progress">In progress</option>
+            <option value="@StatusOfRepair.Complete">Complete</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="Cost" class="form-label" >Repair Cost</label>
+        <input type="number" step="0.01" class="form-control" value="@Model.Cost" id="Cost" name="Cost" asp-for="Cost" >
+    </div>
+
+    <button id="updateBtn" type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

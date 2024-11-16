@@ -89,11 +89,11 @@ public class RepairService : IRepairService
     public async Task<RepairDto?> UpdateAsync(UpdateRepairDto repairDto)
     {
         // Validate input data
-        if (repairDto == null) throw new ArgumentNullException(nameof(repairDto), "Repair data cannot be null.");
-        if (repairDto.Id == Guid.Empty) throw new ArgumentException("ID must be a valid GUID.", nameof(repairDto.Id));
-        if (repairDto.Cost <= 0) throw new ArgumentException("Cost must be greater than zero.", nameof(repairDto.Cost));
-        if (string.IsNullOrWhiteSpace(repairDto.Description))
-            throw new ArgumentException("Description cannot be null or empty.", nameof(repairDto.Description));
+        //if (repairDto == null) throw new ArgumentNullException(nameof(repairDto), "Repair data cannot be null.");
+        //if (repairDto.Id == Guid.Empty) throw new ArgumentException("ID must be a valid GUID.", nameof(repairDto.Id));
+        //if (repairDto.Cost <= 0) throw new ArgumentException("Cost must be greater than zero.", nameof(repairDto.Cost));
+        //if (string.IsNullOrWhiteSpace(repairDto.Description))
+        //    throw new ArgumentException("Description cannot be null or empty.", nameof(repairDto.Description));
 
         // Check if the repair exists
         var repair = await _repairRepo.GetByIdAsync(repairDto.Id);

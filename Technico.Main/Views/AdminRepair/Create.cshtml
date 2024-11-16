@@ -1,0 +1,58 @@
+﻿@using Technico.Main.Models
+@using Technico.Main.Models.Enums
+@model Technico.Main.DTOs.RepairDtos.PostRepairDto
+
+@{
+    ViewData["Title"] = "Create Repair";
+    var properties = ViewData["Properties"] as List<Technico.Main.DTOs.PropertyDtos.PropertyDtoResponse>;
+}
+
+<h2>Create New Repair</h2>
+
+<form id="addRepairForm" asp-action="Create" method="post">
+    <div class="mb-3">
+        <label class="form-label">Property</label>
+        <select class="form-select" id="" asp-for="PropertyId" required>
+            <option value="PropertyId" disabled selected>Select a property</option>
+            @foreach (var property in properties)
+            {
+                <option value="@property.Id">@property.E9- @property.Id</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="Type" class="form-label">Repair Type</label>
+        <select class="form-select" asp-for="Type" required>
+            <option value="" disabled selected>Select a repair type</option>
+            @foreach (var type in Enum.GetValues(typeof(TypeOfRepair)))
+            {
+                <option value="@type">@type.ToString().Replace('_', ' ')</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="Description" class="form-label">Description</label>
+        <input type="text" class="form-control" asp-for="Description" placeholder="Description" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Status" class="form-label">Status</label>
+        <select class="form-select" asp-for="Status" required>
+            <option value="" disabled selected>Select repair status</option>
+            @foreach (var status in Enum.GetValues(typeof(StatusOfRepair)))
+            {
+                <option value="@status">@status.ToString().Replace('_', ' ')</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="Cost" class="form-label">Repair Cost</label>
+        <input type="number" step="0.01" class="form-control" asp-for="Cost" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

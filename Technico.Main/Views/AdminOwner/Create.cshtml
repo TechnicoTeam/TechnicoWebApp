@@ -42,8 +42,12 @@
 
         <div class="form-group mb-4">
             <label asp-for="Role" class="form-label">Role</label>
-            <input type="text" class="form-control" asp-for="Role" placeholder="Role" required>
+            <select class="form-select" type="text" class="form-control" asp-for="Role" placeholder="Role" required>
+                <option value="0">User</option>
+                <option value="1">Admin</option>
+            </select>
         </div>
+       
 
         <div class="text-center">
             <button type="submit" class="btn btn-primary px-4 me-2">Create</button>

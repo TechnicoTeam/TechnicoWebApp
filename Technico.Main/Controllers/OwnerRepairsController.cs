@@ -73,12 +73,22 @@ public class OwnerRepairsController : Controller
         return RedirectToAction("Index");
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete( Guid repairId)
+  
+    public async Task<IActionResult> Delete([FromRoute] Guid id, [FromQuery] Guid userid)
     {
-       bool delete = await _repairService.DeleteAsync(repairId);
-        //if (!delete){}
-        return RedirectToAction("Index");
+        if (id == Guid.Empty)
+        {
+            return BadRequest("Invalid property ID.");
+        }
+
+        var result = await _repairService.DeleteAsync(id);
+
+        if (!result)
+        {
+            return NotFound("Property not found or could not be deleted.");
+        }
+
+        return Redirect($"~/OwnerRepairs/Index?id={userid}");
     }
 
     [HttpGet]

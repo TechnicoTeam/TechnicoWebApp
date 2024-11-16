@@ -66,7 +66,11 @@ namespace Technico.Main.Controllers
             return PartialView(viewPath);  // If the the view you are trying to return needs data you should include it otherwise it will bring up and error
         }
 
-
+        public IActionResult NotFound()
+        {
+            Response.StatusCode = 404;
+            return View("~/Views/Shared/NotFound.cshtml");
+        }
         
 
     }
