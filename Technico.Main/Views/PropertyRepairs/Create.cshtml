@@ -1,27 +1,17 @@
+﻿@model Technico.Main.DTOs.RepairDtos.PostRepairDto
 ﻿@using Technico.Main.Models
 @using Technico.Main.Models.Enums
-@model Technico.Main.DTOs.RepairDtos.PostRepairDto
-
 @{
     ViewData["Title"] = "Create Repair";
-    var properties = ViewData["Properties"] as List<Technico.Main.DTOs.PropertyDtos.PropertyDtoResponse>;
+ 
 }
-
 <div class="container mt-5 d-flex justify-content-center">
     <div class="card shadow p-4" style="max-width: 600px; width: 100%;">
         <h2 class="text-center mb-4">Create New Repair</h2>
 
-        <form id="addRepairForm" asp-action="Create" method="post">
-            <div class="mb-3">
-                <label class="form-label">Property's E9</label>
-                <select class="form-select" id="" asp-for="PropertyId" required>
-                    <option value="PropertyId" disabled selected>Select a property</option>
-                    @foreach (var property in properties)
-                    {
-                        <option value="@property.Id">@property.E9</option>
-                    }
-                </select>
-            </div>
+        <form id="addRepairForm" asp-action="Create" method="post" asp-route-PropertyId="@ViewData["PropertyId"]">
+
+            <input type="hidden" value="@ViewData["PropertyId"]" asp-for="PropertyId" />
 
             <div class="mb-3">
                 <label for="Type" class="form-label">Repair Type</label>
@@ -54,11 +44,9 @@
                 <label for="Cost" class="form-label">Repair Cost</label>
                 <input type="number" step="0.01" class="form-control" asp-for="Cost" />
             </div>
-
-
             <!-- Submit Button -->
             <div class="text-center">
-                <button id="addRepairBtn" type="submit" class="btn btn-primary">Create Repair</button>
+                <button type="submit" class="btn btn-primary">Create</button>
             </div>
         </form>
     </div>

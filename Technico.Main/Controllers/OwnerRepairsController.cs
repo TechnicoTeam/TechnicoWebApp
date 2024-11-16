@@ -6,6 +6,7 @@ using Technico.Main.DTOs.RepairDtos;
 using Technico.Main.Models;
 using Technico.Main.Models.Enums;
 using Technico.Main.Services;
+using static Technico.Main.Controllers.AuthController;
 
 namespace Technico.Main.Controllers;
 
@@ -32,7 +33,7 @@ public class OwnerRepairsController : Controller
             Repairs = repairsResponse,
             ownerId = id
         };
-        return View("~/Views/OwnerRepairs/Repairs.cshtml", RepairsViewModel);
+        return View("~/Views/OwnerRepairs/Index.cshtml", RepairsViewModel);
     }
 
 
@@ -49,17 +50,21 @@ public class OwnerRepairsController : Controller
             ownerId = Id
         };
 
-        return View("~/Views/OwnerRepairs/Repairs.cshtml", repairsViewModel);
+        return View("~/Views/OwnerRepairs/Index.cshtml", repairsViewModel);
     }
 
-    //public async Task<IActionResult> Create([FromQuery] Guid OwnerId)
-    //{
-    //    return View()
 
-    //}
+    [HttpGet]
+    public async Task<IActionResult> UpdateForm(Guid userId, Guid repairId)
+    {
+        ViewData["UserId"] = userId;
+        var repair = await _repairService.GetAsync(repairId);
+        ViewData["Repair"] = repair;
+        return View("~/Views/OwnerRepairs/Update.cshtml");
+    }
 
-    [HttpPatch]
-    public async Task<IActionResult> Update(UpdateRepairDto repairDto)
+    [HttpPost]
+    public async Task<IActionResult> Update([FromRoute] Guid id,UpdateRepairDto repairDto)
     {
         if (!ModelState.IsValid)
         {
@@ -68,9 +73,7 @@ public class OwnerRepairsController : Controller
 
         var repairResponse = await _repairService.UpdateAsync(repairDto);
 
-        //if (repairResponse == null){}
-        //TempData["SuccessMessage"] = "Repair updated successfully!";
-        return RedirectToAction("Index");
+        return Redirect($"~/OwnerRepairs/Index?id={id}");
     }
 
   
@@ -78,14 +81,14 @@ public class OwnerRepairsController : Controller
     {
         if (id == Guid.Empty)
         {
-            return BadRequest("Invalid property ID.");
+            return BadRequest("Invalid repair ID.");
         }
 
         var result = await _repairService.DeleteAsync(id);
 
         if (!result)
         {
-            return NotFound("Property not found or could not be deleted.");
+            return NotFound("Repair not found or could not be deleted.");
         }
 
         return Redirect($"~/OwnerRepairs/Index?id={userid}");
@@ -97,7 +100,7 @@ public class OwnerRepairsController : Controller
         ViewData["UserId"] = id;
         var properties = await _propertyService.GetAllAsync(id);
         ViewData["Properties"] = properties;
-        return View("CreateRepair");
+        return View("Create");
     }
 
     [HttpPost]
