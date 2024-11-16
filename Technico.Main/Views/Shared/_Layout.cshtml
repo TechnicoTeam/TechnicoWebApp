@@ -34,19 +34,25 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
                         </li>
                         <li class="nav-item" id="showProperties" style="display: none;">
-                            <a class="nav-link text-dark" href="javascript:void(0);" onclick="getProfile('Properties','MyProperties');">Properties</a>
+                            <a class="nav-link text-dark" href="javascript:void(0);" onclick="getProfile('Properties','MyProperties');">
+                                <i class="fas fa-building"></i> Properties
+
+                            </a>
+                            
                         </li>
                         <li class="nav-item" id="showRepairs" style="display: none;">
-                            <a class="nav-link text-dark" href="javascript:void(0);" onclick="getProfile('OwnerRepairs','Index');">Repairs</a>
+                            <a class="nav-link text-dark" href="javascript:void(0);" onclick="getProfile('OwnerRepairs','Index');">
+                                <i class="fa-solid fa-hammer"></i> Repairs
+                            </a>
                         </li>
                         <li class="nav-item" id="adminOwner" style="display: none;">
                             <a class="nav-link text-dark" asp-controller="AdminOwner" asp-action="Index">
-                                <i class="fas fa-user me-2"></i>Owners
+                                <i class="fas fa-user"></i> Owners
                             </a>
                         </li>
                         <li class="nav-item" id="adminProperty" style="display: none;">
                             <a class="nav-link text-dark" asp-controller="AdminProperty" asp-action="Index">
-                                <i class="fas fa-building me-2"></i>Properties
+                                <i class="fas fa-building"></i> Properties
                             </a>
                         </li>
                         <li class="nav-item" id="adminRepairs" style="display: none;">
@@ -55,7 +61,9 @@
                             </a>
                         </li>
                         <li class="nav-item" id="showUserName"  style="display: none;">
-                            <a class="nav-link text-dark" href="javascript:void(0);" onclick="getProfile('Owner','Profile');">Profile</a>
+                            <a class="nav-link text-dark" href="javascript:void(0);" onclick="getProfile('Owner','Profile');">
+                                <i class="bi bi-person-fill"></i> Profile
+                            </a>
                         </li>
                             <li class="nav-item ms-auto" id="logoutLink" style="display: none;">
                                 <a class="nav-link text-dark" href="javascript:void(0);" onclick="logOut()">
