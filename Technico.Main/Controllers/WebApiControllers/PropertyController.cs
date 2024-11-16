@@ -7,7 +7,7 @@ using Technico.Main.Models.Enums;
 using Technico.Main.Services;
 
 
-namespace Technico.Main.Controllers;
+namespace Technico.Main.Controllers.WebApiControllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -100,7 +100,7 @@ public class PropertyController : ControllerBase
     }
 
     //Search Properties
-   [HttpGet, Route("search")]
+    [HttpGet, Route("search")]
     public async Task<IActionResult> Search(string? propertyE9 = null, TypeOfProperty? propertyType = null, string? OwnerVat = null)
     {
         var properties = await _propertyService.SearchAsync(propertyE9, propertyType, OwnerVat);

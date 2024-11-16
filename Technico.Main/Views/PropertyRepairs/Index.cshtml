@@ -8,6 +8,16 @@
 }
 
 <div class="container col-sm-12">
+     
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+       <a asp-controller="AdminProperty" asp-action="Index" class="btn btn-outline-primary" id="BackToPropertiesAdmin"><i class="fas fa-arrow-left me-2"></i>Back to Property Page</a>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="javascript:void(0);" onclick="getProfile('Properties','MyProperties');" id="RedirectBackToPropertiesOwner"><i class="fas fa-arrow-left me-2"></i>Back to Property Page</a>
+    </div>
+   
     <div class="card shadow-sm my-4">
         <div class="card-header">
             <h3 class="card-title">
