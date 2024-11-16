@@ -43,6 +43,7 @@ builder.Services.AddTransient<GlobalMiddleware>();
 var app = builder.Build();
 
 app.UseMiddleware<GlobalMiddleware>();
+app.UseMiddleware<NotFoundMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
