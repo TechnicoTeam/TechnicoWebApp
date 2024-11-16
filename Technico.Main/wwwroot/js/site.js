@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('showProperties').style.display = 'block';
             document.getElementById('showRepairs').style.display = 'block';
             document.getElementById('homeID').style.display = 'none';
+            document.getElementById('BackToPropertiesAdmin').style.display = 'none';
         }
         else if (role == "Admin") {
             document.getElementById('logoutLink').style.display = 'block';
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('adminProperty').style.display = 'block';
             document.getElementById('adminRepairs').style.display = 'block';
             document.getElementById('homeID').style.display = 'none';
+            document.getElementById('BackToPropertiesOwner').style.display = 'none';
         }
     }
 });
