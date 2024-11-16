@@ -90,12 +90,12 @@
                             @foreach (var owner in Model)
                             {
                                 <tr class="owner-row">
-                                    <td class="align-middle">@owner.Vat</td>
-                                    <td class="align-middle">@owner.Firstname</td>
-                                    <td class="align-middle">@owner.Lastname</td>
-                                    <td class="align-middle">@owner.Email</td>
-                                    <td class="align-middle">@owner.Phone</td>
-                                    <td class="align-middle">@owner.Address</td>
+                                    <td class="text-center">@owner.Vat</td>
+                                    <td class="text-center">@owner.Firstname</td>
+                                    <td class="text-center">@owner.Lastname</td>
+                                    <td class="text-center">@owner.Email</td>
+                                    <td class="text-center">@owner.Phone</td>
+                                    <td class="text-center">@owner.Address</td>
                                     <td class="align-middle">
                                         <span class="badge rounded-pill bg-@(owner.Role == TypeOfUser.Admin ? "success" : "info")">
                                             @owner.Role
