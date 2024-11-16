@@ -100,7 +100,7 @@
                                                 <i class="fas fa-cog"></i>
                                             </button>
 
-                                            <a class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Delete Repair" asp-controller="OwnerRepairs" asp-action="Delete" asp-route-userid="@Model.ownerId" asp-route-id="@r.Id" onclick="confirmDelete()">
+                                            <a class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Delete Repair" asp-controller="OwnerRepairs" asp-action="Delete" asp-route-userid="@Model.ownerId" asp-route-id="@r.Id" onclick="return confirmDelete();">
                                                 <i class="fas fa-trash"></i>
                                             </a>
 
