@@ -43,7 +43,7 @@ function handleLogin(username, password) {
                 localStorage.setItem('authToken', data.token);
                 localStorage.setItem('role', data.role);
                 if (data.role == "User") {
-                    window.location.href = `/OwnerRepairs/Index?id =${data.token}`;
+                    window.location.href = `/OwnerRepairs/Index?id=${data.token}`;
                 } else if (data.role == "Admin") {
                     window.location.href = '/admin';
                 }
