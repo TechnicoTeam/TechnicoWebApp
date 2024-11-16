@@ -12,12 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('showUserName').style.display = 'block';
             document.getElementById('showProperties').style.display = 'block';
             document.getElementById('showRepairs').style.display = 'block';
+            document.getElementById('homeID').style.display = 'none';
         }
         else if (role == "Admin") {
             document.getElementById('logoutLink').style.display = 'block';
             document.getElementById('adminOwner').style.display = 'block';
             document.getElementById('adminProperty').style.display = 'block';
             document.getElementById('adminRepairs').style.display = 'block';
+            document.getElementById('homeID').style.display = 'none';
         }
     }
 });
@@ -39,7 +41,7 @@ function handleLogin(username, password) {
                 localStorage.setItem('authToken', data.token);
                 localStorage.setItem('role', data.role);
                 if (data.role == "User") {
-                    window.location.href = '/Home/Index';
+                    window.location.href = `/OwnerRepairs/Index?id =${data.token}`;
                 } else if (data.role == "Admin") {
                     window.location.href = '/admin';
                 }
