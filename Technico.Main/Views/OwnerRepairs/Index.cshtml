@@ -81,7 +81,7 @@
                             {
                                 <tr class="repairs-row">
                                     <td class="text-center">@r.Property.E9</td>
-                                    <td class="text-center">@r.Type</td>
+                                    <td class="text-center">@r.Type.ToString().Replace("_", " ")</td>
                                     <td class ="text-center">
                                         @* Inline Razor conditions for badge styling *@
                                         <span class="badge
