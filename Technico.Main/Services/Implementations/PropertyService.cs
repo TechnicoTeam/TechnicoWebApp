@@ -49,7 +49,7 @@ public class PropertyService : IPropertyService
 
     public async Task<PropertyDtoResponse?> CreateAsync(PropertyDtoCreateRequest property)
     {
-
+        
         // check if the E9 is valid
         var validE9 =  _validator.E9Valid(property.E9);
         if (validE9 is null) {

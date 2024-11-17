@@ -22,10 +22,12 @@ namespace Technico.Main.Controllers
 
             return RedirectToAction("Index");
         }
+
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(AdminPropertyCreateModel propertyViewModel)
         {
@@ -33,6 +35,7 @@ namespace Technico.Main.Controllers
 
             if(owner is null)
             {
+                TempData["ErrorMessage"] = $"No owner found with VAT number: {propertyViewModel.Vat}. Please verify the VAT number and try again.";
                 return View("NotFoundView");
             }
 
@@ -43,9 +46,18 @@ namespace Technico.Main.Controllers
                 Type = propertyViewModel.Type,
                 OwnersIds = [ owner.Id ]
             };
-           await _propertyService.CreateAsync(property);
+
+            var result = await _propertyService.CreateAsync(property);
+
+            if (result == null)
+            {
+                TempData["ErrorMessage"] = "Failed to create property. Property with this E9 already exists.";
+                return View("NotFoundView");
+            }
+
             return RedirectToAction("Index");
         }
+
         public async Task<IActionResult> Update(Guid id)
         {
             var property = await _propertyService.GetByIdAsync(id);

@@ -4,12 +4,25 @@
 
 <div class="container d-flex flex-column align-items-center justify-content-center vh-100">
     <div class="text-center">
-       
-        
-        <h2 class="text-danger">This Vat was not found. Please try again with another Vat.</h2>
-        <a href="/AdminProperty/Create" class="btn btn-primary btn-lg mt-3">
-            <i class="fas fa-home mr-2"></i> Return to Create Properties
-        </a>
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger mb-4">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                @TempData["ErrorMessage"]
+            </div>
+        }
+        else
+        {
+            <h2 class="text-danger">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                This Vat was not found. Please try again with another Vat.
+            </h2>
+        }
+
+        <button onclick="history.back()" class="btn btn-secondary btn-lg me-2">
+            <i class="fas fa-arrow-left me-2"></i> Back to Create
+        </button>
+
     </div>
 </div>
 
