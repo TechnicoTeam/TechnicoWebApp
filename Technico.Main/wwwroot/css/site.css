@@ -20,3 +20,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+.btn-close {
+    filter: invert(1);
+    opacity: 1;
+}
+
+.btn-close:hover {
+     filter: invert(0.8);
+    opacity: 0.8;
+}
