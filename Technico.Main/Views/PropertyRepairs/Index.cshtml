@@ -25,34 +25,34 @@
             </h3>
         </div>
         <div class="card-body">
-            <div class="row justify-content-between p-4">
+            <div class="row justify-content-around p-4">
 
-                <div class="row col-lg-5 justify-content-center mb-3 shadow-sm">
-                    <div class="my-auto">
+                <div class="row col-md-3 justify-content-center mb-3 shadow-sm">
+                    <div class="my-auto mx-auto">
                         <img src="~/imgs/b3d46e87-698a-4867-9e99-38b5d1cbadfb.png" alt="Technico Logo" style="width:100%; height:auto;" />
                     </div>
                 </div>
 
-                <div class="row justify-content-center col-lg-7">
-            
-                        <div class="mb-3 row">
+                <div class="row justify-content-center col-md-6">
+
+                        <div class="mb-1 row">
                             <h6 for="e9" class="col-sm-6">E9:</h6>
                             <span class="col-sm-6 text-end" id="e9">@Model.Property.E9</span>
                         </div>
 
-                        <div class="mb-3 row">
+                        <div class="mb-1 row">
                             <h6 class="col-sm-6 col">Address:</h6>
                             <span class="col-sm-6 text-end">@Model.Property.Address</span>
                         </div>
-                        <div class="mb-3 row">
+                        <div class="mb-1 row">
                             <h6 class="col-sm-6 col">Type:</h6>
                             <span class="col-sm-6 text-end">@Model.Property.Type</span>
                         </div>
-                        <div class="mb-3 row">
+                        <div class="mb-1 row">
                             <h6 class="col-sm-6 col">Construction Year:</h6>
                             <span class="col-sm-6 text-end">@Model.Property.ConstructionYear</span>
                         </div>
-                        <div class="mb-3 row">
+                        <div class="mb-1 row">
                             <h6 class="col-sm-6 col">Owners:</h6>
                         @foreach(var owner in Model.Property.Owners)
                         {
