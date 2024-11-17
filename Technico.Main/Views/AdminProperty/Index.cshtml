@@ -92,7 +92,29 @@
                             {
                                 <tr class="property-row">
                                 <td class="text-center">@property.E9</td>
-                                 <td class="text-center">@property?.Owners?.FirstOrDefault()?.Vat</td>
+                                <td class="text-center">
+                                    @if (property?.Owners?.Any() == true)
+                                    {
+                                        <div class="d-flex flex-wrap justify-content-center gap-1">
+                                            @foreach (var owner in property.Owners)
+                                            {
+                                                <span class="badge bg-primary badge-hover"
+                                                      data-bs-toggle="tooltip"
+                                                      title="@($"{owner.Firstname} {owner.Lastname}")">
+                                                    <i class="fas fa-user-circle me-1"></i>
+                                                    @owner.Vat
+                                                </span>
+                                            }
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted fst-italic">
+                                            <i class="fas fa-user-slash me-1"></i>
+                                            No owners
+                                        </span>
+                                    }
+                                </td>
                                 <td class="text-center">@property.Address</td>
                                 <td class="text-center">@property.ConstructionYear</td>
                                 <td class="text-center">@property.Type</td>
@@ -159,3 +181,15 @@
         document.addEventListener('DOMContentLoaded', validateForm);
 
     </script>
+
+<style>
+    .badge-hover {
+        transition: all 0.3s ease;
+        cursor: default;
+    }
+
+        .badge-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+</style>
