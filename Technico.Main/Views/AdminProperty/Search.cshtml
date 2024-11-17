@@ -68,6 +68,12 @@
                                             <a asp-controller="PropertyRepairs" asp-action="Index" asp-route-propertyId="@property.Id" class="btn btn-outline-primary btn-sm ms-2 rounded-pill" data-bs-toggle="tooltip" title="View Property">
                                                 <i class="fa-regular fa-eye"></i>
                                             </a>
+
+                                            <a asp-action="BindOwner" asp-route-propertyId="@property.Id"
+                                               class="btn btn-outline-success btn-sm ms-2 rounded-pill"
+                                               data-bs-toggle="tooltip" title="Bind Owner to this Property">
+                                                <i class="fas fa-user-plus"></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>

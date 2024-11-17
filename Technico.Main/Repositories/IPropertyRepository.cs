@@ -29,8 +29,6 @@ public interface IPropertyRepository
     // create a property
     public Task<Property?> Create(Property property, List<Owner> owners);
 
-    //public Task<Property?>AddCoOwner(Property property, Owner owner);
     
-
-
+    Task<Property?> AddOwnerToProperty(Guid propertyId, Owner owner);
 }

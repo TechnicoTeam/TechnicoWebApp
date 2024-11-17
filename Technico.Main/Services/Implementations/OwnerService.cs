@@ -94,9 +94,8 @@ namespace Technico.Main.Services.Implementations
         {
             if (string.IsNullOrWhiteSpace(vat))
             {
-                throw new ArgumentException("VAT cannot be null or empty.", nameof(vat));
+                return null;
             }
-
 
             var owner = await _ownerRepository.GetByVatAsync(vat);
 

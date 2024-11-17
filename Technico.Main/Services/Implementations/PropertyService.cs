@@ -125,5 +125,14 @@ public class PropertyService : IPropertyService
         return await _propertyRepo.DeleteById(propertyId);
     }
 
+    public async Task<PropertyDtoResponse?> AddOwnerToPropertyAsync(Guid propertyId, Guid ownerId)
+    {
+        var owner = await _context.Owners.FindAsync(ownerId);
+        if (owner == null) return null;
 
+        var updatedProperty = await _propertyRepo.AddOwnerToProperty(propertyId, owner);
+        if (updatedProperty == null) return null;
+
+        return updatedProperty.MapToPropertyDtos();
+    }
 }

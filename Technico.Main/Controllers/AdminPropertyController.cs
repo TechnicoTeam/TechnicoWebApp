@@ -95,6 +95,58 @@ namespace Technico.Main.Controllers
             var result = await _propertyService.SearchAsync(e9, null, vat);
             return View("Search", result);
         }
+
+        public IActionResult BindOwner(Guid propertyId)
+        {
+            var model = new PropertyOwnerBindingModel
+            {
+                PropertyId = propertyId,
+            };
+
+            return View("BindOwner", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BindOwner(PropertyOwnerBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var ownerDtoResponse = await _ownerService.GetOwnerByVAT(model.OwnerVat);
+            if (ownerDtoResponse == null)
+            {
+                TempData["ErrorMessage"] = $"Could not bind owner to this property. Owner with VAT Number: {model.OwnerVat} was not found.";
+                return View("NotFoundView");
+            }
+
+
+            var property = await _propertyService.GetByIdAsync(model.PropertyId);
+            if (property == null)
+            {
+                TempData["ErrorMessage"] = $"Failed to bind property to owner. Property with Id: {model.PropertyId} not found or might have been deleted.";
+                return View("NotFoundView");
+            }
+
+            var existingOwner = property.Owners?.FirstOrDefault(o => o.Vat == model.OwnerVat);
+            if (existingOwner != null)
+            {
+                TempData["ErrorMessage"] = $@"Cannot bind owner to property.
+                Owner with VAT: {model.OwnerVat} is already bound to this property.";
+                return View("NotFoundView");
+            }
+
+            var updatedProperty = await _propertyService.AddOwnerToPropertyAsync(property.Id, ownerDtoResponse.Id);
+
+            if (updatedProperty == null)
+            {
+                TempData["ErrorMessage"] = "Failed to bind owner to property. Please try again.";
+                return View("NotFoundView");
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
 

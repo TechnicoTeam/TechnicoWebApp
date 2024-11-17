@@ -20,6 +20,20 @@ public class PropertyRepository : IPropertyRepository
         _logger = logger;
     }
 
+    public async Task<Property?> AddOwnerToProperty(Guid propertyId, Owner owner)
+    {
+        var property = await _context.Properties
+            .Include(p => p.Owners)
+            .FirstOrDefaultAsync(p => p.Id == propertyId);
+
+        if (property == null) return null;
+
+        property.Owners.Add(owner);
+        await _context.SaveChangesAsync();
+
+        return property;
+    }
+
 
     // Create a new property for an owner
     public async Task<Property?> Create(Property property,List<Owner> owners)
