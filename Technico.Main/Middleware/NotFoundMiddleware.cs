@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Mvc.Abstractions;
-
-namespace Technico.Main.Middleware;
+﻿namespace Technico.Main.Middleware;
 
 public class NotFoundMiddleware
 {
@@ -25,10 +19,9 @@ public class NotFoundMiddleware
         {
             _logger.LogWarning($"404 Error for path: {context.Request.Path}");
 
-            // Clear the response and reset the pipeline
             context.Response.Clear();
             context.SetEndpoint(null);
-            context.Request.Path = "/Home/NotFound";  // Assuming you have a Home controller
+            context.Request.Path = "/Home/NotFound";
 
             await _next(context);
         }
