@@ -49,7 +49,7 @@ public class PropertyService : IPropertyService
 
     public async Task<PropertyDtoResponse?> CreateAsync(PropertyDtoCreateRequest property)
     {
-
+        
         // check if the E9 is valid
         var validE9 =  _validator.E9Valid(property.E9);
         if (validE9 is null) {
@@ -125,5 +125,14 @@ public class PropertyService : IPropertyService
         return await _propertyRepo.DeleteById(propertyId);
     }
 
+    public async Task<PropertyDtoResponse?> AddOwnerToPropertyAsync(Guid propertyId, Guid ownerId)
+    {
+        var owner = await _context.Owners.FindAsync(ownerId);
+        if (owner == null) return null;
 
+        var updatedProperty = await _propertyRepo.AddOwnerToProperty(propertyId, owner);
+        if (updatedProperty == null) return null;
+
+        return updatedProperty.MapToPropertyDtos();
+    }
 }

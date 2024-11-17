@@ -83,6 +83,7 @@
                                 <th class="align-middle">Address</th>
                                 <th class="align-middle">Construction Year</th>
                                 <th class="align-middle">Type of Property</th>
+                                <th class="align-middle">Owners</th>
                                 <th class="align-middle" style="width: 150px;">Actions</th>
                             </tr>
                         </thead>
@@ -95,6 +96,10 @@
                                 <td class="text-center">@property.Address</td>
                                 <td class="text-center">@property.ConstructionYear</td>
                                 <td class="text-center">@property.Type</td>
+                                <td class="text-center">
+                                    <!-- Display number of owners -->
+                                    @(property.Owners?.Count ?? 0) owner(s)
+                                </td>
                                 <td class="text-center align-middle">
 
                                         <div class="btn-group" role="group">
@@ -110,6 +115,12 @@
                                              <a asp-controller="PropertyRepairs" asp-action="Index" asp-route-propertyId="@property.Id" class="btn btn-outline-primary btn-sm me-2 rounded-pill" data-bs-toggle="tooltip" title="View Property">
                                                 <i class="fa-regular fa-eye"></i>
                                             </a>
+
+                                        <a asp-action="BindOwner" asp-route-propertyId="@property.Id"
+                                           class="btn btn-outline-success btn-sm me-2 rounded-pill"
+                                           data-bs-toggle="tooltip" title="Bind Owner to this Property">
+                                            <i class="fas fa-user-plus"></i>
+                                        </a>
                                         </div>
                                     </td>
                                 </tr>

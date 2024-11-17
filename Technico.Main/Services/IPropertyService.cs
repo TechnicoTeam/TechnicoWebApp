@@ -13,4 +13,5 @@ public interface IPropertyService
     public Task<PropertyDtoResponse?> UpdateAsync(PropertyDtoUpdateRequest property);
     public Task<List<PropertyDtoResponse>> SearchAsync(string? E9, TypeOfProperty? type, string? vat);
     public Task<bool> DeleteAsync(Guid propertyid);
+    Task<PropertyDtoResponse?> AddOwnerToPropertyAsync(Guid propertyId, Guid ownerId);
 }
