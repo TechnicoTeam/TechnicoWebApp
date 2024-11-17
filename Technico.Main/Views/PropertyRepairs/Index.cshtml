@@ -34,32 +34,57 @@
                 </div>
 
                 <div class="row justify-content-center col-md-6">
+                    <div class="mb-1 row">
+                        <h6 for="e9" class="col-sm-6">E9:</h6>
+                        <span class="col-sm-6 text-end" id="e9">@Model.Property.E9</span>
+                    </div>
 
-                        <div class="mb-1 row">
-                            <h6 for="e9" class="col-sm-6">E9:</h6>
-                            <span class="col-sm-6 text-end" id="e9">@Model.Property.E9</span>
+                    <div class="mb-1 row">
+                        <h6 class="col-sm-6">Address:</h6>
+                        <span class="col-sm-6 text-end">@Model.Property.Address</span>
+                    </div>
+                    <div class="mb-1 row">
+                        <h6 class="col-sm-6">Type:</h6>
+                        <span class="col-sm-6 text-end">@Model.Property.Type</span>
+                    </div>
+                    <div class="mb-1 row">
+                        <h6 class="col-sm-6">Construction Year:</h6>
+                        <span class="col-sm-6 text-end">@Model.Property.ConstructionYear</span>
+                    </div>
+                    <div class="mb-1 row">
+                        <h6 class="col-sm-6">Owners:</h6>
+                        <div class="col-sm-6">
+                            @if (Model.Property.Owners?.Any() == true)
+                            {
+                                <div class="d-flex flex-column gap-2">
+                                    @foreach (var owner in Model.Property.Owners)
+                                    {
+                                        <div class="card border-primary">
+                                            <div class="card-body p-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="fw-bold">@owner.Lastname @owner.Firstname</span>
+                                                    <span class="badge bg-primary">@owner.Vat</span>
+                                                </div>
+                                                <div class="text-muted small">
+                                                    <i class="fas fa-envelope me-1"></i>@owner.Email
+                                                </div>
+                                                <div class="text-muted small">
+                                                    <i class="fas fa-phone me-1"></i>@owner.Phone
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="text-muted fst-italic text-end d-block">
+                                    <i class="fas fa-user-slash me-1"></i>
+                                    No owners
+                                </span>
+                            }
                         </div>
-
-                        <div class="mb-1 row">
-                            <h6 class="col-sm-6 col">Address:</h6>
-                            <span class="col-sm-6 text-end">@Model.Property.Address</span>
-                        </div>
-                        <div class="mb-1 row">
-                            <h6 class="col-sm-6 col">Type:</h6>
-                            <span class="col-sm-6 text-end">@Model.Property.Type</span>
-                        </div>
-                        <div class="mb-1 row">
-                            <h6 class="col-sm-6 col">Construction Year:</h6>
-                            <span class="col-sm-6 text-end">@Model.Property.ConstructionYear</span>
-                        </div>
-                        <div class="mb-1 row">
-                            <h6 class="col-sm-6 col">Owners:</h6>
-                        @foreach(var owner in Model.Property.Owners)
-                        {
-                            <span class="col-sm-6 text-end">@owner.Lastname @owner.Firstname</span>
-                        }
-                        </div>
-
+                    </div>
                 </div>
 
             </div>
