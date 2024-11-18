@@ -75,7 +75,7 @@ namespace Technico.Main.Controllers
         {
             var result = await _ownerService.Delete(id);
 
-            return  View("~/Views/Home/LogIn.cshtml");
+            return  Ok();
         }
 
 
