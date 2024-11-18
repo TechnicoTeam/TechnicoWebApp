@@ -71,7 +71,8 @@ public class OwnerRepository : IOwnerRepository
         var owner = await _context.Owners.FindAsync(id);
         if (owner != null)
         {
-            _context.Owners.Remove(owner);
+            owner.Role = TypeOfUser.Undedified;
+            _context.Owners.Update(owner);
             await _context.SaveChangesAsync();
             _logger.LogInformation("Successfully deleted owner with ID: {Id}", id);
             return true;
